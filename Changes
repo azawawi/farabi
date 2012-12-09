@@ -1,7 +1,11 @@
 Changes for Farabi
 
-0.14  TBD
-    - 
+0.14  2012.12.9
+    - Options tab is now a dialog
+    - Run with different Perl, Perl 6 runtimes under unsafe operations
+    - More farabi6 functionality backported: New file, Open URL, Open file, 
+      and syntax check.
+    - Update Bootstrap to version 2.2.2
 
 0.13  2012.12.9
     - Added Perlito 6 javascript runtime and update Perlito 5 javascript runtime to 5.014001 (2012-12-09)

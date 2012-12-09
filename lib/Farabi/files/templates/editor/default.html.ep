@@ -41,6 +41,9 @@
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						
+						<a href="#" class="new-file-button"><i class="icon-th"></i> New</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="open-file-button"><i class="icon-th"></i> Open</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="open-url-button"><i class="icon-th"></i> Open URL</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="perl-tidy-button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="perl-critic-button"><i class="icon-th"></i> Perl Critic</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="syntax-check-button"><i class="icon-th"></i> Syntax Check</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -175,8 +178,6 @@
 			<dl>
 				<dt>F1</dt>
 				<dd>Context-sensitive help</dd>
-				<dt>F5</dt>
-				<dd>Run in browser</dd>
 				<dt>Ctrl-F</dt>
 				<dd>Start searching</dd>
 				<dt>Ctrl-G</dt>
@@ -298,6 +299,43 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+
+	<!-- Open file dialog -->
+  <div class="modal" id="open-file-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Open File...</h3>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="file">File</label>
+
+          <div class="controls">
+            <input type="text" id="file" placeholder="File">
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" for="search-results">Search
+          Results</label>
+
+          <div class="controls">
+            <select id="search-results" size="5">
+              </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
 
 </body>
 </html>
