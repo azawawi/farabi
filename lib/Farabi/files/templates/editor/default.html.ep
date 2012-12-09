@@ -41,11 +41,11 @@
 				<div class="tab-pane fade active in" id="edit-tab">
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
+						
 						<a href="#" class="perl_tidy_button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="run_in_browser_button"><i class="icon-play"></i> Run in Browser</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<% if ($self->app->unsafe_features) { %>
-						<a href="#" class="perl_execute_button"><i class="icon-play"></i> Run on Server</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<% } %>
+						<a href="#" class="perl_critic_button"><i class="icon-th"></i> Perl Critic</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="syntax_check_button"><i class="icon-th"></i> Syntax Check</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="run-button"><i class="icon-play"></i> Run</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<br/>
 						<br style="line-height:5px"/>
 					</div>
@@ -231,6 +231,58 @@
 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
+
+
+	<!-- Run dialog -->
+  <div class="modal" id="run-dialog" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Run...</h3>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for=
+          "runtime">Runtime:</label>
+
+          <div class="controls">
+            <select id="runtime" size="5">
+              <option id="niecza">
+                Niecza
+              </option>
+
+              <option id="perlito-6">
+                Perlito 6
+              </option>
+
+              <option id="perlito-5" selected>
+                Perlito 5
+              </option>
+
+	      <option id="perl">
+                Perl
+              </option>
+
+              <option id="rakudo">
+                Rakudo Perl 6
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <div id="help"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button class="btn"
+      data-dismiss="modal" aria-hidden="true">Cancel</button>
+    </div>
+  </div>
 
 </body>
 </html>
