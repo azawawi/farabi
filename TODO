@@ -1,8 +1,6 @@
 Add Unicode Table Search for Perl with preview!
 Fix damn bug about POD fragments
-Add LICENSE file and LICENSEs POD section
 More POD about current functionality
-Credits
 Show progress when loading Perlito for the first time
 Show progress when building index and allow to fire a re-index operation later
 Faster search index
