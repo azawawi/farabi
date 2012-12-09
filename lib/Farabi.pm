@@ -110,7 +110,7 @@ of the Islamic Golden Age. He was also a cosmologist, logician,and musician.
 
 If you find a bug, please report it in:
 
-L<http://code.google.com/p/farabi/issues/list>
+L<https://github.com/azawawi/farabi/issues>
 
 If you find this module useful, please rate it in:
 
