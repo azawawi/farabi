@@ -46,4 +46,3 @@ Run CoffeeScript in your browser using Farabi :)
 Rosetta code browser in "Learn" tab. You can select Task and then use the mimetype
 	http://rosettacode.org/wiki/User_input/Text#Perl_6
 	http://rosettacode.org/wiki/Category:Perl_6=======	http://coffeescript.org/#scripts
-Switch to use HTTP::Server::Simple instead of Mojolicious https://metacpan.org/module/HTTP::Server::Simple ?>>>>>>> .theirs
