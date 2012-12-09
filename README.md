@@ -1,26 +1,29 @@
 Farabi
+======
 
 This is a modern web-based Perl editor that runs inside your favorite browser.
 
 To start Farabi, please type the following command:
 
-$ farabi daemon
+    farabi daemon
 
 Open http://127.0.0.1:3000/ in your favourite modern browser.
 
 Please note that Farabi is purely expermintal at the moment. Things are moving fast
 as I try some new ideas. Feedback is welcome.
 
-INSTALLATION
+Installation
+============
 
 To install this module, run the following commands:
 
-	perl Makefile.PL
-	make
-	make test
-	make install
+    perl Makefile.PL
+    make
+    make test
+    make install
 
-SUPPORT AND DOCUMENTATION
+Support and Documentation
+=========================
 
 After installing, you can find documentation for this module with the
 perldoc command.
@@ -41,7 +44,8 @@ You can also look for information at:
     Search CPAN
         http://search.cpan.org/dist/Farabi
 
-COPYRIGHT AND LICENCE
+Copyright and License
+=====================
 
 Copyright (C) 2012 Ahmad M. Zawawi
 
