@@ -10,6 +10,7 @@
 	<option value="neat">Neat</option>
 	<option value="night">Night</option>
 	<option value="rubyblue">Ruby Blue</option>
+	<option value="solarized">Solarized</option>
 	<option value="vibrant-ink">Vibrant Ink</option>
 	<option value="xq-dark">XQ Dark</option>
 </select>
