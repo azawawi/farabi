@@ -19,6 +19,7 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
+	$route->post('/')->to('editor#default');
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
