@@ -2,6 +2,7 @@ Changes for Farabi
 
 0.13  TBD
     - Added Perlito 6 javascript runtime and update Perlito 5 javascript runtime to 5.014001 (2012-12-09)
+    - Removed Humane.js notification library. Basically it becomes annoying.
 
 0.12  2012.12.9
     - Removed git files from distribution that was introduced in 0.11
