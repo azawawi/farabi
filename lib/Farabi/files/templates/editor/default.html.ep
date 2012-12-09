@@ -51,7 +51,7 @@
 						<br style="line-height:5px"/>
 					</div>
 					<div class="row-fluid">
-						<div class="span6 farabi-bordered">
+						<div class="span6 farabi-bordered" id="editor-border">
 							<textarea id="editor" name="editor" class="editor"><%= include "editor/sample_script" %></textarea>
 							<div id="editor_stats" class="pull-right"></div>
 						</div>
@@ -102,6 +102,12 @@
 							<td><label class="checkbox"> <input
 									id="line_numbers_checkbox" type="checkbox" value="" checked>
 									<strong>Line Numbers?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="pod_viewer_checkbox" type="checkbox" value="" checked>
+									<strong>POD Viewer?</strong>
 							</label></td>
 						</tr>
 						<tr>
