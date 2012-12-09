@@ -25,7 +25,6 @@ Limit exposure to external networks. bowtie++
 Add Comment / Uncomment to Perl mode
 farabi --version   # should work...
 Add not_found.development.html.ep and not_found.html.ep
-Move Farabi into Github. Dump the stupid Google Code account
 Use full screen API (if enabled).
 Detect older unsupported browsers and drop them a similar message:
 	unfortunately your computer or browser are out of date.
