@@ -185,13 +185,13 @@
 						<td><a target="_blank" href="http://codemirror.net/">CodeMirror</a></td>
 						<td><span id="codemirror-version"></span></td>
 					</tr>
-					<tr>
-						<td><a target="_blank" href="http://wavded.github.com/humane-js">Humane.js</a></td>
-						<td><span id="humanejs-version">3.0.5<span></td>
+						<tr>
+						<td><a target="_blank" href="http://perlito.org/">Perlito 5</a></td>
+						<td><span id="perlito5-version"></span></td>
 					</tr>
 					<tr>
-						<td><a target="_blank" href="http://perlito.org/">Perlito5</a></td>
-						<td><span id="perlito-version"></span></td>
+						<td><a target="_blank" href="http://perlito.org/">Perlito 6</a></td>
+						<td><span id="perlito6-version"></span></td>
 					</tr>
 				</tbody>
 			</table>
