@@ -1,6 +1,6 @@
 Changes for Farabi
 
-0.12  TBD
+0.12  2012.12.9
     - Removed git files from distribution that was introduced in 0.11
     - Added CREDITS.md and LICENSE
 
