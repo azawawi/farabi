@@ -85,3 +85,8 @@ span.CodeMirror-matchhighlight {
 	padding: 0 3px; 
 	margin-right: 7px;
 }
+
+.modal-backdrop, .modal-backdrop.fade.in {
+	opacity: .1;
+	filter: alpha(opacity=10);
+}

@@ -34,7 +34,6 @@
 				<li class="active"><a href="#edit-tab" data-toggle="tab">Edit</a></li>
 				<li class=""><a href="#output-tab" data-toggle="tab">Output</a></li>
 				<li class=""><a href="#learn-tab" data-toggle="tab">Learn</a></li>
-				<li class=""><a href="#options-tab" data-toggle="tab">Options</a></li>
 				<li class=""><a href="#help-tab" data-toggle="tab">Help</a></li>
 			</ul>
 			<div id="outputTabContent" class="tab-content">
@@ -42,10 +41,11 @@
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						
-						<a href="#" class="perl_tidy_button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="perl_critic_button"><i class="icon-th"></i> Perl Critic</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="syntax_check_button"><i class="icon-th"></i> Syntax Check</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="perl-tidy-button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="perl-critic-button"><i class="icon-th"></i> Perl Critic</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="syntax-check-button"><i class="icon-th"></i> Syntax Check</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="run-button"><i class="icon-play"></i> Run</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="options-button"><i class="icon-th"></i> Options</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<br/>
 						<br style="line-height:5px"/>
 					</div>
@@ -83,46 +83,6 @@
 					</select>
 					<div class="preview"></div>
 				</div>
-				<div class="tab-pane fade" id="options-tab">
-					<table>
-						<tr>
-							<td><strong>Mode:</strong><br><%= include
-								"editor/mode_selector"%></td>
-						</tr>
-						<tr>
-							<td><strong>Theme:<strong><br><%=
-										include "editor/theme_selector"%></td>
-						</tr>
-						<tr>
-							<td><strong>Critic Severity:</strong><br><%= include
-								"editor/critic_severity_selector"%></td>
-						</tr>
-						<tr>
-							<td><label class="checkbox"> <input
-									id="line_numbers_checkbox" type="checkbox" value="" checked>
-									<strong>Line Numbers?</strong>
-							</label></td>
-						</tr>
-						<tr>
-							<td><label class="checkbox"> <input
-									id="pod_viewer_checkbox" type="checkbox" value="" checked>
-									<strong>POD Viewer?</strong>
-							</label></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="control-group">
-									<label class="control-label" for="inputError"><strong>Tab
-											Size:</strong></label>
-									<div class="controls">
-										<input class="input-mini" type="text" value="4"
-											id="tab_size">
-									</div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
 				<div class="tab-pane fade" id="help-tab">
 					<ul class="nav nav-list">
 						<li><a href="#" class="help_button"><i
@@ -136,7 +96,7 @@
 	</div>
 
 	<!-- Perl::Critic violations dialog -->
-	<div class="modal" id="perl_critic_dialog" tabindex="-1" role="dialog"
+	<div class="modal" id="perl-critic-dialog" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -151,7 +111,7 @@
 	</div>
 
 	<!-- About dialog -->
-	<div class="modal" id="about_dialog" tabindex="-1" role="dialog"
+	<div class="modal" id="about-dialog" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -202,7 +162,7 @@
 	</div>
 
 	<!-- Help dialog -->
-	<div class="modal" id="help_dialog" tabindex="-1" role="dialog"
+	<div class="modal" id="help-dialog" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"
@@ -283,6 +243,59 @@
       data-dismiss="modal" aria-hidden="true">Cancel</button>
     </div>
   </div>
+
+	<!-- Options dialog -->
+	<div class="modal" id="options-dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">Options</h3>
+		</div>
+		<div class="modal-body">
+					<table>
+						<tr>
+							<td><strong>Mode:</strong><br><%= include
+								"editor/mode_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Theme:<strong><br><%=
+										include "editor/theme_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Critic Severity:</strong><br><%= include
+								"editor/critic_severity_selector"%></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="line_numbers_checkbox" type="checkbox" value="" checked>
+									<strong>Line Numbers?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="pod_viewer_checkbox" type="checkbox" value="" checked>
+									<strong>POD Viewer?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<label class="control-label" for="inputError"><strong>Tab
+											Size:</strong></label>
+									<div class="controls">
+										<input class="input-mini" type="text" value="4"
+											id="tab_size">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
 
 </body>
 </html>
