@@ -79,10 +79,6 @@ L<Bootstrap|http://twitter.github.com/bootstrap> - Sleek, intuitive, and powerfu
 
 =item *
 
-L<HumaneJS|http://wavded.github.com/humane-js/> - A simple, modern, browser notification system
-
-=item *
-
 L<CodeMirror|http://codemirror.net> - In-browser code editing made bearable
 
 =item *

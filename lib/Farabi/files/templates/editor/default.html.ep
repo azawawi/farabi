@@ -25,10 +25,6 @@
 <script src="assets/codemirror/util/search.js"></script>
 <script src="assets/codemirror/util/dialog.js"></script>
 
-<!-- Humane.js -->
-<link rel="stylesheet" href="assets/humane/libnotify.css" />
-<script src="assets/humane/humane.min.js"></script>
-
 </head>
 <body>
 	<div class="container-fluid">
