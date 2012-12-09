@@ -4,10 +4,13 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
+	# Package information
 	NAME          => 'Farabi',
 	VERSION_FROM  => 'lib/Farabi.pm',
 	ABSTRACT_FROM => 'lib/Farabi.pm',
 	AUTHOR        => 'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>',
+	
+	# Dependencies
 	PREREQ_PM     => {
 		'File::Find::Rule' => '0.33',
 		'IO::String'       => '1.08',
@@ -21,18 +24,24 @@ WriteMakefile(
 		'Test::More' => '0.98',
 		'Test::EOL'  => '1.5',
 	},
+
+	# Farabi executable
 	EXE_FILES  => ['bin/farabi'],
+
+	# Tests
 	test       => { TESTS => 't/*.t xt/*.t' },
+
+	# META.yml metadata
 	META_MERGE => {
 		requires => { perl => '5.010001' },
 		no_index => {
 			directory => [ 't', 'xt', 'eg', 'share', 'inc' ],
 		},
 		resources => {
-			license    => 'http://dev.perl.org/licenses/',
-			homepage   => 'http://code.google.com/p/farabi/',
-			bugtracker => 'http://code.google.com/p/farabi/issues/list',
-			repository => 'http://farabi.googlecode.com/svn/trunk/',
+			license    => 'http://dev.perl.org/licenses',
+			homepage   => 'https://github.com/azawawi/farabi',
+			bugtracker => 'https://github.com/azawawi/farabi/issues',
+			repository => 'git://github.com/azawawi/farabi.git',
 		},
 	},
 );
