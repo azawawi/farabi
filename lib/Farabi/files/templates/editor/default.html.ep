@@ -176,8 +176,6 @@
 			<dl>
 				<dt>F1</dt>
 				<dd>Context-sensitive help</dd>
-				<dt>F5</dt>
-				<dd>Run in browser</dd>
 				<dt>Ctrl-F</dt>
 				<dd>Start searching</dd>
 				<dt>Ctrl-G</dt>
