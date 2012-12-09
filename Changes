@@ -1,5 +1,8 @@
 Changes for Farabi
 
+0.15  TBD
+    -
+
 0.14  2012.12.9
     - Options tab is now a dialog
     - Run with different Perl, Perl 6 runtimes under unsafe operations
