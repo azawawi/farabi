@@ -22,10 +22,16 @@ sub startup {
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl_tidy')->to('editor#perl_tidy');
 	$route->post('/perl_critic')->to('editor#perl_critic');
+	$route->post('/perl_execute')->to('editor#perl_execute');
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post('/pod_check')->to('editor#pod_check');
 }
+
+sub unsafe_features {
+	return defined $ENV{FARABI_UNSAFE};
+}
+
 
 1;
 __END__

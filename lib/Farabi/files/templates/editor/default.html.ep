@@ -47,6 +47,9 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="perl_tidy_button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<a href="#" class="run_in_browser_button"><i class="icon-play"></i> Run in Browser</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<% if ($self->app->unsafe_features) { %>
+						<a href="#" class="perl_execute_button"><i class="icon-play"></i> Run on Server</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<% } %>
 						<br/>
 						<br style="line-height:5px"/>
 					</div>

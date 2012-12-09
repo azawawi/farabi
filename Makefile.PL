@@ -12,6 +12,7 @@ WriteMakefile(
 	
 	# Dependencies
 	PREREQ_PM     => {
+		'Capture::Tiny'    => '0.21',
 		'File::Find::Rule' => '0.33',
 		'IO::String'       => '1.08',
 		'Mojolicious'      => '3.36',
