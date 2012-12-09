@@ -1,0 +1,101 @@
+Changes for Farabi
+
+0.11  TBD
+    -
+
+0.10  2012.9.20
+    - Fix xt/eol.t for CPAN testers with RELEASE_TESTING enabled (CPAN testers; Thank you)
+
+0.09  2012.9.19
+    - Added missing File::Find::Rule to dependencies (Yuni Kim; Thank you)
+    - Added missing Test::EOL and Test::More dependencies
+    - Update CodeMirror to 20481c3 for more bug fixes
+
+0.08  2012.9.16
+    - Added a help icon over the annotated line
+    - Bigger side-by-side POD preview
+    - Bigger editor
+    - Perl mode is by default selected
+    - Dynamically load CodeMirror themes
+    - Run perl critic on severity option change
+    - Better editor statistics. More Humane :)
+    - Add POD checking using Pod::Checker
+    - Perl Critic and pod checking are performed on every editor change
+    - Removed pod check and critique code buttons. There are always run in the background.
+    - Removed humane.js notification noise from perl critic and checker
+    - Added proper POD check and Perl::Critic under-the-line annotations
+    - 20% smaller minified Perlito 5
+    - Improved documentation
+    - Perl::Critic violations are shown under the line where they occurred and when clicked
+      they open the detailed dialog for that violation.
+    - Switched to development CodeMirror v3 branch
+    - Updated sample script POD by Kevin dawson (bowtie++)
+    - Added Perl 5.10.1 requirement at the beginning because Mojolicious already defines that. We do not want to fail later.
+    - Added 'Learn' tab
+    - Updated humane.min.js to 3.0.5
+    - A better about dialog that shows more technologies used version information
+    - Added dummy Perlito IO API implementation. use Modern::Perl; does not croak anymore but does nothing at the same time :)
+    - F5 is now "Run in browser". Please note that it is only active when the editor is focused.
+    - Fixed long-line-in-editor layout bug
+    - xt/eol.t (release testing) now checks all files for UNIX newlines.
+
+0.07  2012.9.10
+    - Added POD tab that automatically shows editor POD as HTML in realtime
+    - Added Help and about dialog
+    - Various HTML fixes that fix the long editor bug
+    - Improved documentation
+
+0.06  2012.9.8
+    - Added a search engine selector: Local Help (current working), MetaCPAN and CPAN Search (for the future)
+    - Added an example on how to use a different port.
+    - Preserve newlines with <br/> for Perl::Critic diagnostics
+    - Remove breakpoints unused feature
+    - Trim whitespace while searching
+    - Display editor statistics at the bottom
+    - Changed the location of script/farabi into bin/farabi
+    - Added tab size numeric field
+    - New vertical UI for options and added line numbers on/off checkbox
+    - Added a simple line divider between perl critic results
+    - Better parameter validation
+    - Search autocompletion input is now visible above the editor
+    - Ability to change Perl::Critic severity in Options.
+    - Updated Perlito 5 runtime to fix some Perl compiler bugs. fglock++
+    - Add version information to header
+    - When a Perlito error occurs the log tab is shown.
+    - Added modules name search
+    - POD X<> index now includes all *.pm and *.pm on your local system instead of only the pod|pods folder
+    - Al-Farabi quote of the day is basically hidden after 8 seconds. bowtie++
+    - Refactored code
+    - Improved documentation
+
+0.05  2012.9.6
+    - Added missing META.yml information to Makefile.PL
+    - Autocomplete X<> references in your local perl documentation
+
+0.04  2012.9.5
+    - Stopped using jQuery UI. Frabi now uses Twitter Bootstrap
+    - Fixed output tab selection
+    - Better determination of perl POD/PODS path using @INC
+    - Lots of refactoring and UI changes
+    - Actions, options and help are shown on the left and the editor on the right
+    - In "Run in browser", Perlito 5 is now loaded at runtime instead of at startup
+    - Moved modes list creation into the Perl backend
+    - Rename Farabi::Controller into Farabi::Editor
+    - Remove ambiance theme since it changes the size of the view
+    - Completely remove "Compiled to JavaScript" tab
+    - Less dialogs. More simple perl critic and help search dialogs. They're modal now.
+    - Output and log is now visible in the lower pane
+    - Ctrl-1,... is not no longer used
+
+0.03  2012.9.3
+    - Removed the concept of selector and started using Ctrl-1, Ctrl-2,..etc to
+      open actions, output, options and help dialogs
+    - Perl::Critic results dialog
+
+0.02  2012.9.3
+    - More UI fixes
+    - Added Help about Frabi dialog
+    - F1 triggers a help search dialog that shows X<> references for that selection
+
+0.01  2012.9.3
+    - Initial release to CPAN

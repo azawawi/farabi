@@ -1,0 +1,50 @@
+Add Unicode Table Search for Perl with preview!
+Fix damn bug about POD fragments
+Add LICENSE file and LICENSEs POD section
+More POD about current functionality
+Credits
+Show progress when loading Perlito for the first time
+Show progress when building index and allow to fire a re-index operation later
+Faster search index
+Search MetaCPAN within Farabi
+Support browsing of code and selection of resources using MetaCPAN API http://api.metacpan.org/source/TEMPIRE/Mojolicious-3.41/
+Active line should change on different themes.
+Print what's that language when using the language selector
+Show me an example...
+Tab support
+Add favicon
+More tests for various actions in t/
+Autocomplete sections in http://perldoc.perl.org/perlpodstyle.html
+Link to POD style http://perldoc.perl.org/perlpodstyle.html
+Link to Perl style http://perldoc.perl.org/perlstyle.html
+Add IO functions so that Perlito work. https://github.com/fglock/Perlito/blob/master/html/perlito5.js#L1041
+Save scratch to Ideas folder. Basically you sometimes need a proof of concept script and do not want to pollute desktop/home/project folder
+use this API http://codemirror.net/doc/manual.html#addWidget to show a help widget?
+Fix learn autocompletion focus bug (bowtie++): tab learn, if you start to type 'our' you do not get our, you get 'or' I think in starting to search for o you are lousing the u , sorry just try it.
+Limit exposure to external networks. bowtie++
+Add Comment / Uncomment to Perl mode
+farabi --version   # should work...
+Add not_found.development.html.ep and not_found.html.ep
+Move Farabi into Github. Dump the stupid Google Code account
+Use full screen API (if enabled).
+Detect older unsupported browsers and drop them a similar message:
+	unfortunately your computer or browser are out of date.
+	You will not be able to view the full content of this site,
+	but you may click HERE for a minified version.
+	We strongly suggest that you upgrade and use one of the following browsers
+	firefox, mozilla, ie, opera, safari"
+Save state in farabi
+Conserve height for wide screens. Small thumbnail-style Control menu on the left/right. Expandable on click.
+Indexer problem: Search mechanism is wrong if farabi is run in user home dir
+Investigate integrating perl6 support through the following:
+	viv hello.p6 -5 | perl
+	perl6 hello.p6
+Add CoffeeScript mode
+Run CoffeeScript in your browser using Farabi :)
+	https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js
+	http://coffeescript.org/#scripts
+
+Rosetta code browser in "Learn" tab. You can select Task and then use the mimetype
+	http://rosettacode.org/wiki/User_input/Text#Perl_6
+	http://rosettacode.org/wiki/Category:Perl_6=======	http://coffeescript.org/#scripts
+Switch to use HTTP::Server::Simple instead of Mojolicious https://metacpan.org/module/HTTP::Server::Simple ?>>>>>>> .theirs

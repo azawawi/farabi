@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Farabi: Modern Perl Editor</title>
+
+<!-- The jQuery -->
+<script src="../js/jquery.js"></script>
+
+<!-- Bootstrap -->
+<link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+<!-- Farabi -->
+<link rel="stylesheet" href="farabi.css" type="text/css" />
+<script src="farabi.js"></script>
+
+<!-- CodeMirror editor -->
+<link rel="stylesheet" href="assets/codemirror/codemirror.css"
+	type="text/css" />
+<link rel="stylesheet" href="assets/codemirror/util/dialog.css" />
+<script src="assets/codemirror/codemirror.js"></script>
+<script src="assets/codemirror/util/loadmode.js"></script>
+<script src="assets/codemirror/util/searchcursor.js"></script>
+<script src="assets/codemirror/util/match-highlighter.js"></script>
+<script src="assets/codemirror/util/search.js"></script>
+<script src="assets/codemirror/util/dialog.js"></script>
+
+<!-- Humane.js -->
+<link rel="stylesheet" href="assets/humane/libnotify.css" />
+<script src="assets/humane/humane.min.js"></script>
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<br/>
+			<ul id="outputTab" class="nav nav-tabs">
+				<li class="active"><a href="#edit-tab" data-toggle="tab">Edit</a></li>
+				<li class=""><a href="#output-tab" data-toggle="tab">Output</a></li>
+				<li class=""><a href="#learn-tab" data-toggle="tab">Learn</a></li>
+				<li class=""><a href="#options-tab" data-toggle="tab">Options</a></li>
+				<li class=""><a href="#help-tab" data-toggle="tab">Help</a></li>
+			</ul>
+			<div id="outputTabContent" class="tab-content">
+				<div class="tab-pane fade active in" id="edit-tab">
+					<div>
+						&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="perl_tidy_button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="run_in_browser_button"><i class="icon-play"></i> Run in Browser</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<br/>
+						<br style="line-height:5px"/>
+					</div>
+					<div class="row-fluid">
+						<div class="span6 farabi-bordered">
+							<textarea id="editor" name="editor" class="editor"><%= include "editor/sample_script" %></textarea>
+							<div id="editor_stats" class="pull-right"></div>
+						</div>
+						<div class="span6 table-bordered" id="pod-tab">
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade" id="output-tab">
+					<textarea id="output" cols="80" rows="10"></textarea>
+				</div>
+				<div class="tab-pane fade" id="learn-tab">
+					<div class="form-inline">
+						<div class="input-append">
+							<input type="text" class="xx-large topic" data-provide="typeahead"
+								data-items="4">
+							<button class="btn" type="button">Search</button>
+						</div>
+						<div class="btn-group">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+								Local Help <span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#">Local Help</a></li>
+								<li><a href="#">MetaCPAN.org</a></li>
+								<li><a href="#">CPAN Search</a></li>
+							</ul>
+						</div>
+					</div>
+					<select class="results">
+					</select>
+					<div class="preview"></div>
+				</div>
+				<div class="tab-pane fade" id="options-tab">
+					<table>
+						<tr>
+							<td><strong>Mode:</strong><br><%= include
+								"editor/mode_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Theme:<strong><br><%=
+										include "editor/theme_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Critic Severity:</strong><br><%= include
+								"editor/critic_severity_selector"%></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="line_numbers_checkbox" type="checkbox" value="" checked>
+									<strong>Line Numbers?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<label class="control-label" for="inputError"><strong>Tab
+											Size:</strong></label>
+									<div class="controls">
+										<input class="input-mini" type="text" value="4"
+											id="tab_size">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="help-tab">
+					<ul class="nav nav-list">
+						<li><a href="#" class="help_button"><i
+								class="icon-question-sign"></i> Getting started</a></li>
+						<li><a href="#" class="about_button"><i
+								class="icon-info-sign"></i> About Farabi</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Perl::Critic violations dialog -->
+	<div class="modal" id="perl_critic_dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">Perl::Critic violations</h3>
+		</div>
+		<div class="modal-body">
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+
+	<!-- About dialog -->
+	<div class="modal" id="about_dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">About Farabi v<%= $Farabi::VERSION %></</h3>
+		</div>
+		<div class="modal-body">
+			<div class="farabi-centered">
+				<blockquote>
+					<p>An art, which has an aim to achieve the beauty, is called a
+						philosophy or in the absolute sense it is named wisdom.</p>
+					<small><a target="_blank"
+						href="http://en.wikipedia.org/wiki/Al-Farabi">Al-Farabi</a></small>
+				</blockquote>
+			</div>
+			<table class="table table-bordered table-striped">
+				<tbody>
+					<tr>
+						<td><a target="_blank" href="http://mojolicio.us">Mojolicious</a></td>
+						<td><%= $Mojolicious::VERSION %></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://jquery.com">jQuery</a></td>
+						<td><span id="jquery-version"></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://twitter.github.com/bootstrap">Bootstrap</a></td>
+						<td><span id="bootstrap-version">2.1.1</span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://codemirror.net/">CodeMirror</a></td>
+						<td><span id="codemirror-version"></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://wavded.github.com/humane-js">Humane.js</a></td>
+						<td><span id="humanejs-version">3.0.5<span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://perlito.org/">Perlito5</a></td>
+						<td><span id="perlito-version"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+
+	<!-- Help dialog -->
+	<div class="modal" id="help_dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">Getting Started</h3>
+		</div>
+		<div class="modal-body">
+			<dl>
+				<dt>F1</dt>
+				<dd>Context-sensitive help</dd>
+				<dt>F5</dt>
+				<dd>Run in browser</dd>
+				<dt>Ctrl-F</dt>
+				<dd>Start searching</dd>
+				<dt>Ctrl-G</dt>
+				<dd>Find next</dd>
+				<dt>Shift-Ctrl-G</dt>
+				<dd>Find previous</dd>
+				<dt>Shift-Ctrl-F</dt>
+				<dd>Replace</dd>
+				<dt>Shift-Ctrl-R</dt>
+				<dd>Replace all</dd>
+			</dl>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
+
+</body>
+</html>

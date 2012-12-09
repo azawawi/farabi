@@ -1,0 +1,7 @@
+<select id="critic_severity_selector" class="input-medium">
+	<option value="gentle" selected>Gentle</option>
+	<option value="stern">Stern</option>
+	<option value="harsh">Harsh</option>
+	<option value="cruel">Cruel</option>
+	<option value="brutal">Brutal</option>
+</select>
