@@ -384,6 +384,8 @@ sub pod_check {
 sub default {
 	my $self = shift;
 
+	$self->stash(source => scalar $self->param('source'));
+
 	# Render template "editor/default.html.ep"
 	$self->render;
 }
