@@ -1,10 +1,13 @@
-Standing on the shoulders of giants. Thanks :)
+Farabi was born because I stood on the shoulders of giants. Thanks :)
 
 Joel Berger:
-	Feature Request: POD viewer option. http://code.google.com/p/farabi/issues/detail?id=3
+	- Inspired the birth of Farabi with his awesome work on Galileo.
+	- Added POD viewer on/off checkbox.
 
 Kevin Dawson (bowtie@cpan.org):
-	Chief tester when Farabi was its infancy :)
-	Added first example that is loaded by default to showcase POD viewer option
+	- Chief tester when Farabi was just an idea.
+	- Added initially-loaded script to showcase Farabi features.
 
-
+Toby Inkster (tobyink@cpan.org)
+	- Allow scripts to be posted to Farabi.
+	- Run Perl code on server.
