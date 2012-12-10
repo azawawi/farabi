@@ -2,7 +2,7 @@ Changes for Farabi
 
 0.15  TBD
     - Allow scripts to be posted to Farabi (Thanks to Toby Inkster).
-    - Added File::Which to dependencies.
+    - Added File::Which and Debug::Client to dependencies.
 
 0.14  2012.12.9
     - Options tab is now a dialog
