@@ -87,6 +87,10 @@ sub run_rakudo {
 	$_[0]->_capture_cmd_output('perl6');
 }
 
+sub run_parrot {
+	$_[0]->_capture_cmd_output('parrot');
+}
+
 sub open_url {
 	warn "Not implemented yet!";
 }

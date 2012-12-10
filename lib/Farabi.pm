@@ -34,6 +34,7 @@ sub startup {
 	$route->post('/run_perl')->to('editor#run_perl');
 	$route->post('/run_rakudo')->to('editor#run_rakudo');
 	$route->post('/run_niecza')->to('editor#run_niecza');
+	$route->post('/run_parrot')->to('editor#run_parrot');
 }
 
 sub unsafe_features {
