@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 sub startup {
 	my $app = shift;
