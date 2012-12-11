@@ -15,10 +15,10 @@
 <script src="farabi.js"></script>
 
 <!-- CodeMirror editor -->
-<link rel="stylesheet" href="assets/codemirror/codemirror.css"
+<link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
 	type="text/css" />
 <link rel="stylesheet" href="assets/codemirror/util/dialog.css" />
-<script src="assets/codemirror/codemirror.js"></script>
+<script src="assets/codemirror/lib/codemirror.js"></script>
 <script src="assets/codemirror/util/loadmode.js"></script>
 <script src="assets/codemirror/util/searchcursor.js"></script>
 <script src="assets/codemirror/util/match-highlighter.js"></script>
