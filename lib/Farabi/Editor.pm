@@ -385,6 +385,39 @@ sub pod_check {
 	return $self->render( json => \@problems );
 }
 
+# Action Autocompletion
+sub actions_typeahead {
+	my $self = shift;
+	
+	# Quote every special regex character
+	my $query = quotemeta( $self->param('query') // '' );
+
+	# The actions
+	my %actions = (
+		'open-file'   => 'Open File',
+		'open-url'   => 'Open URL',
+		'perl-tidy'   => 'Perl Tidy',
+		'perl-critic' => 'Perl Critic',
+		'syntax-check' => 'Syntax Check',
+		'run'          => 'Run',
+		'options'      => 'Options',
+	);
+
+	# Find matched actions
+	my @matches;
+	for my $action ( keys %actions ) {
+		if ( $action =~ /$query/i ) {
+			push @matches, $actions{$action};
+		}
+	}
+
+	# Sort so that shorter matches appear first
+	@matches = sort @matches;
+
+	# And return as JSON
+	return $self->render( json => \@matches );
+}
+
 sub default {
 	my $self = shift;
 

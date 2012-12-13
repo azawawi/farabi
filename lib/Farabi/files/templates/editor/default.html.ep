@@ -41,14 +41,7 @@
 					<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						
-						<a href="#" class="new-file-button"><i class="icon-th"></i> New</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="open-file-button"><i class="icon-th"></i> Open</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="open-url-button"><i class="icon-th"></i> Open URL</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="perl-tidy-button"><i class="icon-th"></i> Tidy Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="perl-critic-button"><i class="icon-th"></i> Perl Critic</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="syntax-check-button"><i class="icon-th"></i> Syntax Check</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="run-button"><i class="icon-play"></i> Run</a>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="#" class="options-button"><i class="icon-th"></i> Options</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						<a href="#" class="actions-button"><i class="icon-th"></i> Actions</a>&nbsp;&nbsp;&nbsp;&nbsp;
 						<br/>
 						<br style="line-height:5px"/>
 					</div>
@@ -331,6 +324,32 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Actions dialog -->
+  <div class="modal" id="actions-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Actions...</h3>
+    </div>
+    <div class="modal-body">
+	<div class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="action-name">Action Name:</label>
+			<div class="controls">
+				<input type="text" class="xx-large" id="action-name" data-provide="typeahead"
+					data-items="4" placeholder="Action Name...">
+			</div>
+		</div>
+	</div>
     </div>
 
     <div class="modal-footer">
