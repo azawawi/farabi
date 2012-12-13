@@ -1,7 +1,7 @@
 Changes for Farabi
 
-0.16  TBD
-    -
+0.16  2012.12.13
+    - Fixed failure in `RELEASE_TESTING=1 make test`
 
 0.15  2012.12.10
     - Allow scripts to be posted to Farabi (Thanks to Toby Inkster).
