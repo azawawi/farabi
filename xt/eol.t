@@ -17,7 +17,7 @@ use File::Find::Rule;
 
 my @files =
 	File::Find::Rule->file->name( '*.pm', '*.pod', '*.pl', '*.t', '*.ep', '*.js', '*.css' )->in( 'lib', 't' );
-@files = ( @files, 'README.md', 'CREDITS.md', 'TODO', 'MANIFEST.SKIP', 'LICENSE', 'Changes' );
+@files = ( @files, 'README.md', 'CREDITS.md', 'LICENSE', 'Changes' );
 plan( tests => scalar @files );
 foreach my $file (@files) {
 	eol_unix_ok( $file, "$file is ^M free" );

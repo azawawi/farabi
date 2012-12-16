@@ -1,7 +1,8 @@
 Changes for Farabi
 
-0.17  2012.12.??
+0.17  2012.12.16
     - Remove unneeded CodeMirror mode tests html and css files.
+    - Fix RELEASE_TESTING=1 xt/eol.t bug.
 
 0.16  2012.12.13
     - Fixed failure in `RELEASE_TESTING=1 make test`
