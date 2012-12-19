@@ -3,7 +3,7 @@ use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
