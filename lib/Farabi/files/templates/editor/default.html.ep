@@ -341,15 +341,26 @@
       <h3 id="myModalLabel">Actions...</h3>
     </div>
     <div class="modal-body">
-	<div class="form-horizontal">
-		<div class="control-group">
-			<label class="control-label" for="action-name">Action Name:</label>
-			<div class="controls">
-				<input type="text" class="xx-large" id="action-name" data-provide="typeahead"
-					data-items="4" placeholder="Action Name...">
+		<div class="form-vertical">
+			<div class="control-group">
+				<label class="control-label" for="action-name">Action Name:</label>
+				<div class="controls">
+					<input type="text" class="xx-large" id="action-name" data-provide="typeahead"
+						data-items="4" placeholder="Action Name...">
+				</div>
 			</div>
-		</div>
-	</div>
+			<div class="control-group">
+				<label class="control-label" for="matched-actions">Matched Actions:</label>
+				
+				<div class="controls">
+					<ul class="matched-results">
+						<li><a href="#">Action #1</a></li>
+						<li><a href="#">Action #2</a></li>
+						<li><a href="#">Action #3</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>	
     </div>
 
     <div class="modal-footer">

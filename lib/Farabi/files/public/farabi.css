@@ -1,30 +1,38 @@
 .CodeMirror {
 	min-height: 450px;
 }
+
 .CodeMirror-scroll {
 	min-height: 450px;
 }
+
 .CodeMirror-gutter {
 	width: 3em;
 	background: white;
 }
+
 .farabi-bordered {
 	border: 1px solid #DDD !important;
 }
+
 .activeline {
 	background: #e8f2ff !important;
 }
+
 span.CodeMirror-matchhighlight { 
 	background: #e9e9e9;
 }
+
 .CodeMirror-focused span.CodeMirror-matchhighlight { 
 	background: #e7e4ff; !important;
 }
+
 .cm-tab {
          background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
          background-position: right;
          background-repeat: no-repeat;
 }
+
 .tab-pane textarea {
 	width: 98%;
 }
@@ -34,14 +42,17 @@ span.CodeMirror-matchhighlight {
 	height: 300px;
 	overflow: auto;
 }
+
 #perl_critic_dialog .results {
 	width: 100%;
 	height: 300px;
 	overflow: auto;
 }
+
 .typeahead {
 	z-index: 1051;
 }
+
 .farabi-centered {
 	text-align: center;
 }
@@ -51,24 +62,31 @@ span.CodeMirror-matchhighlight {
 	height: 450px;
 	overflow: auto;
 }
+
 #pod-tab h1 {
 	font-size: 24px;
 }
+
 #pod-tab h2 {
 	font-size: 20px;
 }
+
 #pod-tab h3 {
 	font-size: 18px;
 }
+
 #pod-tab h4 {
 	font-size: 16px;
 }
+
 #pod-tab h5 {
 	font-size: 14px;
 }
+
 #pod-tab h6 {
 	font-size: 12px;
 }
+
 .farabi-error {
 	font-family: arial; 
 	font-size: 70%; 
@@ -77,6 +95,7 @@ span.CodeMirror-matchhighlight {
 	padding: 2px 5px 3px; 
 	cursor: help;
 }
+
 .farabi-error-icon {
 	color: white; 
 	background-color: red; 
