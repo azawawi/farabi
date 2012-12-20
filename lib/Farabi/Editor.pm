@@ -409,14 +409,15 @@ sub find_action {
 	# Find matched actions
 	my @matches;
 	for my $action ( keys %actions ) {
-		if ( $action =~ /$query/i ) {
+		my $action_name = $actions{$action};
+		if ( $action_name =~ /$query/i ) {
 			push @matches, { 
 				id =>  $action, 
-				name =>  $actions{$action}
+				name =>  $action_name,
 			};
 		}
 	}
-
+	
 	# Sort so that shorter matches appear first
 	@matches = sort { $a->{name} cmp $b->{name} }@matches;
 	
