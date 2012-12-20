@@ -394,22 +394,23 @@ sub actions_typeahead {
 
 	# The actions
 	my %actions = (
-		'open-file'   => 'Open File',
-		'open-url'   => 'Open URL',
-		'perl-tidy'   => 'Perl Tidy',
-		'perl-critic' => 'Perl Critic',
-		'syntax-check' => 'Syntax Check',
-		'run'          => 'Run',
-		'options'      => 'Options',
-		'getting-started' => 'Getting Started',
-		'about'       => 'About Farabi',
+		'action-open-file'   => 'Open File',
+		'action-open-url'   => 'Open URL',
+		'action-perl-tidy'   => 'Perl Tidy',
+		'action-perl-critic' => 'Perl Critic',
+		'action-syntax-check' => 'Syntax Check',
+		'action-run'          => 'Run',
+		'action-options'      => 'Options',
+		'action-help' => 'Help - Getting Started',
+		'action-about'       => 'About Farabi',
+		'action-perl-doc' => 'Help - Perl Documentation',
 	);
 
 	# Find matched actions
 	my @matches;
 	for my $action ( keys %actions ) {
 		if ( $action =~ /$query/i ) {
-			push @matches, $actions{$action};
+			push @matches, { action =>  $action, text =>  $actions{$action}};
 		}
 	}
 
