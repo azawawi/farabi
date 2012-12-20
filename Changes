@@ -1,7 +1,10 @@
 Changes for Farabi
 
-0.18  TBD
+0.18  2012.12.20
     - Fix experimental Actions dialog to actually work
+    - Remove tab-based look and feel
+    - Every action in Farabi can be triggered by the Actions dialog
+      (Alt-A).
 
 0.17  2012.12.16
     - Remove unneeded CodeMirror mode tests html and css files.
