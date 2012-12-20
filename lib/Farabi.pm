@@ -29,7 +29,7 @@ sub startup {
 	$route->post('/open_file')->to('editor#open_file');
 	$route->post('/search_file')->to('editor#search_file');
 	$route->post('/open_url')->to('editor#open_url');
-	$route->post('/actions-typeahead')->to('editor#actions_typeahead');
+	$route->post('/find-action')->to('editor#find_action');
 	
 	# Unsafe features
 	$route->post('/run_perl')->to('editor#run_perl');

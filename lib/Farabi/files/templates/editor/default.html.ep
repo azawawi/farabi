@@ -315,22 +315,15 @@
 			<div class="control-group">
 				<div class="span6">
 					<b>Matched Actions:</b>
-					<ul class="matched-actions">
-						<li><a href="#">Action #1</a></li>
-						<li><a href="#">Action #2</a></li>
-						<li><a href="#">Action #3</a></li>
-						<li><a href="#">Action #4</a></li>
-						<li><a href="#">Action #5</a></li>
+					<ul id="matched-actions">
 					</ul>
 				</div>
 				<div class="span6">
 					<b>Recent Actions:</b>
-					<ul class="recent-actions">
+					<ul id="recent-actions">
 						<li><a href="#">Action #1</a></li>
 						<li><a href="#">Action #2</a></li>
 						<li><a href="#">Action #3</a></li>
-						<li><a href="#">Action #4</a></li>
-						<li><a href="#">Action #5</a></li>
 					</ul>
 				</div>
 			</div>
