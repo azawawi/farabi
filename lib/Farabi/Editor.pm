@@ -401,6 +401,8 @@ sub actions_typeahead {
 		'syntax-check' => 'Syntax Check',
 		'run'          => 'Run',
 		'options'      => 'Options',
+		'getting-started' => 'Getting Started',
+		'about'       => 'About Farabi',
 	);
 
 	# Find matched actions
