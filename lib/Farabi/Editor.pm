@@ -498,26 +498,27 @@ sub _find_editor_mode_from_filename {
 		$extension = $1;
 	}
 	
-	say $extension;
-	
 	my %extension_to_mode = (
 		pl         => 'perl',
 		pm         => 'perl',
 		p6         => 'perl6',
 		pm6        => 'perl6',
+		pir        => 'pir',
 		css        => 'css',
+		'min.css'  => 'javascript',
 		js         => 'javascript',
 		json       => 'javascript',
+		'min.js'   => 'javascript',
 		html       => 'xml',
-		'html.ep' => 'xml',
+		'html.ep'  => 'xml',
 		md         => 'markdown',
 		markdown   => 'markdown',
-		conf    => 'properties',
+		conf       => 'properties',
 		properties => 'properties',
 	);
 	
 	# No extension, let us use default text mode
-	return 0 unless(defined $extension);
+	return 0 if !defined $extension;
 	return $extension_to_mode{$extension};
 }
 
