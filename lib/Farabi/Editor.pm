@@ -413,10 +413,6 @@ sub find_action {
 	# Sort so that shorter matches appear first
 	@matches = sort { $a->{name} cmp $b->{name} }@matches;
 	
-	if(scalar @matches > 5) {
-		@matches = $matches[0..4];
-	}
-
 	# And return as JSON
 	return $self->render( json => \@matches );
 }

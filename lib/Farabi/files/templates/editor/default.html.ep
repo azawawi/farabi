@@ -118,7 +118,7 @@
 			</table>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
@@ -202,7 +202,7 @@
 
     <div class="modal-footer">
       <button id="ok-button" class="btn btn-primary" data-dismiss=
-      "modal" aria-hidden="true">OK</button> <button class="btn"
+      "modal" aria-hidden="true">OK</button> <button class="btn btn-warning"
       data-dismiss="modal" aria-hidden="true">Cancel</button>
     </div>
   </div>
@@ -268,30 +268,26 @@
     </div>
 
     <div class="modal-body">
-      <div class="form-horizontal">
+      <form class="form-vertical">
         <div class="control-group">
           <label class="control-label" for="file">File:</label>
-
-          <div class="controls">
+         <div class="controls">
             <input type="text" id="file" placeholder="File">
           </div>
         </div>
-
         <div class="control-group">
-          <label class="control-label" for="search-results">Matched
-          Files:</label>
-
+          <label class="control-label" for="matched-files">Matched Files:</label>
           <div class="controls">
-            <select id="search-results" size="5">
+            <select id="matched-files" size="10">
               </select>
           </div>
         </div>
-      </div>
+      </form>
     </div>
     <div class="modal-footer">
       <button id="ok-button" class="btn btn-primary" data-dismiss=
       "modal" aria-hidden="true">OK</button> <button id=
-      "cancel-button" class="btn" data-dismiss="modal" aria-hidden=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
       "true">Cancel</button>
     </div>
   </div>
@@ -305,34 +301,26 @@
       <h3 id="myModalLabel">Actions</h3>
     </div>
     <div class="modal-body">
-		<div class="form-vertical">
-			<div class="control-group">
-				<label class="control-label" for="action">Action:</label>
-				<div class="controls">
-				<input type="text" id="action" placeholder="Action">
-				</div>
-			</div>
-			<div class="control-group">
-				<div class="span6">
-					<b>Matched Actions:</b>
-					<ul id="matched-actions">
-					</ul>
-				</div>
-				<div class="span6">
-					<b>Recent Actions:</b>
-					<ul id="recent-actions">
-						<li><a href="#">Action #1</a></li>
-						<li><a href="#">Action #2</a></li>
-						<li><a href="#">Action #3</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>	
-    </div>
+      <form class="form-vertical">
+        <div class="control-group">
+          <label class="control-label" for="action">Action:</label>
+         <div class="controls">
+            <input type="text" id="action" placeholder="Action">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="matched-actions">Matched Actions:</label>
+          <div class="controls">
+            <select id="matched-actions" size="10">
+              </select>
+          </div>
+        </div>
+      </div>
+    </form>
     <div class="modal-footer">
       <button id="ok-button" class="btn btn-primary" data-dismiss=
       "modal" aria-hidden="true">OK</button> <button id=
-      "cancel-button" class="btn" data-dismiss="modal" aria-hidden=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
       "true">Cancel</button>
     </div>
   </div>
