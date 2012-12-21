@@ -451,8 +451,9 @@ sub find_file {
 	# Sort so that shorter matches appear first
 	@matches = sort @matches;
 	
-	if(scalar @files > 5) {
-		@matches = @matches[0..4];
+	my $MAX_RESULTS = 100;
+	if(scalar @files > $MAX_RESULTS) {
+		@matches = @matches[0..$MAX_RESULTS-1];
 	}
 
 	# And return as JSON
@@ -465,7 +466,7 @@ sub open_file {
 	
 	my $filename = $self->param('filename') // '';
 
-	my %result = {};
+	my %result = ();
 	if( open my $fh, '<', $filename ) {
 		# Slurp the file contents
 		local $/ = undef;
@@ -497,6 +498,8 @@ sub _find_editor_mode_from_filename {
 		$extension = $1;
 	}
 	
+	say $extension;
+	
 	my %extension_to_mode = (
 		pl         => 'perl',
 		pm         => 'perl',
@@ -504,8 +507,13 @@ sub _find_editor_mode_from_filename {
 		pm6        => 'perl6',
 		css        => 'css',
 		js         => 'javascript',
-		html       => 'html',
-		'.html.ep' => 'html',
+		json       => 'javascript',
+		html       => 'xml',
+		'html.ep' => 'xml',
+		md         => 'markdown',
+		markdown   => 'markdown',
+		conf    => 'properties',
+		properties => 'properties',
 	);
 	
 	# No extension, let us use default text mode

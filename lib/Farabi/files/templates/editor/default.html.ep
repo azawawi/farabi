@@ -270,7 +270,7 @@
     <div class="modal-body">
       <div class="form-horizontal">
         <div class="control-group">
-          <label class="control-label" for="file">File</label>
+          <label class="control-label" for="file">File:</label>
 
           <div class="controls">
             <input type="text" id="file" placeholder="File">
@@ -278,8 +278,8 @@
         </div>
 
         <div class="control-group">
-          <label class="control-label" for="search-results">Search
-          Results</label>
+          <label class="control-label" for="search-results">Matched
+          Files:</label>
 
           <div class="controls">
             <select id="search-results" size="5">
