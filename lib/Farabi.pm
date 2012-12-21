@@ -21,7 +21,7 @@ sub startup {
 	$route->get('/')->to('editor#default');
 	$route->post('/')->to('editor#default');
 	$route->post('/help_search')->to('editor#help_search');
-	$route->post('/perl_tidy')->to('editor#perl_tidy');
+	$route->post('/perl-tidy')->to('editor#perl_tidy');
 	$route->post('/perl-critic')->to('editor#perl_critic');
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
