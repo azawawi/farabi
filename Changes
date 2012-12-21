@@ -1,7 +1,15 @@
 Changes for Farabi
 
-0.19  TBD
-    -
+0.19  2012.12.21
+    - Actions dialog UI refactored.
+    - Dialog Close buttons are blue and cancel buttons are orange.
+    - Enable unsafe features by default. Yes we're unsecure by default :)
+    - HTTP actions should use hyphen instead of underscore.
+    - Perl Critic is not run by default on every change.
+    - Perl Critic command now says alerts the result after execution.
+    - Set proper editor syntax highlighting based on extension.
+    - Open file dialog is here (a farabi6 feature port).
+	- Update README about listening to a different TCP port.
 
 0.18  2012.12.20
     - Fix experimental Actions dialog to actually work
