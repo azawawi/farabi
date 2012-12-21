@@ -26,8 +26,8 @@ sub startup {
 	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post('/pod_check')->to('editor#pod_check');
-	$route->post('/open_file')->to('editor#open_file');
-	$route->post('/search_file')->to('editor#search_file');
+	$route->post('/open-file')->to('editor#open_file');
+	$route->post('/find-file')->to('editor#find_file');
 	$route->post('/open_url')->to('editor#open_url');
 	$route->post('/find-action')->to('editor#find_action');
 	

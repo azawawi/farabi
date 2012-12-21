@@ -95,14 +95,6 @@ sub open_url {
 	warn "Not implemented yet!";
 }
 
-sub search_file {
-	warn "Not implemented yet!";
-}
-
-sub open_file {
-	warn "Not implemented yet!";
-}
-
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
@@ -429,9 +421,78 @@ sub find_action {
 	return $self->render( json => \@matches );
 }
 
+# Find a list of matches files
+sub find_file {
+	my $self = shift;
+	
+	# Quote every special regex character
+	my $query = quotemeta( $self->param('filename') // '' );
+
+	require File::Find::Rule;
+	my $rule = File::Find::Rule->new;
+	$rule->or(
+			$rule->new->directory->name( 'CVS', '.svn', '.git', 'blib', '.build' )->prune->discard,
+			$rule->new
+	);
+	
+	require File::Spec;
+	require Cwd;
+	my $base_dir = Cwd::getcwd;
+	
+	$rule->file->name(qr/$query/i);
+	my @files = $rule->in($base_dir);
+	
+	require File::Basename;
+	my @matches;
+	for my $file (@files) {
+		push @matches, {
+			id => File::Spec->catfile($base_dir, $file),
+			name => File::Basename::basename($file),
+		}
+	}
+
+	# Sort so that shorter matches appear first
+	@matches = sort @matches;
+	
+	if(scalar @files > 5) {
+		@matches = @matches[0..4];
+	}
+
+	# And return as JSON
+	return $self->render( json => \@matches );
+}
+
+# Return the file contents or a failure string
+sub open_file {
+	my $self = shift;
+	
+	my $filename = $self->param('filename') // '';
+	say "filename: $filename";
+
+	my ($ok, $result);
+	if( open my $fh, '<', $filename ) {
+		# Slurp the file contents
+		local $/ = undef;
+		$result = <$fh>;
+		close $fh;
+		
+		# We're ok :)
+		$ok = 1;
+	} else {
+		# Error!
+		$ok = 0;
+		$result = "Could not open file: $filename";
+	}
+	
+	# Return the file contents or the error message
+	return $self->render( json => { result => $result, ok => $ok } );
+}
+
+# The default root handler
 sub default {
 	my $self = shift;
 
+	# Stash the source parameter so it can be used inside the template
 	$self->stash(source => scalar $self->param('source'));
 
 	# Render template "editor/default.html.ep"
