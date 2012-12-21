@@ -472,6 +472,9 @@ sub open_file {
 		$result{value} = <$fh>;
 		close $fh;
 		
+		# Retrieve editor mode
+		$result{mode} = _find_editor_mode_from_filename($filename);
+		
 		# We're ok :)
 		$result{ok} = 1;
 	} else {
@@ -482,6 +485,32 @@ sub open_file {
 	
 	# Return the file contents or the error message
 	return $self->render( json => \%result );
+}
+
+# Finds the editor mode from the the filename
+sub _find_editor_mode_from_filename {
+	my $filename = shift;
+	
+	my $extension;
+	if($filename =~ /\.(.+)$/) {
+		# Extract file extension greedily
+		$extension = $1;
+	}
+	
+	my %extension_to_mode = (
+		pl         => 'perl',
+		pm         => 'perl',
+		p6         => 'perl6',
+		pm6        => 'perl6',
+		css        => 'css',
+		js         => 'javascript',
+		html       => 'html',
+		'.html.ep' => 'html',
+	);
+	
+	# No extension, let us use default text mode
+	return 0 unless(defined $extension);
+	return $extension_to_mode{$extension};
 }
 
 # The default root handler
