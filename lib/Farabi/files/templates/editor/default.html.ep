@@ -67,7 +67,7 @@
 		<div class="modal-body">
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
@@ -147,7 +147,7 @@
 			</dl>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
@@ -256,7 +256,7 @@
 					</table>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
 		</div>
 	</div>
 
@@ -336,7 +336,7 @@
 			<div class="input-append">
 				<input type="text" class="xx-large topic" data-provide="typeahead"
 					data-items="4">
-				<button class="btn" type="button">Search</button>
+				<button class="btn btn-primary" type="button">Search</button>
 			</div>
 		</div>
 		<select class="results">
