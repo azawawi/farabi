@@ -435,18 +435,15 @@ sub find_file {
 			$rule->new
 	);
 	
-	require File::Spec;
 	require Cwd;
-	my $base_dir = Cwd::getcwd;
-	
 	$rule->file->name(qr/$query/i);
-	my @files = $rule->in($base_dir);
+	my @files = $rule->in(Cwd::getcwd);
 	
 	require File::Basename;
 	my @matches;
 	for my $file (@files) {
 		push @matches, {
-			id => File::Spec->catfile($base_dir, $file),
+			id => $file,
 			name => File::Basename::basename($file),
 		}
 	}
@@ -485,7 +482,7 @@ sub open_file {
 	}
 	
 	# Return the file contents or the error message
-	return $self->render( json => { result => $result, ok => $ok } );
+	return $self->render( json => { value => $result, ok => $ok } );
 }
 
 # The default root handler
