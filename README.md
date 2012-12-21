@@ -9,6 +9,11 @@ To start Farabi, please type the following command:
 
 Open http://127.0.0.1:3000/ in your favourite modern browser.
 
+
+To run it on a different port, please use:
+
+    farabi daemon --listen "http://*:3030"
+
 Please note that Farabi is purely expermintal at the moment. Things are moving fast
 as I try some new ideas. Feedback is welcome.
 
