@@ -515,6 +515,8 @@ sub _find_editor_mode_from_filename {
 		markdown   => 'markdown',
 		conf       => 'properties',
 		properties => 'properties',
+		yml        => 'yaml',
+		yaml       => 'yaml',
 	);
 	
 	# No extension, let us use default text mode
