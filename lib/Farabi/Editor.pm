@@ -464,25 +464,24 @@ sub open_file {
 	my $self = shift;
 	
 	my $filename = $self->param('filename') // '';
-	say "filename: $filename";
 
-	my ($ok, $result);
+	my %result = {};
 	if( open my $fh, '<', $filename ) {
 		# Slurp the file contents
 		local $/ = undef;
-		$result = <$fh>;
+		$result{value} = <$fh>;
 		close $fh;
 		
 		# We're ok :)
-		$ok = 1;
+		$result{ok} = 1;
 	} else {
 		# Error!
-		$ok = 0;
-		$result = "Could not open file: $filename";
+		$result{value} = "Could not open file: $filename";
+		$result{ok} = 0;
 	}
 	
 	# Return the file contents or the error message
-	return $self->render( json => { value => $result, ok => $ok } );
+	return $self->render( json => \%result );
 }
 
 # The default root handler
