@@ -402,7 +402,7 @@ sub find_action {
 	my @matches;
 	for my $action ( keys %actions ) {
 		my $action_name = $actions{$action};
-		if ( $action_name =~ /$query/i ) {
+		if ( $action_name =~ /^.*$query.*$/i ) {
 			push @matches, { 
 				id =>  $action, 
 				name =>  $action_name,
@@ -445,7 +445,7 @@ sub find_file {
 	}
 
 	# Sort so that shorter matches appear first
-	@matches = sort @matches;
+	@matches = sort { $a->{name} cmp $b->{name} }@matches;
 	
 	my $MAX_RESULTS = 100;
 	if(scalar @files > $MAX_RESULTS) {
