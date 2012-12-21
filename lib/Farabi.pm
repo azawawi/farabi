@@ -39,7 +39,8 @@ sub startup {
 }
 
 sub unsafe_features {
-	return defined $ENV{FARABI_UNSAFE};
+	# Enable unsafe features by default for now
+	return 1; # defined $ENV{FARABI_UNSAFE};
 }
 
 
