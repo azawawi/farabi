@@ -2,6 +2,7 @@ package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 
 use Capture::Tiny qw(capture);
+use IPC::Run qw( start pump finish timeout );
 
 our $VERSION = '0.20';
 
@@ -533,14 +534,21 @@ sub repl_eval {
 	my $runtime = $self->param('runtime') // 'perl';
 	my $command = $self->param('command') // '';
 
-	my $result = '';
-	if($command eq '1') {
-		$result = 1;
-	} elsif($command eq '1+1') {
-		$result = 1 + 1;
-	}
+	my @perl6 = qw( perl6 );
+	my ($in, $out, $err);
+	my $h = start \@perl6, \$in, \$out, \$err, timeout( 5 );
 
-	# Return the file contents or the error message
+	$in .= "$command\n";
+	pump $h until $out =~ /> \Z/m;
+	finish $h or die "perl6 returned $?";
+	
+	# Remove prompt for now
+	$out =~ s/> \Z//;
+
+	my $result = $out;
+	warn $err if $err; 
+
+	# Return the REPL result
 	return $self->render( json => $result );
 }
 
