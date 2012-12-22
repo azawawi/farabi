@@ -17,6 +17,7 @@ WriteMakefile(
 		'File::Find::Rule' => '0.33',
 		'File::Which'      => '1.09',
 		'IO::String'       => '1.08',
+		'IPC::Run'         => '0.92',
 		'Mojolicious'      => '3.36',
 		'Perl::Critic'     => '1.118',
 		'Perl::Tidy'       => '20120714',
