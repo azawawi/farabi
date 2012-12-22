@@ -396,6 +396,7 @@ sub find_action {
 		'action-help' => 'Help - Getting Started',
 		'action-about'       => 'About Farabi',
 		'action-perl-doc' => 'Help - Perl Documentation',
+		'action-repl' => 'Read-Print-Eval-Loop (REPL)',
 	);
 
 	# Find matched actions
@@ -518,6 +519,17 @@ sub _find_editor_mode_from_filename {
 	# No extension, let us use default text mode
 	return 0 if !defined $extension;
 	return $extension_to_mode{$extension};
+}
+
+
+# Perl REPL (Read-Eval-Print-Loop)
+sub perl_repl_eval {
+	warn "perl_repl_eval is not implemented\n";
+}
+
+# Perl6 REPL (Read-Eval-Print-Loop)
+sub perl6_repl_eval {
+	warn "perl6_repl_eval is not implemented\n";
 }
 
 # The default root handler
