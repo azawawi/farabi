@@ -534,22 +534,33 @@ sub repl_eval {
 	my $runtime = $self->param('runtime') // 'perl';
 	my $command = $self->param('command') // '';
 
+	# The process that we're gonna REPL
 	my @perl6 = qw( perl6 );
+	
+	# The input, output and error strings
 	my ($in, $out, $err);
+	
+	# Open process with a timeout
 	my $h = start \@perl6, \$in, \$out, \$err, timeout( 5 );
 
+	# Send command to process and wait for prompt
 	$in .= "$command\n";
 	pump $h until $out =~ /> \Z/m;
-	finish $h or die "perl6 returned $?";
+	finish $h or $err = "perl6 returned $?";
 	
-	# Remove prompt for now
+	# Remove prompt
 	$out =~ s/> \Z//;
+	
+	say $out;
 
-	my $result = $out;
-	warn $err if $err; 
+	# Result...
+	my %result = (
+		out => $out,
+		err  => $err,
+	);
 
 	# Return the REPL result
-	return $self->render( json => $result );
+	return $self->render( json => \%result );
 }
 
 # The default root handler
