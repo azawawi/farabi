@@ -32,13 +32,13 @@ sub startup {
 	$route->post('/find-action')->to('editor#find_action');
 	
 	# Unsafe actions. But really who's safe these days.
-	$route->post('/run_perl')->to('editor#run_perl');
-	$route->post('/run_rakudo')->to('editor#run_rakudo');
-	$route->post('/run_niecza')->to('editor#run_niecza');
-	$route->post('/run_parrot')->to('editor#run_parrot');
+	$route->post('/run-perl')->to('editor#run_perl');
+	$route->post('/run-rakudo')->to('editor#run_rakudo');
+	$route->post('/run-niecza')->to('editor#run_niecza');
+	$route->post('/run-parrot')->to('editor#run_parrot');
 	
 	# Web-based Read-Eval-Print-Loop (REPL) action
-	$route->post('/repl_eval')->to('editor#repl_eval');
+	$route->post('/repl-eval')->to('editor#repl_eval');
 }
 
 sub unsafe_features {

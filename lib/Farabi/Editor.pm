@@ -528,8 +528,20 @@ sub perl_repl_eval {
 }
 
 # Perl6 REPL (Read-Eval-Print-Loop)
-sub perl6_repl_eval {
-	warn "perl6_repl_eval is not implemented\n";
+sub repl_eval {
+	my $self = shift;
+	my $runtime = $self->param('runtime') // 'perl';
+	my $command = $self->param('command') // '';
+
+	my $result = '';
+	if($command eq '1') {
+		$result = 1;
+	} elsif($command eq '1+1') {
+		$result = 1 + 1;
+	}
+
+	# Return the file contents or the error message
+	return $self->render( json => $result );
 }
 
 # The default root handler
