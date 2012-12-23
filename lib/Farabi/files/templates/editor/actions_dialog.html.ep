@@ -1,0 +1,37 @@
+  <!-- Actions Dialog -->
+  <div class="modal" id="actions-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Actions</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-vertical">
+        <div class="control-group">
+          <label class="control-label" for="action-name">Action Name:</label>
+         <div class="controls">
+            <input type="text" id="action-name" placeholder="Action Name">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="matched-actions">Matched Actions:</label>
+		<div class="controls">
+			<select id="matched-actions" size="10">
+			</select>
+		</div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="action-help-text">Help:</label>
+		<div class="controls">
+			<div id="action-help-text"></div>
+		</div>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
+

@@ -1,0 +1,52 @@
+	<!-- Options dialog -->
+	<div class="modal" id="options-dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">Options</h3>
+		</div>
+		<div class="modal-body">
+					<table>
+						<tr>
+							<td><strong>Mode:</strong><br><%= include
+								"editor/mode_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Theme:<strong><br><%=
+										include "editor/theme_selector"%></td>
+						</tr>
+						<tr>
+							<td><strong>Critic Severity:</strong><br><%= include
+								"editor/critic_severity_selector"%></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="line_numbers_checkbox" type="checkbox" value="" checked>
+									<strong>Line Numbers?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="pod_viewer_checkbox" type="checkbox" value="" checked>
+									<strong>POD Viewer?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td>
+								<div class="control-group">
+									<label class="control-label" for="inputError"><strong>Tab
+											Size:</strong></label>
+									<div class="controls">
+										<input class="input-mini" type="text" value="4"
+											id="tab_size">
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>

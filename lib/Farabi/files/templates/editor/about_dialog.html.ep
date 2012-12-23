@@ -1,0 +1,50 @@
+	<!-- About dialog -->
+	<div class="modal" id="about-dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">About Farabi v<%= $Farabi::VERSION %></</h3>
+		</div>
+		<div class="modal-body">
+			<div class="farabi-centered">
+				<blockquote>
+					<p>An art, which has an aim to achieve the beauty, is called a
+						philosophy or in the absolute sense it is named wisdom.</p>
+					<small><a target="_blank"
+						href="http://en.wikipedia.org/wiki/Al-Farabi">Al-Farabi</a></small>
+				</blockquote>
+			</div>
+			<table class="table table-bordered table-striped">
+				<tbody>
+					<tr>
+						<td><a target="_blank" href="http://mojolicio.us">Mojolicious</a></td>
+						<td><%= $Mojolicious::VERSION %></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://jquery.com">jQuery</a></td>
+						<td><span id="jquery-version"></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://twitter.github.com/bootstrap">Bootstrap</a></td>
+						<td><span id="bootstrap-version">2.2.2</span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://codemirror.net/">CodeMirror</a></td>
+						<td><span id="codemirror-version"></span></td>
+					</tr>
+						<tr>
+						<td><a target="_blank" href="http://perlito.org/">Perlito 5</a></td>
+						<td><span id="perlito5-version"></span></td>
+					</tr>
+					<tr>
+						<td><a target="_blank" href="http://perlito.org/">Perlito 6</a></td>
+						<td><span id="perlito6-version"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>

@@ -1,0 +1,28 @@
+	<!-- Help dialog -->
+	<div class="modal" id="help-dialog" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true"></button>
+			<h3 id="myModalLabel">Getting Started</h3>
+		</div>
+		<div class="modal-body">
+			<dl>
+				<dt>F1</dt>
+				<dd>Context-sensitive help</dd>
+				<dt>Ctrl-F</dt>
+				<dd>Start searching</dd>
+				<dt>Ctrl-G</dt>
+				<dd>Find next</dd>
+				<dt>Shift-Ctrl-G</dt>
+				<dd>Find previous</dd>
+				<dt>Shift-Ctrl-F</dt>
+				<dd>Replace</dd>
+				<dt>Shift-Ctrl-R</dt>
+				<dd>Replace all</dd>
+			</dl>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>

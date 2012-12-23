@@ -1,0 +1,38 @@
+	<!-- REPL Dialog -->
+	<div class="modal" id="repl-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<h3 id="myModalLabel"><a href="http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"> REPL</a></h3>
+		</div>
+		<div class="modal-body">
+			<form class="form-vertical">
+				<div class="control-group">
+					<label class="control-label" for="runtime">Runtime:</label>
+					<div class="controls">
+						<select id="runtime">
+							<option id="perl5" selected="selected">Perl 5</option>
+							<option id="perl6-rakudo">Perl 6 - Rakudo</option>
+							<option id="perl6-niecza">Perl 6 - Niecza</option>
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="command">Read:</label>
+					<div class="controls">
+						<div class="input-append">
+							<input type="text" id="command" class="xx-large" placeholder="Command">
+							<button id="eval-button" class="btn">Eval</button>
+						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="output">Print &amp; Loop :):</label>
+					<div class="controls">
+						<textarea id="output" rows="10" cols="100"></textarea>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<button id="close-button" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>
