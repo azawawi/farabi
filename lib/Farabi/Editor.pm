@@ -387,27 +387,62 @@ sub find_action {
 
 	# The actions
 	my %actions = (
-		'action-open-file'   => 'Open File',
-		'action-open-url'   => 'Open URL',
-		'action-perl-tidy'   => 'Perl Tidy',
-		'action-perl-critic' => 'Perl Critic',
-		'action-syntax-check' => 'Syntax Check',
-		'action-run'          => 'Run',
-		'action-options'      => 'Options',
-		'action-help' => 'Help - Getting Started',
-		'action-about'       => 'About Farabi',
-		'action-perl-doc' => 'Help - Perl Documentation',
-		'action-repl' => 'Read-Print-Eval-Loop (REPL)',
+		'action-open-file'   => {
+			name=>'Open File',
+			help=>"Opens a file in a new editor tab",
+		},
+		'action-open-url'   => {
+			name=> 'Open URL',
+			help=>  'Opens a file from a URL is new editor tab',
+		},
+		'action-perl-tidy'   => {
+			name=> 'Perl Tidy',
+			help=>'Run the Perl::Tidy tool on the current editor tab',
+		},
+		'action-perl-critic' => {
+			name=> 'Perl Critic',
+			help=> 'Run the Perl::Critic tool on the current editor tab',
+		},
+		'action-syntax-check' => {
+			name=>'Syntax Check',
+			help=>'Run the syntax check tool on the current editor tab',
+		},
+		'action-run'          => {
+			name=>'Run',
+			help=> 'Run the current editor source file using the run dialog',
+		},
+		'action-options'      => {
+			name=> 'Options',
+			help=> 'Open the options dialog',
+		},
+		'action-help' => {
+			name=>'Help - Getting Started',
+			help=> 'A quick getting started help dialog',
+		},
+		'action-about'       => {
+			name=> 'About Farabi',
+			help=> 'Opens an dialog about the current application',
+		},
+		'action-perl-doc' => {
+			name => 'Help - Perl Documentation',
+			help =>'Opens the Perl help documentation dialog',
+		},
+		'action-repl' => {
+			name =>'REPL - Read-Print-Eval-Loop',
+			help => 'Opens the Read-Print-Eval-Loop dialog',
+		},
 	);
 
 	# Find matched actions
 	my @matches;
-	for my $action ( keys %actions ) {
-		my $action_name = $actions{$action};
+	for my $action_id ( keys %actions ) {
+		my $action = $actions{$action_id};
+		my $action_name = $action->{name};
 		if ( $action_name =~ /^.*$query.*$/i ) {
 			push @matches, { 
-				id =>  $action, 
+				id =>  $action_id, 
 				name =>  $action_name,
+				help => $action->{help},
 			};
 		}
 	}
