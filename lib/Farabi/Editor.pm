@@ -566,30 +566,62 @@ sub perl_repl_eval {
 # Perl6 REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self = shift;
-	my $runtime = $self->param('runtime') // 'perl';
+	my $runtime_id = $self->param('runtime') // 'perl';
 	my $command = $self->param('command') // '';
 
+	# TODO make these configurable?
+	my %runtimes = (
+		'perl' => {
+			cmd => 're.pl',
+			prompt => '$\Z',
+		},
+		'rakudo' => {
+			cmd => 'perl6',
+			prompt => '> \Z',
+		},
+		'niecza' => {
+			cmd => 'Niecza.exe',
+			prompt => 'niecza> \Z',
+		},
+	);
+	
+	
+
 	# The process that we're gonna REPL
-	my @perl6 = qw( perl6 );
+	my $runtime = $runtimes{$runtime_id};
+	my $prompt = $runtime->{prompt};
+	
+	# If runtime is not defined, let us report it back
+	unless(defined $runtime) {
+		my %result = (
+			ok  => 0,
+			err => "Failed to find runtime '$runtime_id'",
+		);
+		# Return the REPL result
+		return $self->render( json => \%result );
+	}
+
+	# Prepare the REPL command....
+	my @cmd = ( $runtime->{cmd} );
 	
 	# The input, output and error strings
 	my ($in, $out, $err);
 	
 	# Open process with a timeout
-	my $h = start \@perl6, \$in, \$out, \$err, timeout( 5 );
+	#TODO timeout should be configurable...
+	my $h = start \@cmd, \$in, \$out, \$err, timeout( 5 );
 
 	# Send command to process and wait for prompt
 	$in .= "$command\n";
-	pump $h until $out =~ /> \Z/m;
-	finish $h or $err = "perl6 returned $?";
+	pump $h until $out =~ /$prompt/m;
+	finish $h or $err = "$runtime returned $?";
 	
-	# Remove prompt
-	$out =~ s/> \Z//;
-	
-	say $out;
+	# Remove current REPL prompt
+	$out =~ s/$prompt//;
 
 	# Result...
 	my %result = (
+	    ok  => 1,
 		out => $out,
 		err  => $err,
 	);
