@@ -1,6 +1,7 @@
 <select id="mode_selector" class="input-medium">
 	<option value="clike">C, C++, C#</option>
 	<option value="css">CSS</option>
+	<option value="coffeescript">CoffeeScript</option>
 	<option value="diff">Diff</option>
 	<option value="javascript">JavaScript</option>
 	<option value="markdown">Github Markdown</option>

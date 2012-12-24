@@ -554,6 +554,7 @@ sub _find_editor_mode_from_filename {
 		properties => 'properties',
 		yml        => 'yaml',
 		yaml       => 'yaml',
+		coffee     => 'coffeescript'
 	);
 	
 	# No extension, let us use default text mode
