@@ -387,6 +387,10 @@ sub find_action {
 
 	# The actions
 	my %actions = (
+		'action-new-file'   => {
+			name=>'New File',
+			help=>"Opens a new file in a new editor tab",
+		},
 		'action-open-file'   => {
 			name=>'Open File',
 			help=>"Opens a file in a new editor tab",
