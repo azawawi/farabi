@@ -16,6 +16,7 @@
 <script src="farabi_actions_dialog.js"></script>
 <script src="farabi_open_file_dialog.js"></script>
 <script src="farabi_repl_dialog.js"></script>
+<script src="farabi_run_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
