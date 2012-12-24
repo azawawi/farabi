@@ -513,6 +513,10 @@ sub open_file {
 		# Retrieve editor mode
 		$result{mode} = _find_editor_mode_from_filename($filename);
 		
+		# Simplify filename
+		require File::Basename;
+		$result{filename} = File::Basename::basename($filename);
+		
 		# We're ok :)
 		$result{ok} = 1;
 	} else {

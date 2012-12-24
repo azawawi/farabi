@@ -1,7 +1,7 @@
 Changes for Farabi
 
-0.22 TBD
-    - 
+0.22
+    - Implemented new and open file as tabs
 
 0.21  2012.12.24
     - Refactored dialogs client-side JS code into their seperate files
