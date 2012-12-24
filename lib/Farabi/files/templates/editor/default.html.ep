@@ -41,12 +41,28 @@
 				<br/>
 				<br/>
 			</div>
+			<button class="btn btn-inverse" id="add-tab-button">Add</button>
+			<div class="row-fluid">
+				<ul id="myTab" class="nav nav-tabs">
+					<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade active in" id="home">
+					</div>
+              <div class="tab-pane fade" id="profile">
+                <textarea id="editor" name="editor" class="editor"><%=
+						defined $source ? $source : include "editor/sample_script"
+					%></textarea>
+              </div>
+              <div class="tab-pane fade" id="dropdown1">
+                <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+              </div>
+            </div>				
+			</div>
 			<div class="row-fluid">
 				<div class="span6 farabi-bordered" id="editor-border">
 					<b>Editor:</b>
-					<textarea id="editor" name="editor" class="editor"><%=
-						defined $source ? $source : include "editor/sample_script"
-					%></textarea>
+					
 					<div id="editor_stats" class="pull-right"></div>
 				</div>
 				<div class="span6 farabi-bordered">
