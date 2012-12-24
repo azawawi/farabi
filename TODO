@@ -35,7 +35,6 @@ Indexer problem: Search mechanism is wrong if farabi is run in user home dir
 Investigate integrating perl6 support through the following:
 	viv hello.p6 -5 | perl
 	perl6 hello.p6
-Add CoffeeScript mode
 Run CoffeeScript in your browser using Farabi :)
 	https://raw.github.com/jashkenas/coffee-script/master/extras/coffee-script.js
 	http://coffeescript.org/#scripts
