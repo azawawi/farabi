@@ -10,7 +10,6 @@ Support browsing of code and selection of resources using MetaCPAN API http://ap
 Active line should change on different themes.
 Print what's that language when using the language selector
 Show me an example...
-Tab support
 Add favicon
 More tests for various actions in t/
 Autocomplete sections in http://perldoc.perl.org/perlpodstyle.html
