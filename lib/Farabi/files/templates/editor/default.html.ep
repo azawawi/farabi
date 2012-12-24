@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="farabi.css" type="text/css" />
 <script src="farabi.js"></script>
 <script src="farabi_actions_dialog.js"></script>
+<script src="farabi_open_file_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
