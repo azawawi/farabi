@@ -618,7 +618,7 @@ sub repl_eval {
 	# Send command to process and wait for prompt
 	$in .= "$command\n";
 	pump $h until $out =~ /$prompt/m;
-	finish $h or $err = "$runtime returned $?";
+	finish $h or $err = "@cmd returned $?";
 	
 	# Remove current REPL prompt
 	$out =~ s/$prompt//;
