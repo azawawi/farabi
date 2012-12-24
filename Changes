@@ -1,5 +1,17 @@
 Changes for Farabi
 
+0.21  2012.12.24
+    - Refactored dialogs client-side JS code into their seperate files
+    - Implemented global window.ChangeMode and window.GetCurrentEditor
+    - Scroll always to the bottom in the REPL dialog
+    - Fix extra newline line in REPL dialog
+    - Add more source documentation
+    - Add New file (dummy at the moment) 
+    - ENTER in the open file or action dialog opens the file or action
+    - Prevent Action field from being autocompleted and fix weird 
+        event consumption bug with actions dialog
+    - Support Niecza, perl6 and re.pl (Devel::REPL)
+
 0.20  2012.12.23
     - Read-Eval-Print-Loop (REPL) dialog is here and
       currently support rakudo Perl 6
