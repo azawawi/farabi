@@ -9,7 +9,7 @@
         <div class="control-group">
           <label class="control-label" for="action-name">Action Name:</label>
          <div class="controls">
-            <input type="text" id="action-name" placeholder="Action Name">
+            <input type="text" id="action-name" placeholder="Action Name" autocomplete="off">
           </div>
         </div>
         <div class="control-group">
