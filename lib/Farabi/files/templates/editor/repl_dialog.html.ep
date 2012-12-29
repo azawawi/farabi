@@ -8,7 +8,7 @@
 				<div class="control-group">
 					<label class="control-label" for="output">Command Output:</label>
 					<div class="controls">
-						<textarea id="output" rows="10" cols="100"></textarea>
+						<textarea id="output" rows="10" cols="100" readonly="readonly"></textarea>
 					</div>
 				</div>
 				<div class="control-group">
