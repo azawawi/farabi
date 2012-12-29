@@ -391,6 +391,14 @@ sub find_action {
 			name=>'New File',
 			help=>"Opens a new file in a new editor tab",
 		},
+		'action-close-file' => {
+			name=>'Close File',
+			help=>"Closes the current open file",
+		},
+		'action-close-files' => {
+			name=>'Close Files',
+			help=>"Closes all of the open files",
+		},
 		'action-open-file'   => {
 			name=>'Open File',
 			help=>"Opens a file in a new editor tab",
