@@ -464,6 +464,13 @@ sub find_file {
 	
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('filename') // '' );
+	
+	# Determine directory
+	require Cwd;
+	my $dir = $self->param('dir');
+	if( !$dir || $dir eq '') {
+		$dir = Cwd::getcwd;
+	}
 
 	require File::Find::Rule;
 	my $rule = File::Find::Rule->new;
@@ -472,12 +479,11 @@ sub find_file {
 			$rule->new
 	);
 	
-	require Cwd;
 	$rule->file->name(qr/$query/i);
-	my @files = $rule->in(Cwd::getcwd);
-	
+	my @files = $rule->in($dir);
+
 	require File::Basename;
-	my @matches;
+		my @matches;
 	for my $file (@files) {
 		push @matches, {
 			id => $file,
@@ -542,6 +548,7 @@ sub _find_editor_mode_from_filename {
 	my %extension_to_mode = (
 		pl         => 'perl',
 		pm         => 'perl',
+		t          => 'perl',
 		p6         => 'perl6',
 		pm6        => 'perl6',
 		pir        => 'pir',
