@@ -1,0 +1,20 @@
+  <!-- Save Question Dialog -->
+  <div class="modal" id="save-question-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Save?</h3>
+    </div>
+    <div class="modal-body">
+	Save file?
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button id="yes-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">Yes</button> 
+      <button id="no-button" class="btn btn-warning" data-dismiss=
+      "modal" aria-hidden="true">No</button>
+      <button id="cancel-button" class="btn btn-inverse" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
+
