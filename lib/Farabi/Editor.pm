@@ -407,6 +407,10 @@ sub find_action {
 			name=> 'Open URL',
 			help=>  'Opens a file from a URL is new editor tab',
 		},
+		'action-save-file'   => {
+			name=>'Save File',
+			help=>"Saves the current file ",
+		},
 		'action-perl-tidy'   => {
 			name=> 'Perl Tidy',
 			help=>'Run the Perl::Tidy tool on the current editor tab',
@@ -695,6 +699,41 @@ sub _devel_repl_eval {
 	);
 
 	# Return the REPL result
+	return $self->render( json => \%result );
+}
+
+# Save(s) the specified filename
+sub save_file {
+	my $self = shift;
+	my $filename = $self->param('filename') ;
+	my $contents = $self->param('contents');
+
+	# Define output and error strings
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
+	# Check filename parameter
+	unless($filename) {
+		# The error
+		$result{err} = "filename parameter is invalid";
+
+		# Return the REPL result
+		return $self->render( json => \%result );
+	}
+	
+	# Check contents parameter
+	unless($contents) {
+		# The error
+		$result{err} = "contents parameter is invalid";
+
+		# Return the REPL result
+		return $self->render( json => \%result );
+	}
+	
+	warn "TODO save file $filename\n";
+	
 	return $self->render( json => \%result );
 }
 
