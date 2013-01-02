@@ -395,8 +395,8 @@ sub find_action {
 			name=>'Close File',
 			help=>"Closes the current open file",
 		},
-		'action-close-files' => {
-			name=>'Close Files',
+		'action-close-all-files' => {
+			name=>'Close All Files',
 			help=>"Closes all of the open files",
 		},
 		'action-open-file'   => {
