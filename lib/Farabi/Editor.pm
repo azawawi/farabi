@@ -592,6 +592,12 @@ sub repl_eval {
 	my $runtime_id = $self->param('runtime') // 'perl';
 	my $command = $self->param('command') // '';
 
+	# The Result object
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
 	# TODO make these configurable?
 	my %runtimes = (
 		'perl' => {
@@ -609,21 +615,22 @@ sub repl_eval {
 
 	# The process that we're gonna REPL
 	my $runtime = $runtimes{$runtime_id};
+	
+	# Handle the special case for Devel::REPL
+	if($runtime_id eq 'perl') {
+		return $self->_devel_repl_eval($command);
+	}
+
+	# Get the REPL prompt
 	my $prompt = $runtime->{prompt};
 	
 	# If runtime is not defined, let us report it back
 	unless(defined $runtime) {
 		my %result = (
-			ok  => 0,
 			err => "Failed to find runtime '$runtime_id'",
 		);
 		# Return the REPL result
 		return $self->render( json => \%result );
-	}
-
-	# Handle the special case for Devel::REPL
-	if($runtime_id eq 'perl') {
-		return $self->_devel_repl_eval($command);
 	}
 
 	# Prepare the REPL command....
@@ -646,7 +653,6 @@ sub repl_eval {
 
 	# Result...
 	my %result = (
-		ok  => 1,
 		out => $out,
 		err  => $err,
 	);
@@ -663,9 +669,22 @@ my $devel_repl;
 sub _devel_repl_eval {
 	my ($self, $code) = @_;
 
+	# The Result object
+	my %result = (
+		out => '',
+		err  => '',
+	);
+
 	unless($devel_repl) {
 		# Try to load Devel::REPL
-		require Devel::REPL;
+		eval { require Devel::REPL; };
+		if($@) {
+			# The error
+			$result{err} = 'Unable to find Devel::REPL';
+			
+			# Return the REPL result
+			return $self->render( json => \%result );
+		}
 
 		# Create the REPL object
 		$devel_repl = Devel::REPL->new;
@@ -675,28 +694,19 @@ sub _devel_repl_eval {
 		$devel_repl->load_plugin('LexEnv'); 
 	}
 
-	# Define output and error strings
-	my ($out, $err) = ('','');
-
 	if ($code eq '') {
 		# Special case for empty input
-		$out = "\$\n";
+		$result{out} = "\$\n";
 	} else {
 		my @ret = $devel_repl->eval("$code");
 		
 		if($devel_repl->is_error(@ret)) {
-			$err = $devel_repl->format_error(@ret);
-			$out = "\$ $code";
+			$result{err} = $devel_repl->format_error(@ret);
+			$result{out} = "\$ $code";
 		} else {
-			$out = "\$ $code\n@ret\n";
+			$result{out} = "\$ $code\n@ret\n";
 		}
 	}
-	# Result...
-	my %result = (
-		ok  => 1,
-		out => $out,
-		err  => $err,
-	);
 
 	# Return the REPL result
 	return $self->render( json => \%result );
