@@ -113,3 +113,12 @@ span.CodeMirror-matchhighlight {
 .farabi-icon-selected {
 	box-shadow: 1px 1px 12px gray;
 }
+
+#myTab > li > a {
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+
+#myTab {
+	margin-bottom: 0px;
+}
