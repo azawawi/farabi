@@ -1,5 +1,5 @@
 	<!-- REPL Dialog -->
-	<div class="modal" id="repl-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal hide fade" id="repl-dialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<h3 id="myModalLabel"><a href="http://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop"> REPL</a></h3>
 		</div>

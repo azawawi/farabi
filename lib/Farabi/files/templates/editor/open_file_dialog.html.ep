@@ -1,5 +1,5 @@
 	<!-- Open file dialog -->
-  <div class="modal" id="open-file-dialog" tabindex="-1" role=
+  <div class="modal hide fade" id="open-file-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <h3 id="myModalLabel">Open File</h3>
