@@ -109,3 +109,7 @@ span.CodeMirror-matchhighlight {
 	opacity: .1;
 	filter: alpha(opacity=10);
 }
+
+.farabi-icon-selected {
+	box-shadow: 1px 1px 12px gray;
+}
