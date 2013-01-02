@@ -1,8 +1,19 @@
 Changes for Farabi
 
-0.23  TBD
-    - Disable all form submission to prevent UI from refreshing
-      by mistake on ENTER key
+0.23  2013.1.2
+    - Devel::REPL is now supported if installed as an internal in-process REPL
+    - Disable all form submission to prevent UI from refreshing by mistake on ENTER key
+    - When the a file is closed and it not clean we need to popup a save confirmation dialog
+    - Various stability and refactorings into a better close file/files action
+    - More fixes to the REPL dialog
+    - Untitled editors are considered Perl by default
+    - Close the last editor tab create a new Untitled one
+    - Added * after an editor tab name if is modified
+    - Add the initial implementation of save file
+    - REPL command output is now readonly in REPL dialog
+    - Added Close File and Close All Files.
+    - Fix mode selection bug when open a file that is not perl
+    - Added a feature to accept a directory parameter to find-file
 
 0.22  2012.12.24
     - New file opens an empty "Untitled %d" new tab
