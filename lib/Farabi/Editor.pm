@@ -582,12 +582,7 @@ sub _find_editor_mode_from_filename {
 }
 
 
-# Perl REPL (Read-Eval-Print-Loop)
-sub perl_repl_eval {
-	warn "perl_repl_eval is not implemented\n";
-}
-
-# Perl6 REPL (Read-Eval-Print-Loop)
+# Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self = shift;
 	my $runtime_id = $self->param('runtime') // 'perl';
@@ -596,8 +591,7 @@ sub repl_eval {
 	# TODO make these configurable?
 	my %runtimes = (
 		'perl' => {
-			cmd => 're.pl',
-			prompt => '$\Z',
+			# Special case that uses an internal inprocess Devel::REPL object
 		},
 		'rakudo' => {
 			cmd => 'perl6',
@@ -608,8 +602,6 @@ sub repl_eval {
 			prompt => 'niecza> \Z',
 		},
 	);
-	
-	
 
 	# The process that we're gonna REPL
 	my $runtime = $runtimes{$runtime_id};
@@ -623,6 +615,11 @@ sub repl_eval {
 		);
 		# Return the REPL result
 		return $self->render( json => \%result );
+	}
+
+	# Handle the special case for Devel::REPL
+	if($runtime_id eq 'perl') {
+		return $self->_devel_repl_eval($command);
 	}
 
 	# Prepare the REPL command....
@@ -645,7 +642,54 @@ sub repl_eval {
 
 	# Result...
 	my %result = (
-	    ok  => 1,
+		ok  => 1,
+		out => $out,
+		err  => $err,
+	);
+
+	# Return the REPL result
+	return $self->render( json => \%result );
+}
+
+# Global shared object at the moment
+# TODO should be stored in session
+my $devel_repl;
+
+# Devel::REPL (Perl)
+sub _devel_repl_eval {
+	my ($self, $code) = @_;
+
+	unless($devel_repl) {
+		# Try to load Devel::REPL
+		require Devel::REPL;
+
+		# Create the REPL object
+		$devel_repl = Devel::REPL->new;
+
+		# Provide Lexical environment for a Perl repl
+		# Without this, it wont remember :)
+		$devel_repl->load_plugin('LexEnv'); 
+	}
+
+	# Define output and error strings
+	my ($out, $err) = ('','');
+
+	if ($code eq '') {
+		# Special case for empty input
+		$out = "\$\n";
+	} else {
+		my @ret = $devel_repl->eval("$code");
+		
+		if($devel_repl->is_error(@ret)) {
+			$err = $devel_repl->format_error(@ret);
+			$out = "\$ $code";
+		} else {
+			$out = "\$ $code\n@ret\n";
+		}
+	}
+	# Result...
+	my %result = (
+		ok  => 1,
 		out => $out,
 		err  => $err,
 	);
