@@ -742,11 +742,11 @@ sub save_file {
 	}
 	
 	if(open my $fh, ">", $filename) {
+		# Saving...
 		print $fh $source;
 		close $fh;
-		
-		say "Saved!";
 	} else {
+		# Error: Cannot open the file for writing/saving
 		$result{err} = "Cannot save $filename";
 	}
 	
