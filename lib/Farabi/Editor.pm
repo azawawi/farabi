@@ -716,11 +716,10 @@ sub _devel_repl_eval {
 sub save_file {
 	my $self = shift;
 	my $filename = $self->param('filename') ;
-	my $contents = $self->param('contents');
+	my $source = $self->param('source');
 
 	# Define output and error strings
 	my %result = (
-		out => '',
 		err  => '',
 	);
 
@@ -734,15 +733,22 @@ sub save_file {
 	}
 	
 	# Check contents parameter
-	unless($contents) {
+	unless($source) {
 		# The error
-		$result{err} = "contents parameter is invalid";
+		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
 		return $self->render( json => \%result );
 	}
 	
-	warn "TODO save file $filename\n";
+	if(open my $fh, ">", $filename) {
+		print $fh $source;
+		close $fh;
+		
+		say "Saved!";
+	} else {
+		$result{err} = "Cannot save $filename";
+	}
 	
 	return $self->render( json => \%result );
 }
