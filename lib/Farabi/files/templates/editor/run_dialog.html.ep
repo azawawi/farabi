@@ -12,7 +12,7 @@
           "runtime">Runtime:</label>
 
           <div class="controls">
-            <select id="runtime" size="5">
+            <select id="runtime" size="10">
               <option id="coffeescript">
                 CoffeeScript
               </option>
