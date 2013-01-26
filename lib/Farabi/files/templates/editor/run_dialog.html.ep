@@ -13,6 +13,9 @@
 
           <div class="controls">
             <select id="runtime" size="5">
+              <option id="coffeescript">
+                CoffeeScript
+              </option>
               <option id="niecza">
                 Niecza
               </option>
