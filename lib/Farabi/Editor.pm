@@ -407,6 +407,10 @@ sub find_action {
 			name=> 'Open URL',
 			help=>  'Opens a file from a URL is new editor tab',
 		},
+		'action-find-duplicate-perl-code'   => {
+			name=> 'Find Duplicate Perl Code',
+			help=>  'Finds any duplicate perl code in the current lib folder',
+		},
 		'action-save-file'   => {
 			name=>'Save File',
 			help=>"Saves the current file ",
@@ -746,6 +750,44 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 	
+	return $self->render( json => \%result );
+}
+
+# Find duplicate Perl code in the current 'lib' folder
+sub find_duplicate_perl_code {
+
+	my $self = shift;
+
+	# Create an cut-n-paste object
+	require Code::CutNPaste;
+	my $cutnpaste = Code::CutNPaste->new(
+		dirs         => ['lib'],
+		renamed_vars => 1,
+		renamed_subs => 1,
+	);
+
+	# Finds the duplicates
+	my $duplicates = $cutnpaste->duplicates;
+
+	# Construct the output
+	my $output = '';
+	foreach my $duplicate (@$duplicates) {
+		my ( $left, $right ) = ( $duplicate->left, $duplicate->right );
+		$output .= sprintf <<'END', $left->file, $left->line, $right->file, $right->line;
+
+	Possible duplicate code found
+	Left:  %s line %d
+	Right: %s line %d
+
+END
+		$output .= $duplicate->report;
+	}
+
+	my %result = (
+		count  => scalar @$duplicates,
+		output => $output,
+	);
+
 	return $self->render( json => \%result );
 }
 
