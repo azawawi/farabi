@@ -35,6 +35,7 @@ span.CodeMirror-matchhighlight {
 
 #output {
 	width: 99%;
+	font-family: monospace;
 }
 
 #help_search_dialog .preview {
