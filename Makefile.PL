@@ -13,6 +13,7 @@ WriteMakefile(
 	# Dependencies
 	PREREQ_PM     => {
 		'Capture::Tiny'    => '0.21',
+		'Code::CutNPaste'  => '0.04',
 		'Debug::Client'    => '0.20',
 		'File::Find::Rule' => '0.33',
 		'File::Which'      => '1.09',
