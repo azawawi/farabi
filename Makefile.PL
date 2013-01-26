@@ -40,7 +40,7 @@ WriteMakefile(
 	META_MERGE => {
 		requires => { perl => '5.010001' },
 		no_index => {
-			directory => [ 't', 'xt', 'eg', 'share', 'inc' ],
+			directory => [ 'xt', 'lib/Farabi/files'],
 		},
 		resources => {
 			license    => 'http://dev.perl.org/licenses',
