@@ -1,0 +1,24 @@
+  <!-- Find Duplicate Perl Code Dialog -->
+  <div class="modal hide fade" id="duplicate-perl-code-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Find Duplicate Perl Code</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-vertical">
+        <div class="control-group">
+          <label class="control-label" for="dirs">Search Directories:</label>
+         <div class="controls">
+			 <input type="text" id="dirs" placeholder="Directories..." autocomplete="off" >
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
+
