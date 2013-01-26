@@ -757,14 +757,42 @@ sub save_file {
 sub find_duplicate_perl_code {
 
 	my $self = shift;
+	my $dirs = $self->param('dirs') ;
 
-	# Create an cut-n-paste object
-	require Code::CutNPaste;
-	my $cutnpaste = Code::CutNPaste->new(
-		dirs         => ['lib'],
-		renamed_vars => 1,
-		renamed_subs => 1,
+	my %result = (
+		count  => 0,
+		output => '',
+		error  => '',
 	);
+
+	unless($dirs) {
+		# Return the error result
+		$result{error} = "dirs parameter is invalid";
+		return $self->render( json => \%result );
+	}
+
+	my @dirs;
+	$dirs =~ s/^\s+|\s+$//g;
+	if($dirs ne '') {
+		# Extract search directories
+		@dirs = split ',', $dirs;
+	}
+
+	my $cutnpaste;
+	eval {
+		# Create an cut-n-paste object
+		require Code::CutNPaste;
+		$cutnpaste = Code::CutNPaste->new(
+			dirs         => [@dirs],
+			renamed_vars => 1,
+			renamed_subs => 1,
+		);
+	};
+	if($@) {
+		# Return the error result
+		$result{error} = "Code::CutNPaste validation error:\n" . $@;
+		return $self->render( json => \%result );
+	}
 
 	# Finds the duplicates
 	my $duplicates = $cutnpaste->duplicates;
@@ -783,11 +811,9 @@ END
 		$output .= $duplicate->report;
 	}
 
-	my %result = (
-		count  => scalar @$duplicates,
-		output => $output,
-	);
-
+	# Returns the find duplicate perl code result
+	$result{count} = scalar @$duplicates;
+	$result{output} = $output;
 	return $self->render( json => \%result );
 }
 

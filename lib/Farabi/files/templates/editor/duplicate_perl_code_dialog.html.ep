@@ -9,7 +9,7 @@
         <div class="control-group">
           <label class="control-label" for="dirs">Search Directories:</label>
          <div class="controls">
-			 <input type="text" id="dirs" placeholder="Directories..." autocomplete="off" >
+			 <input type="text" id="dirs" placeholder="Search Directories..." value="lib" autocomplete="off" >
           </div>
         </div>
       </div>
