@@ -18,10 +18,16 @@ my $articles = $mw->list(
 
 use Data::Dumper;
 
+
 # and print the article titles
 for my $article (@$articles ) {
-    say $article->{title};
-	say Dumper($article);
+#    say $article->{title};
+#	say Dumper($article);
+
+	my $page = $mw->get_page( { title => $article->{title} } );
+	print $page->{'*'};
+
+	last;
 	
 }
 
