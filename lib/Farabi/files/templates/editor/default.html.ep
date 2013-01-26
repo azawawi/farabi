@@ -4,7 +4,7 @@
 <title>Farabi: Modern Perl Editor</title>
 
 <!-- The jQuery -->
-<script src="../js/jquery.js"></script>
+<script src="assets/jquery/jquery.1.9.0.min.js"></script>
 
 <!-- Bootstrap -->
 <link href="assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
