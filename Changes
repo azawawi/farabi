@@ -1,7 +1,18 @@
 Changes for Farabi
 
-0.24  TBD
-    -
+0.24  2013.1.26
+    - Fix CREDITS markdown
+    - Fix Perl warning about variable redeclaration
+    - Upgrade to CodeMirror 3.02
+    - Remove the "Editor" line
+    - Added an empty Perl 5 Debugger plugin
+    - Added Module::Pluggable to list of dependencies
+    - Remove the '*' after the tab name after a successful save
+    - First implementation of a save file action
+    - Add modal dialog fade effect for all dialogs
+    - Fix a bug with icon remove
+    - Added the "new file" button which is shown to the right of the editor tabs (like chrome)
+    - Smaller tabs
 
 0.23  2013.1.2
     - Devel::REPL is now supported if installed as an internal in-process REPL
