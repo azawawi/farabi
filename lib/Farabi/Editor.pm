@@ -652,10 +652,8 @@ sub repl_eval {
 	$out =~ s/$prompt//;
 
 	# Result...
-	my %result = (
-		out => $out,
-		err  => $err,
-	);
+	$result{out} = $out;
+	$result{err} = $err;
 
 	# Return the REPL result
 	return $self->render( json => \%result );
