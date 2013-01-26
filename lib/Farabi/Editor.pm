@@ -767,7 +767,7 @@ sub find_duplicate_perl_code {
 
 	unless($dirs) {
 		# Return the error result
-		$result{error} = "dirs parameter is invalid";
+		$result{error} = "Error:\ndirs parameter is invalid";
 		return $self->render( json => \%result );
 	}
 
