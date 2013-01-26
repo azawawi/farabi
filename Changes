@@ -1,7 +1,15 @@
 Changes for Farabi
 
-0.25  TBD
-    -
+0.25  2013.1.26
+    - Run CoffeeScript in your browser using Farabi
+    - Default to 'Perl' instead of Perlito in the run dialog
+    - When there is no extension, default to 'plain' text
+    - Fixed redundant no_index entries and added lib/Farabi/files to it
+    - "what sri says - don't do it." Do not use internal mojo jquery :)
+    - Fix various focus after modal dialog fade in animations
+    - Less file extension regex weirdness
+    - Fix close file bug after closing an open file
+    - Fix package name for Farabi::Plugin::Debug
 
 0.24  2013.1.26
     - Fix CREDITS markdown
