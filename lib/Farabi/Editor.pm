@@ -552,7 +552,7 @@ sub _find_editor_mode_from_filename {
 	my $filename = shift;
 	
 	my $extension;
-	if($filename =~ /\.(.+)$/) {
+	if($filename =~ /\.([^.]+)$/) {
 		# Extract file extension greedily
 		$extension = $1;
 	}
