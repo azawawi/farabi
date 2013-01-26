@@ -1,6 +1,6 @@
 package Farabi::Plugin::Debug;
 
-our $VERSION = '0.25';
+our $VERSION = '0.26';
 
 # Returns the plugin's name
 sub plugin_name {

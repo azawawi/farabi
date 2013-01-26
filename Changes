@@ -1,5 +1,8 @@
 Changes for Farabi
 
+0.26  TBD
+    - 
+
 0.25  2013.1.26
     - Run CoffeeScript in your browser using Farabi
     - Default to 'Perl' instead of Perlito in the run dialog
