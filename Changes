@@ -1,7 +1,10 @@
 Changes for Farabi
 
-0.26  TBD
-    - 
+0.26  2013.1.26
+    - Add Find duplicate code dialog
+    - Added Code::CutNPaste to dependencies
+    - Increased the size of the Run dialog runtime list
+      from 5 to 10 elements
 
 0.25  2013.1.26
     - Run CoffeeScript in your browser using Farabi

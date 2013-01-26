@@ -42,6 +42,3 @@ Rosetta code browser in "Learn" tab. You can select Task and then use the mimety
 
 To install Pithub, we need Net::SSLeay installed and hence
 sudo apt-get install libssl-dev
-
-
-Added Find Cut and Paste code 'use Code::CutNPaste'
