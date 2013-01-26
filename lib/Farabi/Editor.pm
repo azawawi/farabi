@@ -579,7 +579,7 @@ sub _find_editor_mode_from_filename {
 	);
 	
 	# No extension, let us use default text mode
-	return 0 if !defined $extension;
+	return 'plain' if !defined $extension;
 	return $extension_to_mode{$extension};
 }
 
