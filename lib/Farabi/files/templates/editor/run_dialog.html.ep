@@ -25,11 +25,11 @@
                 Perlito 6
               </option>
 
-              <option id="perlito-5" selected>
+              <option id="perlito-5">
                 Perlito 5
               </option>
 
-	      <option id="perl">
+	      <option id="perl" selected="selected">
                 Perl
               </option>
 
