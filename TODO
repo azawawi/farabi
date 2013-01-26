@@ -37,7 +37,7 @@ Investigate integrating perl6 support through the following:
 
 Rosetta code browser in "Learn" tab. You can select Task and then use the mimetype
 	http://rosettacode.org/wiki/User_input/Text#Perl_6
-	http://rosettacode.org/wiki/Category:Perl_6=======	http://coffeescript.org/#scripts
+	http://rosettacode.org/wiki/Category:Perl_6
 
 
 To install Pithub, we need Net::SSLeay installed and hence
