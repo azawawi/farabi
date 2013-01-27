@@ -399,6 +399,10 @@ sub find_action {
 			name=>'Close All Files',
 			help=>"Closes all of the open files",
 		},
+		'action-dump-ppi-tree' => {
+			name=>'Dump the PPI tree',
+			help=>"Dumps the PPI tree into the output pane",
+		},
 		'action-open-file'   => {
 			name=>'Open File',
 			help=>"Opens a file in a new editor tab",
@@ -818,17 +822,37 @@ END
 }
 
 # Dumps the PPI tree for the given source parameter
-sub dump_ppi {
+sub dump_ppi_tree {
 
 	my $self = shift;
 	my $source = $self->param('source') ;
 
 	my %result = (
+		output => '',
+		error  => '',
 	);
-	
-	require PPI;
-	
 
+	# Make sure that the source parameter is not undefined
+	unless($source) {
+		# Return the error JSON result
+		$result{error} = "Error:\nSource parameter is undefined";
+		return $self->render( json => \%result );
+	}
+
+	# Load PPI at runtime
+	require PPI;
+	require PPI::Dumper;
+
+	# Load a document
+	my $module = PPI::Document->new( \$source );
+ 
+	# Create the dumper
+	my $dumper = PPI::Dumper->new( $module );
+ 
+	# Dump the document as a string
+	$result{output} = $dumper->string;
+
+	# Return the JSON result
 	return $self->render( json => \%result );
 }
 
