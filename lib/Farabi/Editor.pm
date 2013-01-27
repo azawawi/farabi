@@ -833,7 +833,7 @@ sub dump_ppi_tree {
 	);
 
 	# Make sure that the source parameter is not undefined
-	unless($source) {
+	unless(defined $source) {
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
 		return $self->render( json => \%result );
