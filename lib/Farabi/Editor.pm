@@ -817,6 +817,21 @@ END
 	return $self->render( json => \%result );
 }
 
+# Dumps the PPI tree for the given source parameter
+sub dump_ppi {
+
+	my $self = shift;
+	my $source = $self->param('source') ;
+
+	my %result = (
+	);
+	
+	require PPI;
+	
+
+	return $self->render( json => \%result );
+}
+
 # The default root handler
 sub default {
 	my $self = shift;

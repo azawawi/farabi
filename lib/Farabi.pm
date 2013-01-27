@@ -36,6 +36,7 @@ sub startup {
 	$route->post('/run-niecza')->to('editor#run_niecza');
 	$route->post('/run-parrot')->to('editor#run_parrot');
 	$route->post('/find-duplicate-perl-code')->to('editor#find_duplicate_perl_code');
+	$route->post('/dump-ppi')->to('editor#dump_ppi');
 
 	# Web-based Read-Eval-Print-Loop (REPL) action
 	$route->post('/repl-eval')->to('editor#repl_eval');
