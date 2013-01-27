@@ -1,8 +1,14 @@
 Changes for Farabi
 
-0.27  TBD
+0.28  TBD
     -
-s
+
+0.27  2013.1.27
+    - Updated copyright for 2013
+    - Added more license documentation
+    - Added "Dump PPI Tree" action
+    - Added MediaWiki::API to dependencies for the future Rosetta code browser feature
+
 0.26  2013.1.26
     - Add Find duplicate code dialog
     - Added Code::CutNPaste to dependencies
