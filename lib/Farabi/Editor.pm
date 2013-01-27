@@ -845,7 +845,10 @@ sub dump_ppi_tree {
 
 	# Load a document
 	my $module = PPI::Document->new( \$source );
- 
+
+	# No whitespace tokens
+ 	$module->prune('PPI::Token::Whitespace');
+
 	# Create the dumper
 	my $dumper = PPI::Dumper->new( $module );
  
