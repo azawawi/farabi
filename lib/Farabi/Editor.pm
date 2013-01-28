@@ -435,6 +435,10 @@ sub find_action {
 			name=> 'Perl Critic',
 			help=> 'Run the Perl::Critic tool on the current editor tab',
 		},
+		'action-plugin-manager' => {
+			name=> 'Plugin Manager',
+			help=> 'Opens the plugin manager',
+		},
 		'action-save-file'   => {
 			name=>'Save File',
 			help=>"Saves the current file ",

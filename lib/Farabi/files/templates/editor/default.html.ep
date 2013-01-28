@@ -21,6 +21,7 @@
 <script src="farabi_options_dialog.js"></script>
 <script src="farabi_save_question_dialog.js"></script>
 <script src="farabi_duplicate_perl_code_dialog.js"></script>
+<script src="plugin_manager_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
@@ -67,6 +68,7 @@
 <%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
 <%= include "editor/duplicate_perl_code_dialog"%>
+<%= include "editor/plugin_manager_dialog"%>
 
 </body>
 </html>
