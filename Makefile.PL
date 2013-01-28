@@ -20,7 +20,7 @@ WriteMakefile(
 		'IO::String'       => '1.08',
 		'IPC::Run'         => '0.92',
 		'MediaWiki::API'   => '0.39',
-		'Module::Pluggable' => '4.6',
+		'Module::Pluggable' => '4.5',
 		'Mojolicious'      => '3.36',
 		'Perl::Critic'     => '1.118',
 		'Perl::Tidy'       => '20120714',
