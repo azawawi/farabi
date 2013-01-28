@@ -1,6 +1,6 @@
 package Farabi::Plugin::PerlTidy;
 
-our $VERSION = '0.29';
+our $VERSION = '0.30';
 
 sub new {
 	return bless {};
