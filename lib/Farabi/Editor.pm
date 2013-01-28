@@ -387,9 +387,9 @@ sub find_action {
 
 	# The actions
 	my %actions = (
-		'action-new-file'   => {
-			name=>'New File',
-			help=>"Opens a new file in a new editor tab",
+		'action-about'       => {
+			name=> 'About Farabi',
+			help=> 'Opens an dialog about the current application',
 		},
 		'action-close-file' => {
 			name=>'Close File',
@@ -403,6 +403,14 @@ sub find_action {
 			name=>'Dump the PPI tree',
 			help=>"Dumps the PPI tree into the output pane",
 		},
+		'action-find-duplicate-perl-code'   => {
+			name=> 'Find Duplicate Perl Code',
+			help=>  'Finds any duplicate perl code in the current lib folder',
+		},
+		'action-help' => {
+			name=>'Help - Getting Started',
+			help=> 'A quick getting started help dialog',
+		},
 		'action-open-file'   => {
 			name=>'Open File',
 			help=>"Opens a file in a new editor tab",
@@ -411,13 +419,13 @@ sub find_action {
 			name=> 'Open URL',
 			help=>  'Opens a file from a URL is new editor tab',
 		},
-		'action-find-duplicate-perl-code'   => {
-			name=> 'Find Duplicate Perl Code',
-			help=>  'Finds any duplicate perl code in the current lib folder',
+		'action-new-file'   => {
+			name=>'New File',
+			help=>"Opens a new file in a new editor tab",
 		},
-		'action-save-file'   => {
-			name=>'Save File',
-			help=>"Saves the current file ",
+		'action-options'      => {
+			name=> 'Options',
+			help=> 'Open the options dialog',
 		},
 		'action-perl-tidy'   => {
 			name=> 'Perl Tidy',
@@ -427,25 +435,13 @@ sub find_action {
 			name=> 'Perl Critic',
 			help=> 'Run the Perl::Critic tool on the current editor tab',
 		},
+		'action-save-file'   => {
+			name=>'Save File',
+			help=>"Saves the current file ",
+		},
 		'action-syntax-check' => {
 			name=>'Syntax Check',
 			help=>'Run the syntax check tool on the current editor tab',
-		},
-		'action-run'          => {
-			name=>'Run',
-			help=> 'Run the current editor source file using the run dialog',
-		},
-		'action-options'      => {
-			name=> 'Options',
-			help=> 'Open the options dialog',
-		},
-		'action-help' => {
-			name=>'Help - Getting Started',
-			help=> 'A quick getting started help dialog',
-		},
-		'action-about'       => {
-			name=> 'About Farabi',
-			help=> 'Opens an dialog about the current application',
 		},
 		'action-perl-doc' => {
 			name => 'Help - Perl Documentation',
@@ -454,6 +450,10 @@ sub find_action {
 		'action-repl' => {
 			name =>'REPL - Read-Print-Eval-Loop',
 			help => 'Opens the Read-Print-Eval-Loop dialog',
+		},
+		'action-run'          => {
+			name=>'Run',
+			help=> 'Run the current editor source file using the run dialog',
 		},
 	);
 
