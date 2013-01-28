@@ -37,6 +37,7 @@ sub startup {
 	$route->post('/run-parrot')->to('editor#run_parrot');
 	$route->post('/find-duplicate-perl-code')->to('editor#find_duplicate_perl_code');
 	$route->post('/dump-ppi-tree')->to('editor#dump_ppi_tree');
+	$route->post('/find-plugins')->to('editor#find_plugins');
 
 	# Web-based Read-Eval-Print-Loop (REPL) action
 	$route->post('/repl-eval')->to('editor#repl_eval');

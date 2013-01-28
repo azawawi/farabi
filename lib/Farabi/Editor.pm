@@ -863,6 +863,38 @@ sub dump_ppi_tree {
 	return $self->render( json => \%result );
 }
 
+# Find all Farabi plugins
+sub find_plugins {
+	my $self = shift;
+
+	# Create a non-instantiating plugin finder object
+	require Module::Pluggable::Object;
+	my $finder = Module::Pluggable::Object->new(
+		search_path => 'Farabi::Plugin',
+		require     => 1,
+		inner       => 0,
+   );
+   
+	# Find all plugins
+	my @plugins;
+	for my $plugin ($finder->plugins) {
+		my $o;
+		eval { $o = $plugin->new; };
+		next unless defined $o;
+		if($o->can('plugin_name')) {
+			push @plugins, {
+				id   => $plugin,
+				name =>	$o->plugin_name,
+			};
+		} else {
+			warn "$plugin does not support plugin_name";
+		}
+	}
+
+	# Return the JSON result
+	return $self->render( json => \@plugins );
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
