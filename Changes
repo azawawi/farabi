@@ -1,7 +1,12 @@
 Changes for Farabi
 
-0.28  TBD
-    -
+0.28  2013.1.28
+    - Added Plugin Manager which displays the Farabi plugins at the moment.
+    - When a tab is shown, let us update current editor id.
+      This fixes a lot of file save/run bugs.
+    - Added dummy plugins for Perl::Critic and Perl::Tidy support
+    - Require Module::Pluggable 4.5 instead of 4.6 (Thanks to kevin dawson)
+    - Perl and Javascript code refactor
 
 0.27  2013.1.27
     - Updated copyright for 2013
