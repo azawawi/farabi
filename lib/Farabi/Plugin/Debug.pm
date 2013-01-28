@@ -1,6 +1,6 @@
 package Farabi::Plugin::Debug;
 
-our $VERSION = '0.28';
+our $VERSION = '0.29';
 
 sub new {
 	return bless {};

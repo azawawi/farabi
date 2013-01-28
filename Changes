@@ -1,5 +1,8 @@
 Changes for Farabi
 
+0.29  2013.1.29
+    - Fixed missing MANIFEST in 0.28
+
 0.28  2013.1.28
     - Added Plugin Manager which displays the Farabi plugins at the moment.
     - When a tab is shown, let us update current editor id.
