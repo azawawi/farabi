@@ -16,7 +16,11 @@ sub plugin_name {
 __END__
 
 =pod
-s
+
+=head1 NAME
+
+Farabi::Plugin::PerlTidy - Perl::Tidy support for Farabi
+
 =head1 COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2012-2013 by Ahmad M. Zawawi

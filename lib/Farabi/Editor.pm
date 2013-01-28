@@ -912,6 +912,10 @@ __END__
 
 =pod
 
+=head1 NAME
+
+Farabi::Editor - Action Controller
+
 =head1 COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2012-2013 by Ahmad M. Zawawi
