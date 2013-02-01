@@ -14,8 +14,10 @@ WriteMakefile(
 	PREREQ_PM     => {
 		'Capture::Tiny'    => '0.21',
 		'Code::CutNPaste'  => '0.04',
+		'DBD::SQLite'      => '1.37',
 		'Debug::Client'    => '0.20',
 		'File::Find::Rule' => '0.33',
+		'DBIx::Simple'     => '1.35',
 		'File::Which'      => '1.09',
 		'IO::String'       => '1.08',
 		'IPC::Run'         => '0.92',
