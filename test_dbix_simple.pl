@@ -1,7 +1,7 @@
 use Modern::Perl;
 use DBIx::Simple;
 
-my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.dat');
+my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
 
 my $list;
 eval { $list = $db->query("SELECT * FROM recent_list") };
