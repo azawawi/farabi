@@ -21,10 +21,14 @@ sub file_file_rule {
 sub path_iterator_rule {
 	my $dir = shift;
 
-	#my @dirs  = ($dir);
-	my @files = 
+	my %options = (
+		sorted        => 0,
+		depthfirst    => -1,
+		error_handler => undef
+	);
+	my @files =
 	  Path::Iterator::Rule->new->skip_dirs( 'CVS', '.svn', '.git', 'blib',
-		'.build' )->file->all($dir);
+		'.build' )->file->all( $dir, \%options );
 
 	say scalar @files;
 }
@@ -32,10 +36,9 @@ sub path_iterator_rule {
 my $dir = '/home/azawawi';
 
 timethese(
-	5,
+	1,
 	{
 		'file_file_rule'     => sub { file_file_rule $dir },
 		'path_iterator_rule' => sub { path_iterator_rule $dir; },
 	}
 );
-
