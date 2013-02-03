@@ -2,6 +2,7 @@
 use Modern::Perl;
 use File::Find::Rule;
 use Path::Iterator::Rule;
+use File::Next;
 use Benchmark;
 
 sub file_file_rule {
@@ -33,12 +34,32 @@ sub path_iterator_rule {
 	say scalar @files;
 }
 
+sub file_next {
+	my $dir = shift;
+
+	my $descend_filter = sub {
+		     $_ ne 'CVS'
+		  && $_ ne '.svn'
+		  && $_ ne '.git'
+		  && $_ ne 'blib'
+		  && $_ ne '.build';
+	};
+	my $files =
+	  File::Next::everything( $dir, descend_filter => $descend_filter, sort_files => 0 );
+
+	my $count = 0;
+	while ( defined( $files->() ) ) {
+		$count++;
+	}
+}
+
 my $dir = '/home/azawawi';
 
 timethese(
 	1,
 	{
 		'file_file_rule'     => sub { file_file_rule $dir },
-		'path_iterator_rule' => sub { path_iterator_rule $dir; },
+		'path_iterator_rule' => sub { path_iterator_rule $dir },
+		'file_next'          => sub { file_next $dir }
 	}
 );
