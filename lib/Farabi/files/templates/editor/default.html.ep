@@ -47,12 +47,26 @@
 				<br/>
 			</div>
 			<div class="row-fluid">
-				<ul id="myTab" class="nav nav-tabs"></ul>
-				<div id="myTabContent" class="tab-content"></div>
-			</div>
-			<div class="row-fluid">
-				<b>Output:</b>
-				<textarea id="output" cols="80" rows="10"></textarea>
+				<div class="span6">
+					<ul id="myTab" class="nav nav-tabs"></ul>
+					<div id="myTabContent" class="tab-content"></div>
+				</div>
+				<div class="span6">
+					<ul id="rightTab" class="nav nav-tabs">
+						<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
+						<li><a href="#pod-preview-tab" data-toggle="tab">POD Preview</a></li>
+					</ul>
+					<div id="rightTabContent" class="tab-content">
+						<div class="tab-pane active" id="output-tab">
+							<textarea id="output" cols="80" rows="27"></textarea>
+						</div>
+						<div class="tab-pane" id="pod-preview-tab">
+							<div class="farabi-bordered">
+								<div  id="pod-tab"></div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

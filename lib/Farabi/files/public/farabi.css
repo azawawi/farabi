@@ -1,9 +1,9 @@
 .CodeMirror {
-	min-height: 450px;
+	min-height: 550px;
 }
 
 .CodeMirror-scroll {
-	min-height: 450px;
+	min-height: 550px;
 }
 
 .CodeMirror-gutter {
@@ -34,7 +34,7 @@ span.CodeMirror-matchhighlight {
 }
 
 #output {
-	width: 99%;
+	width: 98%;
 	font-family: monospace;
 }
 
@@ -60,7 +60,7 @@ span.CodeMirror-matchhighlight {
 
 /** Smaller <h1>..<h6> font size inside the POD tab */
 #pod-tab {
-	height: 450px;
+	height: 550px;
 	overflow: auto;
 }
 
@@ -121,6 +121,15 @@ span.CodeMirror-matchhighlight {
 }
 
 #myTab {
+	margin-bottom: 0px;
+}
+
+#rightTab > li > a {
+	padding-top: 5px;
+	padding-bottom: 0px;
+}
+
+#rightTab {
 	margin-bottom: 0px;
 }
 
