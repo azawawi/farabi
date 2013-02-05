@@ -1,7 +1,18 @@
 Changes for Farabi
 
-0.30  TBD
-    -
+0.30  2013.2.6
+    - More vertical space to the left-side editor. Output and POD
+      Preview are right-side tabs to utilize wide-screen resolutions.
+    - Less module dependencies
+    - Farabi database is now created with the recent list table
+    - Started to remove help documentation index autocompletion. 
+      The feature will be replaced by a simple and standard perldoc lookup.
+      Each project will have a Perl runtime version and therefore will
+      use the runtime's perldoc command
+    - Plugin Manager is broken at the moment. A farabi plugin now reports
+      back required dependencies after creation.
+    - Upgrade to jQuery 1.9.1
+    - Added more documentation
 
 0.29  2013.1.29
     - Fixed missing MANIFEST in 0.28
