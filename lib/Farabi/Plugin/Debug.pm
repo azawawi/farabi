@@ -26,7 +26,7 @@ __END__
 
 =head1 NAME
 
-Farabi::Plugin:s:Debug - Debugger support for Farabi
+Farabi::Plugin::Debug - Debugger support for Farabi
 
 =head1 COPYRIGHT AND LICENSE
 
