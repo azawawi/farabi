@@ -45,7 +45,12 @@ sub startup {
 	$route->post('/repl-eval')->to('editor#repl_eval');
 
 	# Setup the Farabi database
-	_setup_database();
+	eval {
+		$app->_setup_database;
+	};
+	if($@) {
+		warn "Database not setup, reason: $@";
+	}
 }
 
 # Setup the Farabi database
@@ -58,9 +63,9 @@ sub _setup_database {
 	# Create tables if they do not exist
 	$db->query(<<SQL);
 CREATE TABLE IF NOT EXISTS recent_list (
-	id INTEGER PRIMARY KEY AUTOINCREMENT, 
-	name TEXT,
-	type TEXT,
+	id        INTEGER PRIMARY KEY AUTOINCREMENT, 
+	name      TEXT,
+	type      TEXT,
 	last_used TEXT
 )
 SQL
