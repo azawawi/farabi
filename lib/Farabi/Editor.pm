@@ -4,7 +4,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
-our $VERSION = '0.30';
+our $VERSION = '0.31';
 
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {

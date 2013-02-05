@@ -1,6 +1,6 @@
 package Farabi::Plugin::PerlCritic;
 
-our $VERSION = '0.30';
+our $VERSION = '0.31';
 
 sub new {
 	return bless {};
