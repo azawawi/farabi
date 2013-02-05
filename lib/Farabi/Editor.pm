@@ -142,40 +142,6 @@ sub perl_tidy {
 }
 
 # i.e. Autocompletion
-sub typeahead {
-	my $self = shift;
-	my $query = quotemeta( $self->param('query') // '' );
-
-	my %items;
-	if ( open my $fh, '<', 'index.txt' ) {
-		while (<$fh>) {
-			$items{$1} = 1 if /^(.+?)\t/;
-		}
-		close $fh;
-	}
-
-	if ( open my $fh, '<', 'index-modules.txt' ) {
-		while (<$fh>) {
-			chomp;
-			my ( $module, $file ) = split /\t/;
-			$items{$module} = 1;
-		}
-		close $fh;
-	}
-
-	my @matches;
-	for my $item ( keys %items ) {
-		if ( $item =~ /$query/i ) {
-			push @matches, $item;
-		}
-	}
-
-	# Sort so that shorter matches appear first
-	@matches = sort @matches;
-
-	return $self->render( json => \@matches );
-}
-
 sub help_search {
 	my $self = shift;
 	my $topic = $self->param('topic') // '';

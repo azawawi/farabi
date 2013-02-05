@@ -23,7 +23,6 @@ sub startup {
 	$route->post('/help_search')->to('editor#help_search');
 	$route->post('/perl-tidy')->to('editor#perl_tidy');
 	$route->post('/perl-critic')->to('editor#perl_critic');
-	$route->post('/typeahead')->to('editor#typeahead');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post('/pod-check')->to('editor#pod_check');
 	$route->post('/open-file')->to('editor#open_file');
@@ -38,9 +37,9 @@ sub startup {
 	$route->post('/find-duplicate-perl-code')->to('editor#find_duplicate_perl_code');
 	$route->post('/dump-ppi-tree')->to('editor#dump_ppi_tree');
 	$route->post('/find-plugins')->to('editor#find_plugins');
-
-	# Web-based Read-Eval-Print-Loop (REPL) action
 	$route->post('/repl-eval')->to('editor#repl_eval');
+
+	
 }
 
 sub unsafe_features {
