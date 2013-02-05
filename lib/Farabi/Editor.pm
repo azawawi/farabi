@@ -880,15 +880,83 @@ sub find_plugins {
 	for my $plugin ($finder->plugins) {
 		my $o;
 		eval { $o = $plugin->new; };
-		next unless defined $o;
+		if($@) {
+			push @plugins, {
+				id => $plugin,
+				name => $plugin,
+				status => 'Plugin creation failure',
+			};
+
+			# No need to process anymore
+			next;
+		}
+
+		unless(defined $o) {
+			push @plugins, {
+				id => $plugin,
+				name => $plugin,
+				status => 'Plugin creation failure',
+			};
+			
+			# No need to process anymore
+			next;
+		}
+
 		if($o->can('plugin_name')) {
+			# plugin_name is supported
 			push @plugins, {
 				id   => $plugin,
 				name =>	$o->plugin_name,
+				status => '',
+			};
+
+		} else {
+			# No plugin_name support
+			push @plugins, {
+				id => $plugin,
+				name => '',
+				status => 'Does not support plugin_name!',
+			};
+			
+			# No need to process anymore
+			next;
+		}
+		
+		if($o->can('plugin_deps')) {
+
+			my $status = '';
+
+			my $plugin_deps = $o->plugin_deps;
+			for my $dep_name (keys %$plugin_deps) {
+				my $dep_version = $plugin_deps->{$dep_name};
+
+				# Validate module dependency rule
+				eval "require $dep_name $dep_version";
+				if ($@) {
+
+					# Dependency rule not met
+					$status .= "$dep_name $dep_version+ not found\n";
+				}
+
+			}
+
+			# plugin_deps is supported
+			push @plugins, {
+				id   => $plugin,
+				name =>	$o->plugin_deps,
+				status => $status,
 			};
 		} else {
-			warn "$plugin does not support plugin_name";
+			# No plugin_name support
+			push @plugins, {
+				id => $plugin,
+				name => '',
+				status => 'Does not support plugin_name!',
+			};
 		}
+		
+
+
 	}
 
 	# Return the JSON result

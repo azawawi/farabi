@@ -6,6 +6,13 @@ sub new {
 	return bless {};
 }
 
+# Returns the plugin module dependencies
+sub plugin_deps {
+	return [
+		'Debug::Client' => '0.20',
+	];
+}
+
 # Returns the plugin's name
 sub plugin_name {
 	return 'Perl 5 Debugger';
