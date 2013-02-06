@@ -5,15 +5,15 @@ use Moo;
 our $VERSION = '0.31';
 
 # Plugin module dependencies
-has 'plugin_deps' => (
+has 'deps' => (
 	is      => 'ro',
 	default => sub {
 		[ 'Perl::Tidy' => '20120714', ];
 	}
 );
-
+s
 # Plugin's name
-has 'plugin_name' => (
+has 'name' => (
 	is      => 'ro',
 	default => sub {
 		'Perl::Tidy support';

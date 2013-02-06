@@ -868,7 +868,7 @@ sub find_plugins {
 	my @plugins;
 	for my $plugin ( $finder->plugins ) {
 		my $o;
-		eval { $o = $plugin->new; };
+		eval { require $plugin; $o = $plugin->new; };
 		if ($@) {
 			push @plugins,
 			  {
@@ -895,17 +895,17 @@ sub find_plugins {
 
 		if ( $o->can('name') ) {
 
-			# plugin_name is supported
+			# 'name' is supported
 			push @plugins,
 			  {
 				id     => $plugin,
-				name   => $o->plugin_name,
+				name   => $o->name,
 				status => '',
 			  };
 
 		}
 		else {
-			# No plugin_name support
+			# No 'name' support
 			push @plugins,
 			  {
 				id     => $plugin,
@@ -921,30 +921,30 @@ sub find_plugins {
 
 			my $status = '';
 
-			my $plugin_deps = $o->plugin_deps;
-			for my $dep_name ( keys %$plugin_deps ) {
-				my $dep_version = $plugin_deps->{$dep_name};
+			my $deps = $o->deps;
+			for my $name ( keys %$deps ) {
+				my $version = $deps->{$name};
 
 				# Validate module dependency rule
-				eval "require $dep_name $dep_version";
+				eval "require $name $version";
 				if ($@) {
 
 					# Dependency rule not met
-					$status .= "$dep_name $dep_version+ not found\n";
+					$status .= "'$name' $version or later not found\n";
 				}
 
 			}
 
-			# plugin_deps is supported
+			# deps is supported
 			push @plugins,
 			  {
 				id     => $plugin,
-				name   => $o->plugin_deps,
+				name   => $deps,
 				status => $status,
 			  };
 		}
 		else {
-			# No plugin_name support
+			# No deps support
 			push @plugins,
 			  {
 				id     => $plugin,
