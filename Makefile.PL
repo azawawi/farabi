@@ -4,26 +4,28 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
+
 	# Package information
 	NAME          => 'Farabi',
 	VERSION_FROM  => 'lib/Farabi.pm',
 	ABSTRACT_FROM => 'lib/Farabi.pm',
 	AUTHOR        => 'Ahmad M. Zawawi <ahmad.zawawi@gmail.com>',
-	
+
 	# Dependencies
-	PREREQ_PM     => {
-		'Capture::Tiny'    => '0.21',
-		'Code::CutNPaste'  => '0.04',
-		'DBD::SQLite'      => '1.37',
-		'DBIx::Simple'     => '1.35',
-		'File::Find::Rule' => '0.33',
-		'File::Which'      => '1.09',
-		'IO::String'       => '1.08',
-		'IPC::Run'         => '0.92',
+	PREREQ_PM => {
+		'Capture::Tiny'     => '0.21',
+		'Code::CutNPaste'   => '0.04',
+		'DBD::SQLite'       => '1.37',
+		'DBIx::Simple'      => '1.35',
+		'File::Find::Rule'  => '0.33',
+		'File::Which'       => '1.09',
+		'IO::String'        => '1.08',
+		'IPC::Run'          => '0.92',
 		'Module::Pluggable' => '4.5',
-		'Mojolicious'      => '3.36',
-		'Perl::Critic'     => '1.118',
-		'Perl::Tidy'       => '20120714',
+		'Mojolicious'       => '3.36',
+		'Moo'               => '1.000008',
+		'Perl::Critic'      => '1.118',
+		'Perl::Tidy'        => '20120714',
 
 		# For testing
 		'Test::More' => '0.98',
@@ -31,16 +33,16 @@ WriteMakefile(
 	},
 
 	# Farabi executable
-	EXE_FILES  => ['bin/farabi'],
+	EXE_FILES => ['bin/farabi'],
 
 	# Tests
-	test       => { TESTS => 't/*.t xt/*.t' },
+	test => { TESTS => 't/*.t xt/*.t' },
 
 	# META.yml metadata
 	META_MERGE => {
 		requires => { perl => '5.010001' },
 		no_index => {
-			directory => [ 'xt', 'lib/Farabi/files'],
+			directory => [ 'xt', 'lib/Farabi/files' ],
 		},
 		resources => {
 			license    => 'http://dev.perl.org/licenses',

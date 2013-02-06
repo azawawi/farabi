@@ -26,27 +26,28 @@ sub perl_critic {
 
 	# Hand off to Perl::Critic
 	require Perl::Critic;
-	my @violations = Perl::Critic->new( -severity => $severity )->critique( \$source );
+	my @violations =
+	  Perl::Critic->new( -severity => $severity )->critique( \$source );
 
 	my @results;
 	for my $violation (@violations) {
 		push @results,
-			{
+		  {
 			policy      => $violation->policy,
 			line_number => $violation->line_number,
 			description => $violation->description,
 			explanation => $violation->explanation,
 			diagnostics => $violation->diagnostics,
-			};
+		  };
 	}
 
 	$self->render( json => \@results );
 }
 
 sub _capture_cmd_output {
-	my $self     = shift;
-	my $cmd      = shift;
-	my $source   = $self->param('source');
+	my $self   = shift;
+	my $cmd    = shift;
+	my $source = $self->param('source');
 
 	# Check source parameter
 	unless ( defined $source ) {
@@ -58,22 +59,22 @@ sub _capture_cmd_output {
 		$self->app->log->warn('FARABI_UNSAFE not defined');
 		return;
 	}
-	
+
 	require File::Temp;
 	my $tmp = File::Temp->new;
 	print $tmp $source;
 	close $tmp;
 
-	my ($stdout, $stderr, $exit) = capture {
-		system($cmd, $tmp->filename);
+	my ( $stdout, $stderr, $exit ) = capture {
+		system( $cmd, $tmp->filename );
 	};
 	my $result = {
 		stdout => $stdout,
 		stderr => $stderr,
 		'exit' => $exit & 128,
 	};
-	
-	$self->render(json => $result);
+
+	$self->render( json => $result );
 }
 
 sub run_perl {
@@ -165,7 +166,8 @@ sub help_search {
 	unless ( -f $pod_index_filename ) {
 
 		# Find all the .pm and .pod files in @INC
-		$self->app->log->info("Finding all of *.pm and *.pod files in Perl search path");
+		$self->app->log->info(
+			"Finding all of *.pm and *.pod files in Perl search path");
 		require File::Find::Rule;
 		my @files = File::Find::Rule->file()->name( '*.pm', '*.pod' )->in(@INC);
 
@@ -218,11 +220,11 @@ sub help_search {
 		my $podname = $r->podname;
 		$podname =~ s/^.+::(.+)$/$1/;
 		push @help_results,
-			{
+		  {
 			'podname' => $podname,
 			'context' => $r->context,
 			'html'    => _pod2html( $r->pod ),
-			};
+		  };
 	}
 
 	if ( open my $fh, '<', $module_index_filename ) {
@@ -232,12 +234,12 @@ sub help_search {
 			my ( $module, $filename ) = split /\t/;
 			if ( $module =~ /^$filter$/i ) {
 				push @help_results,
-					{
+				  {
 					'podname' => $module,
 					'context' => '',
 					'html'    => _pod2html( $self->_module_pod($filename) ),
-					},
-					;
+				  },
+				  ;
 			}
 		}
 		close $fh;
@@ -255,7 +257,8 @@ sub _module_pod {
 	if ( open my $fh, '<', $filename ) {
 		$pod = do { local $/ = <$fh> };
 		close $fh;
-	} else {
+	}
+	else {
 		$self->app->log->warn("Cannot open $filename");
 	}
 
@@ -275,10 +278,12 @@ sub _find_installed_modules {
 	require File::Find::Rule;
 	require File::Basename;
 	foreach my $path (@INC) {
-		next if $path eq '.'; # Traversing this is a bad idea
-		                      # as it may be the root of the file
-		                      # system or the home directory
-		foreach my $file ( File::Find::Rule->name( '*.pm', '*.pod' )->in($path) ) {
+		next if $path eq '.';    # Traversing this is a bad idea
+		                         # as it may be the root of the file
+		                         # system or the home directory
+		foreach
+		  my $file ( File::Find::Rule->name( '*.pm', '*.pod' )->in($path) )
+		{
 			my $module = substr( $file, length($path) + 1 );
 			$module =~ s/.(pm|pod)$//;
 			$module =~ s{[\\/]}{::}g;
@@ -320,7 +325,8 @@ sub pod_check {
 
 	my $checker = Pod::Checker->new;
 	my $output  = '';
-	$checker->parse_from_file( IO::String->new($source), IO::String->new($output) );
+	$checker->parse_from_file( IO::String->new($source),
+		IO::String->new($output) );
 
 	my $num_errors   = $checker->num_errors;
 	my $num_warnings = $checker->num_warnings;
@@ -333,10 +339,10 @@ sub pod_check {
 		for ( split /^/, $output ) {
 			if (/^(.+?) at line (\d+) in file \S+$/) {
 				push @problems,
-					{
+				  {
 					message => $1,
 					line    => int($2),
-					};
+				  };
 			}
 		}
 	}
@@ -347,103 +353,104 @@ sub pod_check {
 # Find a list of matched actions
 sub find_action {
 	my $self = shift;
-	
+
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('action') // '' );
 
 	# The actions
 	my %actions = (
-		'action-about'       => {
-			name=> 'About Farabi',
-			help=> 'Opens an dialog about the current application',
+		'action-about' => {
+			name => 'About Farabi',
+			help => 'Opens an dialog about the current application',
 		},
 		'action-close-file' => {
-			name=>'Close File',
-			help=>"Closes the current open file",
+			name => 'Close File',
+			help => "Closes the current open file",
 		},
 		'action-close-all-files' => {
-			name=>'Close All Files',
-			help=>"Closes all of the open files",
+			name => 'Close All Files',
+			help => "Closes all of the open files",
 		},
 		'action-dump-ppi-tree' => {
-			name=>'Dump the PPI tree',
-			help=>"Dumps the PPI tree into the output pane",
+			name => 'Dump the PPI tree',
+			help => "Dumps the PPI tree into the output pane",
 		},
-		'action-find-duplicate-perl-code'   => {
-			name=> 'Find Duplicate Perl Code',
-			help=>  'Finds any duplicate perl code in the current lib folder',
+		'action-find-duplicate-perl-code' => {
+			name => 'Find Duplicate Perl Code',
+			help => 'Finds any duplicate perl code in the current lib folder',
 		},
 		'action-help' => {
-			name=>'Help - Getting Started',
-			help=> 'A quick getting started help dialog',
+			name => 'Help - Getting Started',
+			help => 'A quick getting started help dialog',
 		},
-		'action-open-file'   => {
-			name=>'Open File',
-			help=>"Opens a file in a new editor tab",
+		'action-open-file' => {
+			name => 'Open File',
+			help => "Opens a file in a new editor tab",
 		},
-		'action-open-url'   => {
-			name=> 'Open URL',
-			help=>  'Opens a file from a URL is new editor tab',
+		'action-open-url' => {
+			name => 'Open URL',
+			help => 'Opens a file from a URL is new editor tab',
 		},
-		'action-new-file'   => {
-			name=>'New File',
-			help=>"Opens a new file in a new editor tab",
+		'action-new-file' => {
+			name => 'New File',
+			help => "Opens a new file in a new editor tab",
 		},
-		'action-options'      => {
-			name=> 'Options',
-			help=> 'Open the options dialog',
+		'action-options' => {
+			name => 'Options',
+			help => 'Open the options dialog',
 		},
-		'action-perl-tidy'   => {
-			name=> 'Perl Tidy',
-			help=>'Run the Perl::Tidy tool on the current editor tab',
+		'action-perl-tidy' => {
+			name => 'Perl Tidy',
+			help => 'Run the Perl::Tidy tool on the current editor tab',
 		},
 		'action-perl-critic' => {
-			name=> 'Perl Critic',
-			help=> 'Run the Perl::Critic tool on the current editor tab',
+			name => 'Perl Critic',
+			help => 'Run the Perl::Critic tool on the current editor tab',
 		},
 		'action-plugin-manager' => {
-			name=> 'Plugin Manager',
-			help=> 'Opens the plugin manager',
+			name => 'Plugin Manager',
+			help => 'Opens the plugin manager',
 		},
-		'action-save-file'   => {
-			name=>'Save File',
-			help=>"Saves the current file ",
+		'action-save-file' => {
+			name => 'Save File',
+			help => "Saves the current file ",
 		},
 		'action-syntax-check' => {
-			name=>'Syntax Check',
-			help=>'Run the syntax check tool on the current editor tab',
+			name => 'Syntax Check',
+			help => 'Run the syntax check tool on the current editor tab',
 		},
 		'action-perl-doc' => {
 			name => 'Help - Perl Documentation',
-			help =>'Opens the Perl help documentation dialog',
+			help => 'Opens the Perl help documentation dialog',
 		},
 		'action-repl' => {
-			name =>'REPL - Read-Print-Eval-Loop',
+			name => 'REPL - Read-Print-Eval-Loop',
 			help => 'Opens the Read-Print-Eval-Loop dialog',
 		},
-		'action-run'          => {
-			name=>'Run',
-			help=> 'Run the current editor source file using the run dialog',
+		'action-run' => {
+			name => 'Run',
+			help => 'Run the current editor source file using the run dialog',
 		},
 	);
 
 	# Find matched actions
 	my @matches;
 	for my $action_id ( keys %actions ) {
-		my $action = $actions{$action_id};
+		my $action      = $actions{$action_id};
 		my $action_name = $action->{name};
 		if ( $action_name =~ /^.*$query.*$/i ) {
-			push @matches, { 
-				id =>  $action_id, 
-				name =>  $action_name,
+			push @matches,
+			  {
+				id   => $action_id,
+				name => $action_name,
 				help => $action->{help},
-			};
+			  };
 		}
 	}
-	
+
 	# Sort so that shorter matches appear first
-	@matches = sort { $a->{name} cmp $b->{name} }@matches;
-	
+	@matches = sort { $a->{name} cmp $b->{name} } @matches;
+
 	# And return as JSON
 	return $self->render( json => \@matches );
 }
@@ -451,42 +458,44 @@ sub find_action {
 # Find a list of matches files
 sub find_file {
 	my $self = shift;
-	
+
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('filename') // '' );
-	
+
 	# Determine directory
 	require Cwd;
 	my $dir = $self->param('dir');
-	if( !$dir || $dir eq '') {
+	if ( !$dir || $dir eq '' ) {
 		$dir = Cwd::getcwd;
 	}
 
 	require File::Find::Rule;
 	my $rule = File::Find::Rule->new;
 	$rule->or(
-			$rule->new->directory->name( 'CVS', '.svn', '.git', 'blib', '.build' )->prune->discard,
-			$rule->new
+		$rule->new->directory->name( 'CVS', '.svn', '.git', 'blib', '.build' )
+		  ->prune->discard,
+		$rule->new
 	);
-	
+
 	$rule->file->name(qr/$query/i);
 	my @files = $rule->in($dir);
 
 	require File::Basename;
-		my @matches;
+	my @matches;
 	for my $file (@files) {
-		push @matches, {
-			id => $file,
+		push @matches,
+		  {
+			id   => $file,
 			name => File::Basename::basename($file),
-		}
+		  };
 	}
 
 	# Sort so that shorter matches appear first
-	@matches = sort { $a->{name} cmp $b->{name} }@matches;
-	
+	@matches = sort { $a->{name} cmp $b->{name} } @matches;
+
 	my $MAX_RESULTS = 100;
-	if(scalar @files > $MAX_RESULTS) {
-		@matches = @matches[0..$MAX_RESULTS-1];
+	if ( scalar @files > $MAX_RESULTS ) {
+		@matches = @matches[ 0 .. $MAX_RESULTS - 1 ];
 	}
 
 	# And return as JSON
@@ -496,31 +505,33 @@ sub find_file {
 # Return the file contents or a failure string
 sub open_file {
 	my $self = shift;
-	
+
 	my $filename = $self->param('filename') // '';
 
 	my %result = ();
-	if( open my $fh, '<', $filename ) {
+	if ( open my $fh, '<', $filename ) {
+
 		# Slurp the file contents
 		local $/ = undef;
 		$result{value} = <$fh>;
 		close $fh;
-		
+
 		# Retrieve editor mode
 		$result{mode} = _find_editor_mode_from_filename($filename);
-		
+
 		# Simplify filename
 		require File::Basename;
 		$result{filename} = File::Basename::basename($filename);
-		
+
 		# We're ok :)
 		$result{ok} = 1;
-	} else {
+	}
+	else {
 		# Error!
 		$result{value} = "Could not open file: $filename";
-		$result{ok} = 0;
+		$result{ok}    = 0;
 	}
-	
+
 	# Return the file contents or the error message
 	return $self->render( json => \%result );
 }
@@ -528,13 +539,14 @@ sub open_file {
 # Finds the editor mode from the the filename
 sub _find_editor_mode_from_filename {
 	my $filename = shift;
-	
+
 	my $extension;
-	if($filename =~ /\.([^.]+)$/) {
+	if ( $filename =~ /\.([^.]+)$/ ) {
+
 		# Extract file extension greedily
 		$extension = $1;
 	}
-	
+
 	my %extension_to_mode = (
 		pl         => 'perl',
 		pm         => 'perl',
@@ -555,75 +567,74 @@ sub _find_editor_mode_from_filename {
 		yaml       => 'yaml',
 		coffee     => 'coffeescript'
 	);
-	
+
 	# No extension, let us use default text mode
 	return 'plain' if !defined $extension;
 	return $extension_to_mode{$extension};
 }
 
-
 # Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
-	my $self = shift;
+	my $self       = shift;
 	my $runtime_id = $self->param('runtime') // 'perl';
-	my $command = $self->param('command') // '';
+	my $command    = $self->param('command') // '';
 
 	# The Result object
 	my %result = (
 		out => '',
-		err  => '',
+		err => '',
 	);
 
 	# TODO make these configurable?
 	my %runtimes = (
 		'perl' => {
+
 			# Special case that uses an internal inprocess Devel::REPL object
 		},
 		'rakudo' => {
-			cmd => 'perl6',
+			cmd    => 'perl6',
 			prompt => '> \Z',
 		},
 		'niecza' => {
-			cmd => 'Niecza.exe',
+			cmd    => 'Niecza.exe',
 			prompt => 'niecza> \Z',
 		},
 	);
 
 	# The process that we're gonna REPL
 	my $runtime = $runtimes{$runtime_id};
-	
+
 	# Handle the special case for Devel::REPL
-	if($runtime_id eq 'perl') {
+	if ( $runtime_id eq 'perl' ) {
 		return $self->_devel_repl_eval($command);
 	}
 
 	# Get the REPL prompt
 	my $prompt = $runtime->{prompt};
-	
+
 	# If runtime is not defined, let us report it back
-	unless(defined $runtime) {
-		my %result = (
-			err => "Failed to find runtime '$runtime_id'",
-		);
+	unless ( defined $runtime ) {
+		my %result = ( err => "Failed to find runtime '$runtime_id'", );
+
 		# Return the REPL result
 		return $self->render( json => \%result );
 	}
 
 	# Prepare the REPL command....
 	my @cmd = ( $runtime->{cmd} );
-	
+
 	# The input, output and error strings
-	my ($in, $out, $err);
-	
+	my ( $in, $out, $err );
+
 	# Open process with a timeout
 	#TODO timeout should be configurable...
-	my $h = start \@cmd, \$in, \$out, \$err, timeout( 5 );
+	my $h = start \@cmd, \$in, \$out, \$err, timeout(5);
 
 	# Send command to process and wait for prompt
 	$in .= "$command\n";
 	pump $h until $out =~ /$prompt/m;
 	finish $h or $err = "@cmd returned $?";
-	
+
 	# Remove current REPL prompt
 	$out =~ s/$prompt//;
 
@@ -641,21 +652,23 @@ my $devel_repl;
 
 # Devel::REPL (Perl)
 sub _devel_repl_eval {
-	my ($self, $code) = @_;
+	my ( $self, $code ) = @_;
 
 	# The Result object
 	my %result = (
 		out => '',
-		err  => '',
+		err => '',
 	);
 
-	unless($devel_repl) {
+	unless ($devel_repl) {
+
 		# Try to load Devel::REPL
 		eval { require Devel::REPL; };
-		if($@) {
+		if ($@) {
+
 			# The error
 			$result{err} = 'Unable to find Devel::REPL';
-			
+
 			# Return the REPL result
 			return $self->render( json => \%result );
 		}
@@ -665,19 +678,22 @@ sub _devel_repl_eval {
 
 		# Provide Lexical environment for a Perl repl
 		# Without this, it wont remember :)
-		$devel_repl->load_plugin('LexEnv'); 
+		$devel_repl->load_plugin('LexEnv');
 	}
 
-	if ($code eq '') {
+	if ( $code eq '' ) {
+
 		# Special case for empty input
 		$result{out} = "\$\n";
-	} else {
+	}
+	else {
 		my @ret = $devel_repl->eval("$code");
-		
-		if($devel_repl->is_error(@ret)) {
+
+		if ( $devel_repl->is_error(@ret) ) {
 			$result{err} = $devel_repl->format_error(@ret);
 			$result{out} = "\$ $code";
-		} else {
+		}
+		else {
 			$result{out} = "\$ $code\n@ret\n";
 		}
 	}
@@ -688,42 +704,44 @@ sub _devel_repl_eval {
 
 # Save(s) the specified filename
 sub save_file {
-	my $self = shift;
-	my $filename = $self->param('filename') ;
-	my $source = $self->param('source');
+	my $self     = shift;
+	my $filename = $self->param('filename');
+	my $source   = $self->param('source');
 
 	# Define output and error strings
-	my %result = (
-		err  => '',
-	);
+	my %result = ( err => '', );
 
 	# Check filename parameter
-	unless($filename) {
+	unless ($filename) {
+
 		# The error
 		$result{err} = "filename parameter is invalid";
 
 		# Return the REPL result
 		return $self->render( json => \%result );
 	}
-	
+
 	# Check contents parameter
-	unless($source) {
+	unless ($source) {
+
 		# The error
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
 		return $self->render( json => \%result );
 	}
-	
-	if(open my $fh, ">", $filename) {
+
+	if ( open my $fh, ">", $filename ) {
+
 		# Saving...
 		print $fh $source;
 		close $fh;
-	} else {
+	}
+	else {
 		# Error: Cannot open the file for writing/saving
 		$result{err} = "Cannot save $filename";
 	}
-	
+
 	return $self->render( json => \%result );
 }
 
@@ -731,7 +749,7 @@ sub save_file {
 sub find_duplicate_perl_code {
 
 	my $self = shift;
-	my $dirs = $self->param('dirs') ;
+	my $dirs = $self->param('dirs');
 
 	my %result = (
 		count  => 0,
@@ -739,7 +757,8 @@ sub find_duplicate_perl_code {
 		error  => '',
 	);
 
-	unless($dirs) {
+	unless ($dirs) {
+
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
 		return $self->render( json => \%result );
@@ -747,7 +766,8 @@ sub find_duplicate_perl_code {
 
 	my @dirs;
 	$dirs =~ s/^\s+|\s+$//g;
-	if($dirs ne '') {
+	if ( $dirs ne '' ) {
+
 		# Extract search directories
 		@dirs = split ',', $dirs;
 	}
@@ -762,7 +782,8 @@ sub find_duplicate_perl_code {
 			renamed_subs => 1,
 		);
 	};
-	if($@) {
+	if ($@) {
+
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
 		return $self->render( json => \%result );
@@ -775,7 +796,8 @@ sub find_duplicate_perl_code {
 	my $output = '';
 	foreach my $duplicate (@$duplicates) {
 		my ( $left, $right ) = ( $duplicate->left, $duplicate->right );
-		$output .= sprintf <<'END', $left->file, $left->line, $right->file, $right->line;
+		$output .=
+		  sprintf <<'END', $left->file, $left->line, $right->file, $right->line;
 
 	Possible duplicate code found
 	Left:  %s line %d
@@ -786,7 +808,7 @@ END
 	}
 
 	# Returns the find duplicate perl code result
-	$result{count} = scalar @$duplicates;
+	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
 	return $self->render( json => \%result );
 }
@@ -794,8 +816,8 @@ END
 # Dumps the PPI tree for the given source parameter
 sub dump_ppi_tree {
 
-	my $self = shift;
-	my $source = $self->param('source') ;
+	my $self   = shift;
+	my $source = $self->param('source');
 
 	my %result = (
 		output => '',
@@ -803,7 +825,8 @@ sub dump_ppi_tree {
 	);
 
 	# Make sure that the source parameter is not undefined
-	unless(defined $source) {
+	unless ( defined $source ) {
+
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
 		return $self->render( json => \%result );
@@ -817,11 +840,11 @@ sub dump_ppi_tree {
 	my $module = PPI::Document->new( \$source );
 
 	# No whitespace tokens
- 	$module->prune('PPI::Token::Whitespace');
+	$module->prune('PPI::Token::Whitespace');
 
 	# Create the dumper
-	my $dumper = PPI::Dumper->new( $module );
- 
+	my $dumper = PPI::Dumper->new($module);
+
 	# Dump the document as a string
 	$result{output} = $dumper->string;
 
@@ -839,61 +862,67 @@ sub find_plugins {
 		search_path => 'Farabi::Plugin',
 		require     => 1,
 		inner       => 0,
-   );
-   
+	);
+
 	# Find all plugins
 	my @plugins;
-	for my $plugin ($finder->plugins) {
+	for my $plugin ( $finder->plugins ) {
 		my $o;
 		eval { $o = $plugin->new; };
-		if($@) {
-			push @plugins, {
-				id => $plugin,
-				name => $plugin,
+		if ($@) {
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => $plugin,
 				status => 'Plugin creation failure',
-			};
+			  };
 
 			# No need to process anymore
 			next;
 		}
 
-		unless(defined $o) {
-			push @plugins, {
-				id => $plugin,
-				name => $plugin,
+		unless ( defined $o ) {
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => $plugin,
 				status => 'Plugin creation failure',
-			};
-			
+			  };
+
 			# No need to process anymore
 			next;
 		}
 
-		if($o->can('plugin_name')) {
+		if ( $o->can('name') ) {
+
 			# plugin_name is supported
-			push @plugins, {
-				id   => $plugin,
-				name =>	$o->plugin_name,
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => $o->plugin_name,
 				status => '',
-			};
+			  };
 
-		} else {
+		}
+		else {
 			# No plugin_name support
-			push @plugins, {
-				id => $plugin,
-				name => '',
-				status => 'Does not support plugin_name!',
-			};
-			
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => '',
+				status => q{Does not support 'name'!},
+			  };
+
 			# No need to process anymore
 			next;
 		}
-		
-		if($o->can('plugin_deps')) {
+
+		if ( $o->can('deps') ) {
 
 			my $status = '';
 
 			my $plugin_deps = $o->plugin_deps;
-			for my $dep_name (keys %$plugin_deps) {
+			for my $dep_name ( keys %$plugin_deps ) {
 				my $dep_version = $plugin_deps->{$dep_name};
 
 				# Validate module dependency rule
@@ -907,21 +936,22 @@ sub find_plugins {
 			}
 
 			# plugin_deps is supported
-			push @plugins, {
-				id   => $plugin,
-				name =>	$o->plugin_deps,
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => $o->plugin_deps,
 				status => $status,
-			};
-		} else {
-			# No plugin_name support
-			push @plugins, {
-				id => $plugin,
-				name => '',
-				status => 'Does not support plugin_name!',
-			};
+			  };
 		}
-		
-
+		else {
+			# No plugin_name support
+			push @plugins,
+			  {
+				id     => $plugin,
+				name   => '',
+				status => q{Does not support 'deps'!},
+			  };
+		}
 
 	}
 
@@ -934,7 +964,7 @@ sub default {
 	my $self = shift;
 
 	# Stash the source parameter so it can be used inside the template
-	$self->stash(source => scalar $self->param('source'));
+	$self->stash( source => scalar $self->param('source') );
 
 	# Render template "editor/default.html.ep"
 	$self->render;
