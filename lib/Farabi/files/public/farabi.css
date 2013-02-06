@@ -136,3 +136,8 @@ span.CodeMirror-matchhighlight {
 .farabi-add-tab {
 	padding-top: 5px;
 }
+
+#action_button_div {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
