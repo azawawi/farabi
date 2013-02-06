@@ -1,7 +1,13 @@
 Changes for Farabi
 
-0.31  TBD
-    -
+0.31  2013.2.6
+    - Less left and right margin space. More horizontal space
+    - Less top/bottom/left space on the actions link. More vertical space.
+    - Focus on output tab when dump ppi or run Perl is used
+    - "POD Viewer?" on/off option is now "Right Side Shown?" on/off checkbox
+    - Output textarea is now a CodeMirror readonly editor
+    - Plugin manager now works but plugins fail to load because of a reload issue
+    - use Moo in all future plugins
 
 0.30  2013.2.6
     - More vertical space to the left-side editor. Output and POD
