@@ -55,9 +55,10 @@
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="output-tab">
-							'<div class="farabi-bordered">
-								'<textarea id="output"></textarea>
-							'</div>
+							<div class="farabi-bordered">
+								<textarea id="output"></textarea>
+								<br>
+							</div>
 						</div>
 						<div class="tab-pane" id="pod-preview-tab">
 							<div class="farabi-bordered">
