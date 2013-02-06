@@ -2,7 +2,7 @@ package Farabi::Plugin::PerlTidy;
 
 use Moo;
 
-our $VERSION = '0.31';
+our $VERSION = '0.32';
 
 # Plugin module dependencies
 has 'deps' => (
