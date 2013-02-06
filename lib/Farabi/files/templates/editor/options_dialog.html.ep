@@ -28,8 +28,8 @@
 						</tr>
 						<tr>
 							<td><label class="checkbox"> <input
-									id="pod_viewer_checkbox" type="checkbox" value="" checked>
-									<strong>POD Viewer?</strong>
+									id="right_side_shown_checkbox" type="checkbox" value="" checked>
+									<strong>Right Side Shown?</strong>
 							</label></td>
 						</tr>
 						<tr>
