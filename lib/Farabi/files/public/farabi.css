@@ -136,3 +136,8 @@ span.CodeMirror-matchhighlight {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
+.container-fluid {
+	padding-left:  5px;
+	padding-right: 5px;
+}
