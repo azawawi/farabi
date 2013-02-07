@@ -16,7 +16,7 @@
         <div class="control-group">
           <label class="control-label" for="matched-files">Matched Files:</label>
           <div class="controls">
-            <select id="matched-files" size="10">
+            <select id="matched-files" size="10" multiple="multiple">
               </select>
           </div>
         </div>
