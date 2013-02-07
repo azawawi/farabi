@@ -1009,9 +1009,14 @@ sub default {
 sub websocket {
 	my $self = shift;
 
+	# WebSocket Connected... Create JSON object...
 	require Mojo::JSON;
 	my $json = Mojo::JSON->new;
 
+	# Increase inactivity timeout for connection a bit
+    Mojo::IOLoop->stream($self->tx->connection)->timeout(300);
+
+	# Wait for a WebSocket message
 	$self->on(
 		message => sub {
 			my ( $ws, $message ) = @_;
