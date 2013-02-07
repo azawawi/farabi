@@ -351,7 +351,7 @@ sub find_action {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( $self->param('action') // '' );
+	my $query = quotemeta( shift->{action} // '' );
 
 	# The actions
 	my %actions = (
@@ -443,8 +443,8 @@ sub find_action {
 	# Sort so that shorter matches appear first
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
-	# And return as JSON
-	return $self->render( json => \@matches );
+	# And return matches array reference
+	return \@matches;
 }
 
 # Find a list of matches files
@@ -554,7 +554,7 @@ SQL
 			q{UPDATE recent_list SET last_used = datetime('now') WHERE id = ?},
 			$id
 		);
-		
+
 		$self->app->log->info("Update '$filename' in recent_list");
 	}
 	else {
@@ -852,7 +852,7 @@ END
 sub dump_ppi_tree {
 
 	my $self   = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	my %result = (
 		output => '',
@@ -884,7 +884,7 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Find all Farabi plugins
@@ -1015,13 +1015,19 @@ sub websocket {
 	$self->on(
 		message => sub {
 			my ( $ws, $message ) = @_;
-
 			my $result = $json->decode($message);
-			$ws->send( $json->encode( { result => $result->[0] + $result->[1] } ) );
+
+			if ( $result->{action} eq 'dump-ppi-tree' ) {
+				my $o = $self->dump_ppi_tree( $result->{params} );
+				$ws->send( $json->encode($o) );
+			} elsif ( $result->{action} eq 'find-action' ) {
+				my $o = $self->find_action( $result->{params} );
+				$ws->send( $json->encode($o) );
+			}
+
 		}
 	);
-};
-
+}
 
 1;
 
