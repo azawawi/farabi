@@ -498,7 +498,7 @@ sub find_file {
 sub open_file {
 	my $self = shift;
 
-	my $filename = $self->param('filename') // '';
+	my $filename = shift->{filename} // '';
 
 	my %result = ();
 	if ( open my $fh, '<', $filename ) {
@@ -528,7 +528,7 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Add or update record file record
