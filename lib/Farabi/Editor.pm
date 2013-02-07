@@ -93,10 +93,6 @@ sub run_parrot {
 	$_[0]->_capture_cmd_output('parrot');
 }
 
-sub open_url {
-	warn "Not implemented yet!";
-}
-
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
@@ -386,10 +382,6 @@ sub find_action {
 		'action-open-file' => {
 			name => 'Open File(s)',
 			help => "Opens one or more files in an editor tab",
-		},
-		'action-open-url' => {
-			name => 'Open URL',
-			help => 'Opens a file from a URL in an editor tab',
 		},
 		'action-new-file' => {
 			name => 'New File',
