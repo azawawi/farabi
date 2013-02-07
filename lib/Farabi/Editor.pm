@@ -452,7 +452,7 @@ sub find_file {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( $self->param('filename') // '' );
+	my $query = quotemeta( shift->{filename} // '' );
 
 	# Determine directory
 	require Cwd;
@@ -490,8 +490,8 @@ sub find_file {
 		@matches = @matches[ 0 .. $MAX_RESULTS - 1 ];
 	}
 
-	# And return as JSON
-	return $self->render( json => \@matches );
+	# Return the matched file array reference
+	return \@matches;
 }
 
 # Return the file contents or a failure string
@@ -1022,6 +1022,9 @@ sub websocket {
 				$ws->send( $json->encode($o) );
 			} elsif ( $result->{action} eq 'find-action' ) {
 				my $o = $self->find_action( $result->{params} );
+				$ws->send( $json->encode($o) );
+			} elsif ( $result->{action} eq 'find-file' ) {
+				my $o = $self->find_file( $result->{params} );
 				$ws->send( $json->encode($o) );
 			}
 
