@@ -47,16 +47,11 @@ sub perl_critic {
 sub _capture_cmd_output {
 	my $self   = shift;
 	my $cmd    = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	# Check source parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		return;
-	}
-
-	unless ( $self->app->unsafe_features ) {
-		$self->app->log->warn('FARABI_UNSAFE not defined');
 		return;
 	}
 
@@ -74,23 +69,23 @@ sub _capture_cmd_output {
 		'exit' => $exit & 128,
 	};
 
-	$self->render( json => $result );
+	return $result;
 }
 
 sub run_perl {
-	$_[0]->_capture_cmd_output($^X);
+	$_[0]->_capture_cmd_output($^X, $_[1]);
 }
 
 sub run_niecza {
-	$_[0]->_capture_cmd_output('Niecza.exe');
+	$_[0]->_capture_cmd_output('Niecza.exe', $_[1]);
 }
 
 sub run_rakudo {
-	$_[0]->_capture_cmd_output('perl6');
+	$_[0]->_capture_cmd_output('perl6', $_[1]);
 }
 
 sub run_parrot {
-	$_[0]->_capture_cmd_output('parrot');
+	$_[0]->_capture_cmd_output('parrot', $_[1]);
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -1032,6 +1027,14 @@ sub websocket {
 				$o = $self->find_file( $result->{params} );
 			} elsif ($action  eq 'open-file' ) {
 				$o = $self->open_file( $result->{params} );
+			} elsif ($action  eq 'run-perl' ) {
+				$o = $self->run_perl( $result->{params} );
+			} elsif ($action  eq 'run-niecza' ) {
+				$o = $self->run_niecza( $result->{params} );
+			} elsif ($action  eq 'run-rakudo' ) {
+				$o = $self->run_rakudo( $result->{params} );
+			} elsif ($action  eq 'run-parrot' ) {
+				$o = $self->run_parrot( $result->{params} );
 			}
 			$ws->send( $json->encode($o) ) if defined $o;
 
