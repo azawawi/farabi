@@ -554,8 +554,8 @@ SQL
 			q{UPDATE recent_list SET last_used = datetime('now') WHERE id = ?},
 			$id
 		);
-
-		say "Update '$filename' in recent_list";
+		
+		$self->app->log->info("Update '$filename' in recent_list");
 	}
 	else {
 		# Not found... Add new recent file record
@@ -565,7 +565,7 @@ VALUES(?, 'file', datetime('now'))
 SQL
 		$db->query( $sql, $filename );
 
-		say "Add '$filename' to recent_list";
+		$self->app->log->info("Add '$filename' to recent_list");
 	}
 
 	$db->disconnect;
