@@ -9,8 +9,8 @@ our $VERSION = '0.32';
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
-	my $source   = shift->{source};
-	my $severity = shift->{severity};
+	my $source   = $_[0]->{source};
+	my $severity = $_[0]->{severity};
 
 	# Check source parameter
 	if ( !defined $source ) {
@@ -606,8 +606,8 @@ sub _find_editor_mode_from_filename {
 # Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self       = shift;
-	my $runtime_id = shift->{runtime} // 'perl';
-	my $command    = shift->{command} // '';
+	my $runtime_id = $_[0]->{runtime} // 'perl';
+	my $command    = $_[0]->{command} // '';
 
 	# The Result object
 	my %result = (
@@ -735,8 +735,8 @@ sub _devel_repl_eval {
 # Save(s) the specified filename
 sub save_file {
 	my $self     = shift;
-	my $filename = shift->{filename};
-	my $source   = shift->{source};
+	my $filename = $_[0]->{filename};
+	my $source   = $_[0]->{source};
 
 	# Define output and error strings
 	my %result = ( err => '', );
@@ -1015,7 +1015,7 @@ sub websocket {
 	$self->on(
 		message => sub {
 			my ( $ws, $message ) = @_;
-			my $result = $json->decode($message);
+			my $result = $json->decode($message) or return;
 
 			my $actions = {
 				'dump-ppi-tree'            => 1,
@@ -1037,11 +1037,12 @@ sub websocket {
 				'repl-eval'                => 1,
 			};
 
-			my $action = $result->{action};
+			my $action = $result->{action} or return;
+			$self->app->log->info("Processing '$action'");
 			if ( defined $actions->{$action} ) {
 				$action =~ s/-/_/g;
-				my $o = $self->$action( $result->{params} );
-				$ws->send( $json->encode($o) ) if defined $o;
+				my $o = $self->$action( $result->{params} ) or return;
+				$ws->send( $json->encode($o) );
 			}
 
 		}
