@@ -1017,7 +1017,7 @@ sub websocket {
 			my ( $ws, $message ) = @_;
 			my $result = $json->decode($message);
 
-			my %actions = (
+			my $actions = {
 				'dump-ppi-tree'            => 1,
 				'find-action'              => 1,
 				'find-file'                => 1,
@@ -1035,13 +1035,12 @@ sub websocket {
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
-			);
+			};
 
-			my $method = $actions{ $result->{action} };
-			say $method;
-			if ( defined $method ) {
-				$method =~ s/-/_/g;
-				my $o = $self->$method( $result->{params} );
+			my $action = $result->{action};
+			if ( defined $actions->{$action} ) {
+				$action =~ s/-/_/g;
+				my $o = $self->$action( $result->{params} );
 				$ws->send( $json->encode($o) ) if defined $o;
 			}
 
