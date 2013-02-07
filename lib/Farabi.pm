@@ -48,6 +48,9 @@ sub startup {
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
+
+	# Setup websocket message handler
+	$route->websocket('/websocket')->to('editor#websocket');
 }
 
 # Setup the Farabi database

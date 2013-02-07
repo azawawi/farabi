@@ -1005,6 +1005,24 @@ sub default {
 	$self->render;
 }
 
+# The websocket message handler
+sub websocket {
+	my $self = shift;
+
+	require Mojo::JSON;
+	my $json = Mojo::JSON->new;
+
+	$self->on(
+		message => sub {
+			my ( $ws, $message ) = @_;
+
+			my $result = $json->decode($message);
+			$ws->send( $json->encode( { result => $result->[0] + $result->[1] } ) );
+		}
+	);
+};
+
+
 1;
 
 __END__
