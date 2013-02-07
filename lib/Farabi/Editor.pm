@@ -9,8 +9,8 @@ our $VERSION = '0.32';
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
-	my $source   = $self->param('source');
-	my $severity = $self->param('severity');
+	my $source   = shift->{source};
+	my $severity = shift->{severity};
 
 	# Check source parameter
 	if ( !defined $source ) {
@@ -41,7 +41,7 @@ sub perl_critic {
 		  };
 	}
 
-	$self->render( json => \@results );
+	return \@results;
 }
 
 sub _capture_cmd_output {
@@ -73,26 +73,26 @@ sub _capture_cmd_output {
 }
 
 sub run_perl {
-	$_[0]->_capture_cmd_output($^X, $_[1]);
+	$_[0]->_capture_cmd_output( $^X, $_[1] );
 }
 
 sub run_niecza {
-	$_[0]->_capture_cmd_output('Niecza.exe', $_[1]);
+	$_[0]->_capture_cmd_output( 'Niecza.exe', $_[1] );
 }
 
 sub run_rakudo {
-	$_[0]->_capture_cmd_output('perl6', $_[1]);
+	$_[0]->_capture_cmd_output( 'perl6', $_[1] );
 }
 
 sub run_parrot {
-	$_[0]->_capture_cmd_output('parrot', $_[1]);
+	$_[0]->_capture_cmd_output( 'parrot', $_[1] );
 }
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
 	my $self   = shift;
-	my $source = $self->param('source');
+	my $source = shift->{source};
 
 	# Check 'source' parameter
 	unless ( defined $source ) {
@@ -130,13 +130,13 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # i.e. Autocompletion
 sub help_search {
 	my $self = shift;
-	my $topic = $self->param('topic') // '';
+	my $topic = shift->{topic} // '';
 
 	# Determine perlfunc POD path
 	require File::Spec;
@@ -236,7 +236,7 @@ sub help_search {
 		close $fh;
 	}
 
-	$self->render( json => \@help_results );
+	return \@help_results;
 }
 
 sub _module_pod {
@@ -287,10 +287,10 @@ sub _find_installed_modules {
 # Convert Perl POD source to HTML
 sub pod2html {
 	my $self = shift;
-	my $source = $self->param('source') // '';
+	my $source = shift->{source} // '';
 
 	my $html = _pod2html($source);
-	return $self->render( json => $html );
+	return $html;
 }
 
 sub _pod2html {
@@ -309,7 +309,7 @@ sub _pod2html {
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
 sub pod_check {
 	my $self = shift;
-	my $source = $self->param('source') // '';
+	my $source = shift->{source} // '';
 
 	require Pod::Checker;
 	require IO::String;
@@ -338,7 +338,7 @@ sub pod_check {
 		}
 	}
 
-	return $self->render( json => \@problems );
+	return \@problems;
 }
 
 # Find a list of matched actions
@@ -606,8 +606,8 @@ sub _find_editor_mode_from_filename {
 # Generic REPL (Read-Eval-Print-Loop)
 sub repl_eval {
 	my $self       = shift;
-	my $runtime_id = $self->param('runtime') // 'perl';
-	my $command    = $self->param('command') // '';
+	my $runtime_id = shift->{runtime} // 'perl';
+	my $command    = shift->{command} // '';
 
 	# The Result object
 	my %result = (
@@ -647,7 +647,7 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Prepare the REPL command....
@@ -673,7 +673,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Global shared object at the moment
@@ -700,7 +700,7 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			return $self->render( json => \%result );
+			return \%result;
 		}
 
 		# Create the REPL object
@@ -729,14 +729,14 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Save(s) the specified filename
 sub save_file {
 	my $self     = shift;
-	my $filename = $self->param('filename');
-	my $source   = $self->param('source');
+	my $filename = shift->{filename};
+	my $source   = shift->{source};
 
 	# Define output and error strings
 	my %result = ( err => '', );
@@ -747,8 +747,8 @@ sub save_file {
 		# The error
 		$result{err} = "filename parameter is invalid";
 
-		# Return the REPL result
-		return $self->render( json => \%result );
+		# Return the result
+		return \%result;
 	}
 
 	# Check contents parameter
@@ -758,7 +758,7 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	if ( open my $fh, ">", $filename ) {
@@ -772,14 +772,14 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Find duplicate Perl code in the current 'lib' folder
 sub find_duplicate_perl_code {
 
 	my $self = shift;
-	my $dirs = $self->param('dirs');
+	my $dirs = shift->{dirs};
 
 	my %result = (
 		count  => 0,
@@ -791,7 +791,7 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	my @dirs;
@@ -816,7 +816,7 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Finds the duplicates
@@ -840,7 +840,7 @@ END
 	# Returns the find duplicate perl code result
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
-	return $self->render( json => \%result );
+	return \%result;
 }
 
 # Dumps the PPI tree for the given source parameter
@@ -859,7 +859,7 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		return $self->render( json => \%result );
+		return \%result;
 	}
 
 	# Load PPI at runtime
@@ -985,8 +985,8 @@ sub find_plugins {
 
 	}
 
-	# Return the JSON result
-	return $self->render( json => \@plugins );
+	# Return the plugins list
+	return \@plugins;
 }
 
 # The default root handler
@@ -1009,7 +1009,7 @@ sub websocket {
 	my $json = Mojo::JSON->new;
 
 	# Increase inactivity timeout for connection a bit
-    Mojo::IOLoop->stream($self->tx->connection)->timeout(300);
+	Mojo::IOLoop->stream( $self->tx->connection )->timeout(300);
 
 	# Wait for a WebSocket message
 	$self->on(
@@ -1017,26 +1017,33 @@ sub websocket {
 			my ( $ws, $message ) = @_;
 			my $result = $json->decode($message);
 
-			my $o;
-			my $action = $result->{action};
-			if ( $action eq 'dump-ppi-tree' ) {
-				$o = $self->dump_ppi_tree( $result->{params} );
-			} elsif ( $action eq 'find-action' ) {
-				$o = $self->find_action( $result->{params} );
-			} elsif ( $action  eq 'find-file' ) {
-				$o = $self->find_file( $result->{params} );
-			} elsif ($action  eq 'open-file' ) {
-				$o = $self->open_file( $result->{params} );
-			} elsif ($action  eq 'run-perl' ) {
-				$o = $self->run_perl( $result->{params} );
-			} elsif ($action  eq 'run-niecza' ) {
-				$o = $self->run_niecza( $result->{params} );
-			} elsif ($action  eq 'run-rakudo' ) {
-				$o = $self->run_rakudo( $result->{params} );
-			} elsif ($action  eq 'run-parrot' ) {
-				$o = $self->run_parrot( $result->{params} );
+			my %actions = (
+				'dump-ppi-tree'            => 1,
+				'find-action'              => 1,
+				'find-file'                => 1,
+				'open-file'                => 1,
+				'run-perl'                 => 1,
+				'run-niecza'               => 1,
+				'run-rakudo'               => 1,
+				'run-parrot'               => 1,
+				'help_search'              => 1,
+				'perl-tidy'                => 1,
+				'perl-critic'              => 1,
+				'pod2html'                 => 1,
+				'pod-check'                => 1,
+				'save-file'                => 1,
+				'find-duplicate-perl-code' => 1,
+				'find-plugins'             => 1,
+				'repl-eval'                => 1,
+			);
+
+			my $method = $actions{ $result->{action} };
+			say $method;
+			if ( defined $method ) {
+				$method =~ s/-/_/g;
+				my $o = $self->$method( $result->{params} );
+				$ws->send( $json->encode($o) ) if defined $o;
 			}
-			$ws->send( $json->encode($o) ) if defined $o;
 
 		}
 	);

@@ -24,20 +24,6 @@ sub startup {
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
 	$route->post('/')->to('editor#default');
-	$route->post('/help_search')->to('editor#help_search');
-	$route->post('/perl-tidy')->to('editor#perl_tidy');
-	$route->post('/perl-critic')->to('editor#perl_critic');
-	$route->post('/pod2html')->to('editor#pod2html');
-	$route->post('/pod-check')->to('editor#pod_check');
-	$route->post('/save-file')->to('editor#save_file');
-	$route->post('/run-perl')->to('editor#run_perl');
-	$route->post('/run-rakudo')->to('editor#run_rakudo');
-	$route->post('/run-niecza')->to('editor#run_niecza');
-	$route->post('/run-parrot')->to('editor#run_parrot');
-	$route->post('/find-duplicate-perl-code')
-	  ->to('editor#find_duplicate_perl_code');
-	$route->post('/find-plugins')->to('editor#find_plugins');
-	$route->post('/repl-eval')->to('editor#repl_eval');
 
 	# Setup the Farabi database
 	eval { $app->_setup_database; };
