@@ -384,16 +384,16 @@ sub find_action {
 			help => 'A quick getting started help dialog',
 		},
 		'action-open-file' => {
-			name => 'Open File',
-			help => "Opens a file in a new editor tab",
+			name => 'Open File(s)',
+			help => "Opens one or more files in an editor tab",
 		},
 		'action-open-url' => {
 			name => 'Open URL',
-			help => 'Opens a file from a URL is new editor tab',
+			help => 'Opens a file from a URL in an editor tab',
 		},
 		'action-new-file' => {
 			name => 'New File',
-			help => "Opens a new file in a new editor tab",
+			help => "Opens a new file in an editor tab",
 		},
 		'action-options' => {
 			name => 'Options',
