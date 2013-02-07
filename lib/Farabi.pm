@@ -44,10 +44,8 @@ sub startup {
 	$route->post('/repl-eval')->to('editor#repl_eval');
 
 	# Setup the Farabi database
-	eval {
-		$app->_setup_database;
-	};
-	if($@) {
+	eval { $app->_setup_database; };
+	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
 }
@@ -71,12 +69,6 @@ SQL
 
 	# Disconnect from database
 	$db->disconnect;
-}
-
-sub unsafe_features {
-
-	# Enable unsafe features by default for now
-	return 1;    # defined $ENV{FARABI_UNSAFE};
 }
 
 1;
