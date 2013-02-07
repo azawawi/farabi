@@ -554,7 +554,7 @@ SQL
 			q{UPDATE recent_list SET last_used = datetime('now') WHERE id = ?},
 			$id
 		);
-		
+
 		say "Update '$filename' in recent_list";
 	}
 	else {
@@ -564,7 +564,7 @@ INSERT INTO recent_list(name, type, last_used)
 VALUES(?, 'file', datetime('now'))
 SQL
 		$db->query( $sql, $filename );
-		
+
 		say "Add '$filename' to recent_list";
 	}
 
