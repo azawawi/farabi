@@ -515,6 +515,9 @@ sub open_file {
 		require File::Basename;
 		$result{filename} = File::Basename::basename($filename);
 
+		# Add or update record file record
+		$self->_add_or_update_recent_file_record($filename);
+
 		# We're ok :)
 		$result{ok} = 1;
 	}
@@ -526,6 +529,46 @@ sub open_file {
 
 	# Return the file contents or the error message
 	return $self->render( json => \%result );
+}
+
+# Add or update record file record
+sub _add_or_update_recent_file_record {
+	my $self     = shift;
+	my $filename = shift;
+
+	require DBIx::Simple;
+	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+
+	my $sql = <<'SQL';
+SELECT id, name, datetime(last_used,'localtime')
+FROM recent_list
+WHERE name = ? and type = 'file'
+SQL
+
+	my ( $id, $name, $last_used ) = $db->query( $sql, $filename )->list;
+
+	if ( defined $id ) {
+
+		# Found recent file record, update last used timestamp;
+		$db->query(
+			q{UPDATE recent_list SET last_used = datetime('now') WHERE id = ?},
+			$id
+		);
+		
+		say "Update '$filename' in recent_list";
+	}
+	else {
+		# Not found... Add new recent file record
+		$sql = <<'SQL';
+INSERT INTO recent_list(name, type, last_used)
+VALUES(?, 'file', datetime('now'))
+SQL
+		$db->query( $sql, $filename );
+		
+		say "Add '$filename' to recent_list";
+	}
+
+	$db->disconnect;
 }
 
 # Finds the editor mode from the the filename
