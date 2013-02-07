@@ -1022,16 +1022,18 @@ sub websocket {
 			my ( $ws, $message ) = @_;
 			my $result = $json->decode($message);
 
-			if ( $result->{action} eq 'dump-ppi-tree' ) {
-				my $o = $self->dump_ppi_tree( $result->{params} );
-				$ws->send( $json->encode($o) );
-			} elsif ( $result->{action} eq 'find-action' ) {
-				my $o = $self->find_action( $result->{params} );
-				$ws->send( $json->encode($o) );
-			} elsif ( $result->{action} eq 'find-file' ) {
-				my $o = $self->find_file( $result->{params} );
-				$ws->send( $json->encode($o) );
+			my $o;
+			my $action = $result->{action};
+			if ( $action eq 'dump-ppi-tree' ) {
+				$o = $self->dump_ppi_tree( $result->{params} );
+			} elsif ( $action eq 'find-action' ) {
+				$o = $self->find_action( $result->{params} );
+			} elsif ( $action  eq 'find-file' ) {
+				$o = $self->find_file( $result->{params} );
+			} elsif ($action  eq 'open-file' ) {
+				$o = $self->open_file( $result->{params} );
 			}
+			$ws->send( $json->encode($o) ) if defined $o;
 
 		}
 	);
