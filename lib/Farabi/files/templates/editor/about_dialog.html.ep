@@ -27,7 +27,7 @@
 					</tr>
 					<tr>
 						<td><a target="_blank" href="http://twitter.github.com/bootstrap">Bootstrap</a></td>
-						<td><span id="bootstrap-version">2.2.2</span></td>
+						<td><span id="bootstrap-version">2.3.0</span></td>
 					</tr>
 					<tr>
 						<td><a target="_blank" href="http://codemirror.net/">CodeMirror</a></td>
