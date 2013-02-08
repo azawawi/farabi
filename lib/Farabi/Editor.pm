@@ -1008,8 +1008,8 @@ sub websocket {
 	require Mojo::JSON;
 	my $json = Mojo::JSON->new;
 
-	# Increase inactivity timeout for connection a bit
-	Mojo::IOLoop->stream( $self->tx->connection )->timeout(300);
+	# Disable inactivity timeout 
+	Mojo::IOLoop->stream( $self->tx->connection )->timeout(0);
 
 	# Wait for a WebSocket message
 	$self->on(
