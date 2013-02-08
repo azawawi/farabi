@@ -1,7 +1,22 @@
 Changes for Farabi
 
-0.32  TBD
-    -
+0.32  2013.2.8
+
+    [CHANGE]
+    - Open File is now 'Open File(s)' and supports opening one or more files
+    - Farabi uses websockets instead of stateless POST requests
+    - When a file is opened, it is added or its timestamp is updated
+      in the recent list table
+    - Fix Firefox workaround: Escape key kills the websocket connection.
+
+    [FIX]
+    - Fix: run dialog was not showing any output after a successful run
+
+    [REMOVAL]
+    - Remove obsolete unsafe feature environment support
+    - Remove unimplemented "Open URL" action
+    - Remove old POST actions that were migrated to websockets
+
 
 0.31  2013.2.6
     - Less left and right margin space. More horizontal space
