@@ -13,15 +13,15 @@
 <!-- Farabi -->
 <link rel="stylesheet" href="farabi.css" type="text/css" />
 <script src="farabi.js"></script>
-<script src="farabi_actions_dialog.js"></script>
-<script src="farabi_open_file_dialog.js"></script>
-<script src="farabi_repl_dialog.js"></script>
-<script src="farabi_run_dialog.js"></script>
-<script src="farabi_perl_critic_dialog.js"></script>
-<script src="farabi_options_dialog.js"></script>
-<script src="farabi_save_question_dialog.js"></script>
-<script src="farabi_duplicate_perl_code_dialog.js"></script>
-<script src="farabi_plugin_manager_dialog.js"></script>
+<script src="actions_dialog.js"></script>
+<script src="duplicate_perl_code_dialog.js"></script>
+<script src="open_file_dialog.js"></script>
+<script src="perl_critic_dialog.js"></script>
+<script src="options_dialog.js"></script>
+<script src="repl_dialog.js"></script>
+<script src="plugin_manager_dialog.js"></script>
+<script src="run_dialog.js"></script>
+<script src="save_question_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
