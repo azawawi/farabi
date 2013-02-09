@@ -1,6 +1,33 @@
-Changes for Farabi
+Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
+
+    [FIXED]
+    - Plugin manager is now websocket enabled
+    - About dialog now prints "development release" when there is no version
+    - ALT-A now trigger actions dialog when outside the editor focus
+    
+    [CHANGED]
+    - Syntax check action now works instead of "TODO"
+    - Add Problems tab and automatic syntax checking of Perl files
+    - Disable text selection with mouse drag
+    - About dialog table rows are now sorted
+    - Simplify editor statisics UI
+    - Problems status is shown in editor statistics and clicking on the red
+      problem button opens the problems tab
+    - Disabled automatic pod update until it works with syntax check
+    - Syntax check adds a line widget under the error/warning line. Clicking on it
+      opens the problems tab
+    - Problems table is now clickable and when clicked, the problematic line is focused
+    - POD tab is updated on each click of its it
+
+    [REMOVED]
+    - Removed useless pod checking
+    - Removed run coffeescript support
+    - Removed unfinished Niecza support
+    - Removed unfinished run Perlito6 support
+    - Removed unused sample script template
+    - Removed unneeded JavaScript test and HTML files from CodeMirror
 
 0.34  2013-02-09
 
