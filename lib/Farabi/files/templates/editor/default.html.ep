@@ -86,7 +86,7 @@
 <%= include "editor/perl_doc_dialog"%>
 <%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
-<%= include "editor/find_sduplicate_perl_code_dialog"%>
+<%= include "editor/find_duplicate_perl_code_dialog"%>
 <%= include "editor/plugin_manager_dialog"%>
 
 </body>
