@@ -13,8 +13,9 @@
 <!-- Farabi -->
 <link rel="stylesheet" href="farabi.css" type="text/css" />
 <script src="farabi.js"></script>
+<script src="about_dialog.js"></script>
 <script src="actions_dialog.js"></script>
-<script src="duplicate_perl_code_dialog.js"></script>
+<script src="find_duplicate_perl_code_dialog.js"></script>
 <script src="open_file_dialog.js"></script>
 <script src="perl_critic_dialog.js"></script>
 <script src="options_dialog.js"></script>
@@ -74,6 +75,7 @@
 		</div>
 	</div>
 
+<%= include "editor/about_dialog"%>
 <%= include "editor/actions_dialog"%>
 <%= include "editor/perl_critic_dialog"%>
 <%= include "editor/about_dialog"%>
@@ -84,7 +86,7 @@
 <%= include "editor/perl_doc_dialog"%>
 <%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
-<%= include "editor/duplicate_perl_code_dialog"%>
+<%= include "editor/find_sduplicate_perl_code_dialog"%>
 <%= include "editor/plugin_manager_dialog"%>
 
 </body>

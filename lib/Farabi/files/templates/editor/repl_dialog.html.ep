@@ -19,7 +19,6 @@
 							<select id="runtime">
 								<option id="perl">Perl</option>
 								<option id="rakudo" selected="selected">Perl 6 - Rakudo</option>
-								<option id="niecza">Perl 6 - Niecza</option>
 							</select>
 						</div>
 					</div>
