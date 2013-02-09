@@ -2,6 +2,8 @@ Changes for Farabi
 
 {{$NEXT}}
 
+0.33  2013-02-09
+
     [FIXED]
     - Bug fix: Exit code is now returned correctly when a script is run
 
