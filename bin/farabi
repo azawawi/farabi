@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
 # PODNAME:  farabi
-# ABSTRACT: Modern Perl Editor
+# ABSTRACT: Run Farabi webserver
 
 use strict;
 use warnings;
