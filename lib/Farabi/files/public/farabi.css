@@ -151,3 +151,8 @@ span.CodeMirror-matchhighlight {
 	padding-left:  10px;
 	padding-right: 10px;
 }
+
+.editor-stats {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
