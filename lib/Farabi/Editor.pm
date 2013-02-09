@@ -66,7 +66,7 @@ sub _capture_cmd_output {
 	my $result = {
 		stdout => $stdout,
 		stderr => $stderr,
-		'exit' => $exit & 256,
+		'exit' => $exit >> 8,
 	};
 
 	return $result;
