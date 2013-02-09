@@ -47,7 +47,8 @@ sub perl_critic {
 sub _capture_cmd_output {
 	my $self   = shift;
 	my $cmd    = shift;
-	my $source = shift->{source};
+	my $opts   = shift;
+	my $source = shift;
 
 	# Check source parameter
 	unless ( defined $source ) {
@@ -61,7 +62,7 @@ sub _capture_cmd_output {
 	close $tmp;
 
 	my ( $stdout, $stderr, $exit ) = capture {
-		system( $cmd, $tmp->filename );
+		system( $cmd, @$opts, $tmp->filename );
 	};
 	my $result = {
 		stdout => $stdout,
@@ -74,20 +75,20 @@ sub _capture_cmd_output {
 
 sub run_perl {
 	my $self   = shift;
-	my $source = shift;
-	$self->_capture_cmd_output( $^X, $source );
+	my $source = shift->{source};
+	$self->_capture_cmd_output( $^X, [], $source );
 }
 
 sub run_rakudo {
 	my $self   = shift;
-	my $source = shift;
-	$self->_capture_cmd_output( 'perl6', $source );
+	my $source = shift->{source};
+	$self->_capture_cmd_output( 'perl6', [], $source );
 }
 
 sub run_parrot {
 	my $self   = shift;
-	my $source = shift;
-	$self->_capture_cmd_output( 'parrot', $source );
+	my $source = shift->{source};
+	$self->_capture_cmd_output( 'parrot', [], $source );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -996,11 +997,12 @@ sub syntax_check {
 	my $self   = shift;
 	my $source = shift->{source};
 
-	my $result = $self->_capture_cmd_output( $^X, $source );
+	my $result = $self->_capture_cmd_output( "$^X", ["-c"], $source );
 
 	require Parse::ErrorString::Perl;
 	my $parser = Parse::ErrorString::Perl->new;
 	my @errors = $parser->parse_string( $result->{stderr} );
+
 	my @problems;
 	foreach my $error (@errors) {
 		push @problems,
@@ -1056,6 +1058,7 @@ sub websocket {
 				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
+				'syntax-check'             => 1,
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
@@ -1067,6 +1070,9 @@ sub websocket {
 				$action =~ s/-/_/g;
 				my $o = $self->$action( $result->{params} ) or return;
 				$ws->send( $json->encode($o) );
+			}
+			else {
+				$self->app->log->warn("'$action' not found!");
 			}
 
 		}
