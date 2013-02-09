@@ -42,6 +42,9 @@
 		<div class="row-fluid">
 			<div id="action_button_div">
 				<a href="#" class="actions-button"><i class="icon-th"></i> <b>A</b>ctions</a>
+				<div class="pull-right">
+					 <button id="connection-status" class="btn btn-danger" type="button" disabled="disabled">Closed</button>
+				</div>
 			</div>
 			<div class="row-fluid">
 				<div class="span6 left-side">
