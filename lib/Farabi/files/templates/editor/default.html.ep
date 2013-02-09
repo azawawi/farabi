@@ -71,7 +71,9 @@
 						</div>
 						<div class="tab-pane" id="problems-tab">
 							<div class="farabi-bordered">
-								<div id="problems"><table class="table table-bordered table-striped"></table></div>
+								<div id="problems">
+									<table class="table table-bordered table-hover"></table>
+								</div>
 							</div>
 						</div>
 					</div>

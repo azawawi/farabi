@@ -161,6 +161,10 @@ span.CodeMirror-matchhighlight {
 	padding: 5px;
 }
 
+#problems >  table > tbody > tr {
+	cursor: pointer;
+}
+
 #problems-button {
 	cursor: pointer;
 }
