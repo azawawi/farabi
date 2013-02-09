@@ -15,7 +15,7 @@
 \bblibdirs$
 ^MANIFEST\.SKIP$
 \.tar.gz$
-\.log$
+\.(log|LOG)$
 
 # Avoid Module::Build generated and utility files.
 \bBuild$
@@ -44,5 +44,8 @@
 # Avoid archives of this distribution
 \bFarabi-[\d\.\_]+
 
-# avoid pot files (gettext)
+# Avoid pot files (gettext)
 \.pot$
+
+# Avoid bundling SQLite databases
+\.db$

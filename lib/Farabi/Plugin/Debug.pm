@@ -2,8 +2,6 @@ package Farabi::Plugin::Debug;
 
 use Moo;
 
-our $VERSION = '0.33';
-
 # Plugin module dependencies
 has 'deps' => (
 	is      => 'ro',
