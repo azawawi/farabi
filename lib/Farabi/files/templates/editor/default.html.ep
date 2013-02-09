@@ -62,7 +62,6 @@
 						<div class="tab-pane active" id="output-tab">
 							<div class="farabi-bordered">
 								<textarea id="output"></textarea>
-								<br>
 							</div>
 						</div>
 						<div class="tab-pane" id="pod-tab">
@@ -72,7 +71,7 @@
 						</div>
 						<div class="tab-pane" id="problems-tab">
 							<div class="farabi-bordered">
-								<div  id="problems"></div>
+								<div id="problems"><table class="table table-bordered table-striped"></table></div>
 							</div>
 						</div>
 					</div>

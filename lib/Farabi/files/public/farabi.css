@@ -156,3 +156,11 @@ span.CodeMirror-matchhighlight {
 	padding-top: 5px;
 	padding-bottom: 5px;
 }
+
+#problems-button {
+	cursor: pointer;
+}
+
+#problems-tab > div {
+	min-height: 550px;
+}
