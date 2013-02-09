@@ -170,5 +170,6 @@ span.CodeMirror-matchhighlight {
 }
 
 #problems-tab > div {
-	min-height: 550px;
+	height: 550px;
+	overflow: auto;
 }
