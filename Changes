@@ -2,6 +2,8 @@ Changes for Farabi
 
 {{$NEXT}}
 
+0.34  2013-02-09
+
     [FIXED]
     - Add missing package version that caused 0.33 to be broken
     - Fixed abstract for bin/farabi
