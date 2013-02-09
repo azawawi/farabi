@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
 
+0.35  2013-02-09
+
     [FIXED]
     - Plugin manager is now websocket enabled
     - About dialog now prints "development release" when there is no version
