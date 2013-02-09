@@ -73,19 +73,21 @@ sub _capture_cmd_output {
 }
 
 sub run_perl {
-	$_[0]->_capture_cmd_output( $^X, $_[1] );
-}
-
-sub run_niecza {
-	$_[0]->_capture_cmd_output( 'Niecza.exe', $_[1] );
+	my $self   = shift;
+	my $source = shift;
+	$self->_capture_cmd_output( $^X, $source );
 }
 
 sub run_rakudo {
-	$_[0]->_capture_cmd_output( 'perl6', $_[1] );
+	my $self   = shift;
+	my $source = shift;
+	$self->_capture_cmd_output( 'perl6', $source );
 }
 
 sub run_parrot {
-	$_[0]->_capture_cmd_output( 'parrot', $_[1] );
+	my $self   = shift;
+	my $source = shift;
+	$self->_capture_cmd_output( 'parrot', $source );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -989,6 +991,29 @@ sub find_plugins {
 	return \@plugins;
 }
 
+# Syntax check the provided source string
+sub syntax_check {
+	my $self   = shift;
+	my $source = shift->{source};
+
+	my $result = $self->_capture_cmd_output( $^X, $source );
+
+	require Parse::ErrorString::Perl;
+	my $parser = Parse::ErrorString::Perl->new;
+	my @errors = $parser->parse_string( $result->{stderr} );
+	my @problems;
+	foreach my $error (@errors) {
+		push @problems,
+		  {
+			message => $error->message,
+			file    => $error->file,
+			line    => $error->line,
+		  };
+	}
+
+	return \@problems;
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1008,7 +1033,7 @@ sub websocket {
 	require Mojo::JSON;
 	my $json = Mojo::JSON->new;
 
-	# Disable inactivity timeout 
+	# Disable inactivity timeout
 	Mojo::IOLoop->stream( $self->tx->connection )->timeout(0);
 
 	# Wait for a WebSocket message
@@ -1023,7 +1048,6 @@ sub websocket {
 				'find-file'                => 1,
 				'open-file'                => 1,
 				'run-perl'                 => 1,
-				'run-niecza'               => 1,
 				'run-rakudo'               => 1,
 				'run-parrot'               => 1,
 				'help_search'              => 1,
