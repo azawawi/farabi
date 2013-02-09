@@ -1,25 +1,34 @@
 Changes for Farabi
 
 {{$NEXT}}
-    -
+
+    [FIXED]
+    - Bug fix: Exit code is now returned correctly when a script is run
+
+    [CHANGED]
+    - Moved to Dist::Zilla to save my time
+    - Upgrade Bootstrap to 2.3.0
+    - Add a "connection status" red/green button on the right
+    - The websocket connection is retried automatically upon close
+    - Actions link is now a blue button
+    - Better hover effect on close tab and add new tab icons
 
 0.32  2013.2.8
 
-    [CHANGE]
+    [CHANGED]
     - Open File is now 'Open File(s)' and supports opening one or more files
     - Farabi uses websockets instead of stateless POST requests
     - When a file is opened, it is added or its timestamp is updated
       in the recent list table
     - Fix Firefox workaround: Escape key kills the websocket connection.
 
-    [FIX]
+    [FIXED]
     - Fix: run dialog was not showing any output after a successful run
 
-    [REMOVAL]
+    [REMOVED]
     - Remove obsolete unsafe feature environment support
     - Remove unimplemented "Open URL" action
     - Remove old POST actions that were migrated to websockets
-
 
 0.31  2013.2.6
     - Less left and right margin space. More horizontal space
