@@ -56,7 +56,7 @@
 					<ul id="rightTab" class="nav nav-tabs">
 						<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
 						<li><a href="#pod-preview-tab" data-toggle="tab">POD</a></li>
-						<li><a href="#pod-preview-tab" data-toggle="tab">Problems</a></li>
+						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="output-tab">
