@@ -13,20 +13,9 @@
 
           <div class="controls">
             <select id="runtime" size="10">
-              <option id="coffeescript">
-                CoffeeScript
-              </option>
-              <option id="niecza">
-                Niecza
-              </option>
-
               <option id="parrot">
 		Parrot
 	      </option>
-
-              <option id="perlito-6">
-                Perlito 6
-              </option>
 
               <option id="perlito-5">
                 Perlito 5
