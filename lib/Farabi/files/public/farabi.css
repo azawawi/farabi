@@ -157,6 +157,10 @@ span.CodeMirror-matchhighlight {
 	padding-bottom: 5px;
 }
 
+#problems {
+	padding: 5px;
+}
+
 #problems-button {
 	cursor: pointer;
 }
