@@ -64,32 +64,32 @@ span.CodeMirror-matchhighlight {
 }
 
 /** Smaller <h1>..<h6> font size inside the POD tab */
-#pod-tab {
+#pod {
 	height: 550px;
 	overflow: auto;
 }
 
-#pod-tab h1 {
+#pod h1 {
 	font-size: 24px;
 }
 
-#pod-tab h2 {
+#pod h2 {
 	font-size: 20px;
 }
 
-#pod-tab h3 {
+#pod h3 {
 	font-size: 18px;
 }
 
-#pod-tab h4 {
+#pod h4 {
 	font-size: 16px;
 }
 
-#pod-tab h5 {
+#pod h5 {
 	font-size: 14px;
 }
 
-#pod-tab h6 {
+#pod h6 {
 	font-size: 12px;
 }
 

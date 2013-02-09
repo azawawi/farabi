@@ -55,7 +55,8 @@
 				<div class="span6 right-side">
 					<ul id="rightTab" class="nav nav-tabs">
 						<li class="active"><a href="#output-tab" data-toggle="tab">Output</a></li>
-						<li><a href="#pod-preview-tab" data-toggle="tab">POD Preview</a></li>
+						<li><a href="#pod-preview-tab" data-toggle="tab">POD</a></li>
+						<li><a href="#pod-preview-tab" data-toggle="tab">Problems</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="output-tab">
@@ -64,9 +65,14 @@
 								<br>
 							</div>
 						</div>
-						<div class="tab-pane" id="pod-preview-tab">
+						<div class="tab-pane" id="pod-tab">
+							<div class="farabi-borsdered">
+								<div  id="pod"></div>
+							</div>
+						</div>
+						<div class="tab-pane" id="problems-tab">
 							<div class="farabi-bordered">
-								<div  id="pod-tab"></div>
+								<div  id="problems"></div>
 							</div>
 						</div>
 					</div>
