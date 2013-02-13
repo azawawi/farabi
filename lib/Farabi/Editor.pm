@@ -91,6 +91,13 @@ sub run_parrot {
 	$self->_capture_cmd_output( 'parrot', [], $source );
 }
 
+sub run_perlbrew_exec {
+	my $self = shift;
+	my $source = shift->{source};
+	$self->_capture_cmd_output( 'perlbrew_exec', [], $source );
+}
+
+
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
@@ -1056,6 +1063,7 @@ sub websocket {
 				'run-perl'                 => 1,
 				'run-rakudo'               => 1,
 				'run-parrot'               => 1,
+				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,

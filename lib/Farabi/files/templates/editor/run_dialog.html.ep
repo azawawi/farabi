@@ -25,6 +25,9 @@
                 Perl
               </option>
 
+			<option id="perlbrew-exec">
+				Perlbrew exec
+				</option>
               <option id="rakudo">
                 Rakudo Perl 6
               </option>
