@@ -604,13 +604,15 @@ sub _find_editor_mode_from_filename {
 		conf       => 'properties',
 		properties => 'properties',
 		ini        => 'properties',
+		txt        => 'plain',
+		'log'      => 'plain',
 		yml        => 'yaml',
 		yaml       => 'yaml',
 		coffee     => 'coffeescript'
 	);
 
 	# No extension, let us use default text mode
-	return 'plain' if !defined $extension;
+	return 'plain' unless defined $extension;
 	return $extension_to_mode{$extension};
 }
 
