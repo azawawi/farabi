@@ -94,7 +94,7 @@ sub run_parrot {
 sub run_perlbrew_exec {
 	my $self = shift;
 	my $source = shift->{source};
-	$self->_capture_cmd_output( 'perlbrew_exec', [], $source );
+	$self->_capture_cmd_output( 'perlbrew', ['exec', 'perl'], $source );
 }
 
 
