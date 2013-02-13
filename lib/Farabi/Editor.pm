@@ -1014,6 +1014,9 @@ sub syntax_check {
 		  };
 	}
 
+	# Sort problems by line numerically
+	@problems = sort {$a->{line} <=> $b->{line}} @problems;
+
 	return \@problems;
 }
 
