@@ -2,6 +2,23 @@ Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
 
+    [FIXED]
+    - Fixed Firefox copy/paste regression; enabled text selection until CodeMirror Issue #1250 '-moz-user-select Firefox Copy/Paste bug' is fixed
+    - Fixed INI and LOG files to be shown in plain mode instead of Perl
+    - Fixed remaining Open file to Open file(s) missed text
+    - Fixed Problems tab to be scrollable
+    - Fixed various JS bugs by downgrade to jQuery 1.8.3 from buggy jQuery 1.9.1
+
+    [CHANGED]
+    - Problems are now sorted by line number
+    - Added 'perlbrew exec' run option
+    - Added CheckChangesHasContent to dist.ini
+    - Added JavaScript code documentation
+
+    [REMOVED]
+    - Removed unneeded files
+    - Cleanup old run dialog runtimes
+
 0.35  2013-02-09
 
     [FIXED]
@@ -14,7 +31,7 @@ Changes for Farabi: The Modern Perl Editor
     - Add Problems tab and automatic syntax checking of Perl files
     - Disable text selection with mouse drag
     - About dialog table rows are now sorted
-    - Simplify editor statisics UI
+    - Simplify editor statistics UI
     - Problems status is shown in editor statistics and clicking on the red
       problem button opens the problems tab
     - Disabled automatic pod update until it works with syntax check
