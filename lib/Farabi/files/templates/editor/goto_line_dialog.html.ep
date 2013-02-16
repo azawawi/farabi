@@ -11,6 +11,7 @@
           <label class="control-label" for="line">Line:</label>
          <div class="controls">
             <input type="text" id="line" placeholder="Line Number">
+            <span class="help-inline"></span>
           </div>
         </div>
       </form>
