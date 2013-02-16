@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
 
+0.37  2013-02-16
+
     [FIXED]
     - Fixed Perl::Critic to work with the new problems tab
 
