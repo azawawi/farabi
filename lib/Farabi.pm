@@ -1,7 +1,7 @@
 package Farabi;
 use Mojo::Base 'Mojolicious';
 
-# ABSTRACT: Modern Perl editor
+# ABSTRACT: Modern Perl IDE
 
 sub startup {
 	my $app = shift;
@@ -71,14 +71,11 @@ __END__
 
 =head1 DESCRIPTION
 
-This is a modern web-based Perl editor that runs inside your favorite browser.
+This is a modern web-based Perl IDE that runs inside your favorite browser.
 
 Please run the following command and then open http://127.0.0.1:3000 in your browser:
 
   farabi daemon
-
-Please note that Farabi is purely expermintal at the moment. Things are moving fast
-as I try some new ideas. Feedback is welcome.
 
 =head1 TECHNOLOGIES USED
 
