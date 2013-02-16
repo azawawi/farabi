@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
 
+0.36  2013-02-15
+
     [FIXED]
     - Fixed Firefox copy/paste regression; enabled text selection until CodeMirror Issue #1250 '-moz-user-select Firefox Copy/Paste bug' is fixed
     - Fixed INI and LOG files to be shown in plain mode instead of Perl
