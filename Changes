@@ -2,6 +2,20 @@ Changes for Farabi: The Modern Perl Editor
 
 {{$NEXT}}
 
+    [FIXED]
+    - Fixed Perl::Critic to work with the new problems tab
+
+    [CHANGED]
+    - Farabi is now a modern Perl IDE instead of an editor
+    - Add source column to problems table
+    - JSHint automatically analyzes statically javascript files and
+      adds JS problems to the problems tab
+    - Updated documentation
+    - Diff and Patch files extensions are shown in diff CodeMirror mode
+
+    [REMOVED]
+    - Remove the experimental note warning from the documentation
+
 0.36  2013-02-15
 
     [FIXED]
