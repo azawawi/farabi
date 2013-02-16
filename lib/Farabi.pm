@@ -91,6 +91,10 @@ L<jQuery|http://jquery.com/> - A new kind of JavaScript Library
 
 =item *
 
+L<JSHint|http://jshint.com/> - A JavaScript Code Quality Tool
+
+=item *
+
 L<Bootstrap|http://twitter.github.com/bootstrap> - Sleek, intuitive, and powerful front-end framework for faster and easier web development
 
 =item *
