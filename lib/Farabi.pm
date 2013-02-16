@@ -80,7 +80,7 @@ Please run the following command and then open http://127.0.0.1:3000 in your bro
 Please note that Farabi is purely expermintal at the moment. Things are moving fast
 as I try some new ideas. Feedback is welcome.
 
-=head1 SEE ALSO
+=head1 TECHNOLOGIES USED
 
 =over
 
@@ -105,6 +105,10 @@ L<CodeMirror|http://codemirror.net> - In-browser code editing made bearable
 L<Perlito|http://perlito.org/> - Runtime for "Perlito" Perl5-in-Javascript
 
 =back
+
+=head1 SEE ALSO
+
+L<EPIC|http://www.epic-ide.org/>, L<Kephra>, L<Padre>, L<TryPerl|http://tryperl.com/>
 
 =head1 HISTORY
 
