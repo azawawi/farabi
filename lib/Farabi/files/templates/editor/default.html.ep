@@ -23,6 +23,7 @@
 <script src="plugin_manager_dialog.js"></script>
 <script src="run_dialog.js"></script>
 <script src="save_question_dialog.js"></script>
+<script src="goto_line_dialog.js"></script>
 
 <!-- CodeMirror editor -->
 <link rel="stylesheet" href="assets/codemirror/lib/codemirror.css"
@@ -95,6 +96,7 @@
 <%= include "editor/save_question_dialog"%>
 <%= include "editor/find_duplicate_perl_code_dialog"%>
 <%= include "editor/plugin_manager_dialog"%>
+<%= include "editor/goto_line_dialog"%>
 
 </body>
 </html>

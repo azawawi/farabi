@@ -1,0 +1,24 @@
+	<!-- Goto line dialog -->
+  <div class="modal hide fade" id="goto-line-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">Goto Line</h3>
+    </div>
+
+    <div class="modal-body">
+      <form class="form-vertical">
+        <div class="control-group">
+          <label class="control-label" for="line">Line:</label>
+         <div class="controls">
+            <input type="text" id="line" placeholder="Line Number">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>

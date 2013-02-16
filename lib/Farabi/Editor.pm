@@ -380,6 +380,10 @@ sub find_action {
 			name => 'Find Duplicate Perl Code',
 			help => 'Finds any duplicate perl code in the current lib folder',
 		},
+		'action-goto-line' => {
+			name => 'Goto Line',
+			help => 'A dialog to jump to the needed line',
+		},
 		'action-help' => {
 			name => 'Help - Getting Started',
 			help => 'A quick getting started help dialog',
