@@ -384,6 +384,10 @@ sub find_action {
 			name => 'Help - Getting Started',
 			help => 'A quick getting started help dialog',
 		},
+		'action-jshint' => {
+			name => 'JSHint',
+			help => 'Run JSHint on the current editor tab',
+		},
 		'action-open-file' => {
 			name => 'Open File(s)',
 			help => "Opens one or more files in an editor tab",
