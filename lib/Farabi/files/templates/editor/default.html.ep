@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Farabi: Modern Perl Editor</title>
+<title>Farabi: Modern Perl IDE</title>
 
 <!-- jQuery -->
 <script src="assets/jquery/jquery-1.8.3.min.js"></script>
