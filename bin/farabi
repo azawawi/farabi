@@ -5,6 +5,7 @@
 
 use strict;
 use warnings;
+use v5.10;
 
 use File::Basename 'dirname';
 use File::Spec::Functions qw(catdir splitdir);
@@ -12,8 +13,50 @@ use File::Spec::Functions qw(catdir splitdir);
 # Source directory has precedence
 my @base = ( splitdir( dirname(__FILE__) ), '..' );
 my $lib = join( '/', @base, 'lib' );
--e catdir( @base, 't' ) ? unshift( @INC, $lib ) : push( @INC, $lib );
+my $dev = -e catdir( @base, 't' ) ? 1 : 0;
+$dev ? unshift( @INC, $lib ) : push( @INC, $lib );
+
+use Getopt::Long;
+my $host = "*";
+my $port;
+my $version;
+my $help;
+my $result = GetOptions(
+	"host=s"  => \$host,
+	"port=i"  => \$port,
+	"help"    => \$help,
+	"version" => \$version
+);
+
+if($help) {
+	print <<HELP;
+USAGE:
+    help       Shows this page
+	version    Shows Farabi version
+	host       The hostname to listen to (default is *)
+	port       The port to listen to (defaults to 3030 in unreleased mode and 4040 in installed mode)
+HELP
+
+	exit;
+}
+
+if($version) {
+	
+	if(open my $fh, "<", "dist.ini") {
+		while(my $line = <$fh>) {
+			if($line =~ /^version\s*=\s*(\S+)/) {
+				$version = "$1 unreleased";
+			}
+		}
+		close $fh;
+	}
+	require Farabi;
+	$version = $version // ('unreleased' || $Farabi::VERSION);
+	say "Farabi v$version";
+	exit;
+}
 
 # Start commands for application
 require Mojolicious::Commands;
-Mojolicious::Commands->start_app('Farabi');
+$port = $port // ($dev ? 3030 : 4040);
+Mojolicious::Commands->start_app('Farabi', 'daemon', '-l', "http://$host:$port");
