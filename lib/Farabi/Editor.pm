@@ -608,7 +608,9 @@ sub _find_editor_mode_from_filename {
 		'log'      => 'plain',
 		yml        => 'yaml',
 		yaml       => 'yaml',
-		coffee     => 'coffeescript'
+		coffee     => 'coffeescript',
+		diff       => 'diff',
+		patch      => 'diff',
 	);
 
 	# No extension, let us use default text mode
