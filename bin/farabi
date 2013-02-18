@@ -45,7 +45,7 @@ if($version) {
 	if(open my $fh, "<", "dist.ini") {
 		while(my $line = <$fh>) {
 			if($line =~ /^version\s*=\s*(\S+)/) {
-				$version = "$1 unreleased";
+				$version = "$1 (Not released)";
 			}
 		}
 		close $fh;
@@ -59,4 +59,5 @@ if($version) {
 # Start commands for application
 require Mojolicious::Commands;
 $port = $port // ($dev ? 3030 : 4040);
+say "Listening at $port";
 Mojolicious::Commands->start_app('Farabi', 'daemon', '-l', "http://$host:$port");
