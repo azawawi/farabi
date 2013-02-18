@@ -5,14 +5,25 @@ This is a modern web-based Perl IDE that runs inside your favorite browser.
 
 To start Farabi, please type the following command:
 
-    farabi daemon
+    farabi
 
-Open http://127.0.0.1:3000/ in your favourite modern browser.
-
+And then Open http://127.0.0.1:4040/ in your favourite modern browser.
 
 To run it on a different port, please use:
 
-    farabi daemon --listen "http://*:3030"
+    farabi --port 5050
+
+Supported Browsers
+==================
+Farabi needs a modern browser that supports HTML 5 and websockets.
+
+My current test setup is Firefox 18 and Chrome 24.
+
+The following browsers could be theoritically supported:
+
+- Firefox 16 and later
+- Chrome 23 and later
+- IE 10 and later
 
 Installation
 ============
@@ -37,14 +48,8 @@ You can also look for information at:
     Project issue list:
 	https://github.com/azawawi/farabi/issues
 
-    AnnoCPAN, Annotated CPAN documentation
-        http://annocpan.org/dist/Farabi
-
     CPAN Ratings
         http://cpanratings.perl.org/d/Farabi
-
-    Search CPAN
-        http://search.cpan.org/dist/Farabi
 
 Copyright and License
 =====================
