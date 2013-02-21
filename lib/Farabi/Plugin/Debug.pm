@@ -9,7 +9,7 @@ use Moo;
 has 'deps' => (
 	is      => 'ro',
 	default => sub {
-		[ 'Debug::Client' => '0.20', ];
+		[ 'Debug::Client' => '0.24', ];
 	}
 );
 
