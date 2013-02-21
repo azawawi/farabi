@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.39      2013-02-22 01:34:00 Asia/Baghdad
+
     [ADDED]
     - Added FEATURES documentation for Open file(s). 
     - Added the new great action-based menu bar
