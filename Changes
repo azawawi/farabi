@@ -2,6 +2,26 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    - Added the match bracket feature
+    - Added Goto line dialog to jump to a specific line in the current editor
+    - Added the following command line switches: -host, --port and --version.
+      Port 3000 is used by default for development, and 4040 for production
+
+    [CHANGED]
+    - Fixed typo in abstract (Editor to IDE)
+    - Open and actions dialog now properly display help and path on startup
+      and on every item selection change
+    - Updated Documentation about the new new farabi command line options
+    - Resolved some JSHint hints in JS files
+    - Changes from now should display timezone
+    - Added [@Git] and [OurPkgVersion] to dist.ini
+    - Module::Starter is now a dependency
+
+    [REMOVED]
+    - Removed duplicate hardcoded abstract from dist.ini
+    - Removed Mojo default commands
+
 0.37  2013-02-16
 
     [FIXED]
