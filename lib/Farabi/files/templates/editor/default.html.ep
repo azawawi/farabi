@@ -57,31 +57,32 @@
                   <div class="nav-collapse collapse navbar-inverse-collapse">
                     <ul class="nav">
 						<li><button class="actions-button btn btn-primary" type="button"><b>A</b>ctions</button><li>
-							<li><%= Farabi::Editor->get_text; %></li>
-                      <li id="file-dropdown" class="dropdown">
+							<li><%
+								my $menus = Farabi::Editor->menus;
+								for my $menu_key (sort keys %$menus) {
+									my $menu_name = ($menu_key =~ s/^\d{2}\.//r);
+							    %>
+                      <li id="<%= $menu_name %>-dropdown" class="dropdown">
 						  
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">File <b class="caret"></b></a>
+						  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= $menu_name %> <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                          <li><a id="action-new-file" href="#">New File</a></li>
-                          <li><a id="action-new-file" href="#">Open File(s)</a></li>
-                          <li><a href="#">Save File</a></li>
-                          <li><a href="#">Close File</a></li>
-                          <li><a href="#">Close All File(s)</a></li>
+							<%
+							my $menu = $menus->{$menu_key};
+							for my $menu_item (@$menu) {
+								
+							%>
+                          <li><a id="<%=$menu_item->{action}%>" href="#"><%=$menu_item->{name}%></a></li>
+								<%
+								}
+								%>
                         </ul>
                       </li>
+								
+								<%
+								}
+								%>
                     </ul>
                     <ul class="nav pull-right">
-                      <li class="divider-vertical"></li>
-                      <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Help <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                          <li><a href="#">Getting Started</a></li>
-                          <li><a href="#">Another action</a></li>
-                          <li><a href="#">Something else here</a></li>
-                          <li class="divider"></li>
-                          <li><a href="#">Separated link</a></li>
-                        </ul>
-                      </li>
 						<li><button id="connection-status" class="btn btn-danger" type="button" disabled="disabled">Closed</button></li>
                     </ul>
                   </div>

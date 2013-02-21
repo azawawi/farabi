@@ -8,120 +8,157 @@ use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
 # The actions
+
+my $file_menu  = '01.File';
+my $edit_menu  = '02.Edit';
+my $run_menu   = '03.Run';
+my $tools_menu = '04.Tools';
+my $help_menu  = '05.Help';
+
 my %actions = (
-	'action-about' => {
-		name => 'About Farabi',
-		help => 'Opens an dialog about the current application',
-		menu => 'help',
-	},
-	'action-close-file' => {
-		name => 'Close File',
-		help => "Closes the current open file",
-		menu => 'file',
-	},
-	'action-close-all-files' => {
-		name => 'Close All Files',
-		help => "Closes all of the open files",
-		menu => 'file',
-	},
-	'action-dump-ppi-tree' => {
-		name => 'Dump the PPI tree',
-		help => "Dumps the PPI tree into the output pane",
-		menu => 'tools',
-	},
-	'action-find-duplicate-perl-code' => {
-		name => 'Find Duplicate Perl Code',
-		help => 'Finds any duplicate perl code in the current lib folder',
-		menu => 'tools',
-	},
-	'action-goto-line' => {
-		name => 'Goto Line',
-		help => 'A dialog to jump to the needed line',
-		menu => 'edit',
-	},
-	'action-help' => {
-		name => 'Help - Getting Started',
-		help => 'A quick getting started help dialog',
-		menu => 'help',
-	},
-	'action-jshint' => {
-		name => 'JSHint',
-		help => 'Run JSHint on the current editor tab',
-		menu => 'tools',
+	'action-new-file' => {
+		name  => 'New File',
+		help  => "Opens a new file in an editor tab",
+		menu  => $file_menu,
+		order => 1,
 	},
 	'action-open-file' => {
-		name => 'Open File(s)',
-		help => "Opens one or more files in an editor tab",
-		menu => 'file',
-	},
-	'action-new-file' => {
-		name => 'New File',
-		help => "Opens a new file in an editor tab",
-		menu => 'file',
-	},
-	'action-options' => {
-		name => 'Options',
-		help => 'Open the options dialog',
-		menu => 'tools',
-	},
-	'action-perl-tidy' => {
-		name => 'Perl Tidy',
-		help => 'Run the Perl::Tidy tool on the current editor tab',
-		menu => 'tools',
-	},
-	'action-perl-critic' => {
-		name => 'Perl Critic',
-		help => 'Run the Perl::Critic tool on the current editor tab',
-		menu => 'tools',
-	},
-	'action-plugin-manager' => {
-		name => 'Plugin Manager',
-		help => 'Opens the plugin manager',
-		menu => 'tools',
+		name  => 'Open File(s)',
+		help  => "Opens one or more files in an editor tab",
+		menu  => $file_menu,
+		order => 2,
 	},
 	'action-save-file' => {
-		name => 'Save File',
-		help => "Saves the current file ",
-		menu => 'file',
+		name  => 'Save File',
+		help  => "Saves the current file ",
+		menu  => $file_menu,
+		order => 3,
 	},
-	'action-syntax-check' => {
-		name => 'Syntax Check',
-		help => 'Run the syntax check tool on the current editor tab',
-		menu => 'run',
+	'action-close-file' => {
+		name  => 'Close File',
+		help  => "Closes the current open file",
+		menu  => $file_menu,
+		order => 4,
 	},
-	'action-perl-doc' => {
-		name => 'Help - Perl Documentation',
-		help => 'Opens the Perl help documentation dialog',
-		menu => 'help',
+	'action-close-all-files' => {
+		name  => 'Close All Files',
+		help  => "Closes all of the open files",
+		menu  => $file_menu,
+		order => 5,
+	},
+	'action-goto-line' => {
+		name  => 'Goto Line',
+		help  => 'A dialog to jump to the needed line',
+		menu  => $edit_menu,
+		order => 1,
+	},
+	'action-options' => {
+		name  => 'Options',
+		help  => 'Open the options dialog',
+		menu  => $tools_menu,
+		order => 1,
+	},
+	'action-plugin-manager' => {
+		name  => 'Plugin Manager',
+		help  => 'Opens the plugin manager',
+		menu  => $tools_menu,
+		order => 2,
+	},
+	'action-perl-tidy' => {
+		name  => 'Perl Tidy',
+		help  => 'Run the Perl::Tidy tool on the current editor tab',
+		menu  => $tools_menu,
+		order => 3,
+	},
+	'action-perl-critic' => {
+		name  => 'Perl Critic',
+		help  => 'Run the Perl::Critic tool on the current editor tab',
+		menu  => $tools_menu,
+		order => 4,
+	},
+	'action-jshint' => {
+		name  => 'JSHint',
+		help  => 'Run JSHint on the current editor tab',
+		menu  => $tools_menu,
+		order => 5,
+	},
+	'action-find-duplicate-perl-code' => {
+		name  => 'Find Duplicate Perl Code',
+		help  => 'Finds any duplicate perl code in the current lib folder',
+		menu  => $tools_menu,
+		order => 6,
 	},
 	'action-repl' => {
-		name => 'REPL - Read-Print-Eval-Loop',
-		help => 'Opens the Read-Print-Eval-Loop dialog',
-		menu => 'tools',
+		name  => 'REPL - Read-Print-Eval-Loop',
+		help  => 'Opens the Read-Print-Eval-Loop dialog',
+		menu  => $tools_menu,
+		order => 7,
+	},
+	'action-dump-ppi-tree' => {
+		name  => 'Dump the PPI tree',
+		help  => "Dumps the PPI tree into the output pane",
+		menu  => $tools_menu,
+		order => 8,
 	},
 	'action-run' => {
-		name => 'Run',
-		help => 'Run the current editor source file using the run dialog',
-		menu => 'run',
+		name  => 'Run',
+		help  => 'Run the current editor source file using the run dialog',
+		menu  => $run_menu,
+		order => 1,
+	},
+	'action-syntax-check' => {
+		name  => 'Syntax Check',
+		help  => 'Run the syntax check tool on the current editor tab',
+		menu  => $run_menu,
+		order => 2,
+	},
+	'action-help' => {
+		name  => 'Help - Getting Started',
+		help  => 'A quick getting started help dialog',
+		menu  => $help_menu,
+		order => 1,
+	},
+	'action-perl-doc' => {
+		name  => 'Help - Perl Documentation',
+		help  => 'Opens the Perl help documentation dialog',
+		menu  => $help_menu,
+		order => 2,
+	},
+	'action-about' => {
+		name  => 'About Farabi',
+		help  => 'Opens an dialog about the current application',
+		menu  => $help_menu,
+		order => 3,
 	},
 );
 
 sub menus {
-	my %menus = ();
-	
-	for my $name (keys %actions) {
-		my $action = actions{$name};
-		my $menu = $action{menu};
-		unless($menus{$menu}) {
-		$menus{$menu} = {
+	my $menus = ();
+
+	for my $name ( keys %actions ) {
+		my $action = $actions{$name};
+		my $menu   = $action->{menu};
+		$menu = ucfirst($menu);
+
+		$menus->{$menu} = [] unless defined $menus->{$menu};
+
+		push @{ $menus->{$menu} },
+		  {
 			action => $name,
-			name   => $action{name},
-		};
-		}
-		
+			name   => $action->{name},
+			order  => $action->{order},
+		  };
+
 	}
 
-	%menus;
+	for my $name ( keys %$menus ) {
+		my $menu = $menus->{$name};
+
+		my @sorted = sort { $a->{order} <=> $b->{order} } @$menu;
+		$menus->{$name} = \@sorted;
+	}
+
+	$menus;
 }
 
 # Taken from Padre::Plugin::PerlCritic
