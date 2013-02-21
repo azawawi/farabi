@@ -17,7 +17,6 @@ Link to Perl style http://perldoc.perl.org/perlstyle.html
 Add IO functions so that Perlito work. https://github.com/fglock/Perlito/blob/master/html/perlito5.js#L1041
 Save scratch to Ideas folder. Basically you sometimes need a proof of concept script and do not want to pollute desktop/home/project folder
 Add Comment / Uncomment to Perl mode
-farabi --version   # should work...
 Add not_found.development.html.ep and not_found.html.ep
 Use full screen API (if enabled).
 Detect older unsupported browsers and drop them a similar message:
