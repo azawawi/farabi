@@ -5,7 +5,7 @@ use warnings;
 use 5.010001;
 
 # PODNAME:  farabi
-# ABSTRACT: Run Farabi webserver
+# ABSTRACT: Run Farabi web server
 # VERSION
 
 use File::Basename 'dirname';
