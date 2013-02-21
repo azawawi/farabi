@@ -7,6 +7,123 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 
+# The actions
+my %actions = (
+	'action-about' => {
+		name => 'About Farabi',
+		help => 'Opens an dialog about the current application',
+		menu => 'help',
+	},
+	'action-close-file' => {
+		name => 'Close File',
+		help => "Closes the current open file",
+		menu => 'file',
+	},
+	'action-close-all-files' => {
+		name => 'Close All Files',
+		help => "Closes all of the open files",
+		menu => 'file',
+	},
+	'action-dump-ppi-tree' => {
+		name => 'Dump the PPI tree',
+		help => "Dumps the PPI tree into the output pane",
+		menu => 'tools',
+	},
+	'action-find-duplicate-perl-code' => {
+		name => 'Find Duplicate Perl Code',
+		help => 'Finds any duplicate perl code in the current lib folder',
+		menu => 'tools',
+	},
+	'action-goto-line' => {
+		name => 'Goto Line',
+		help => 'A dialog to jump to the needed line',
+		menu => 'edit',
+	},
+	'action-help' => {
+		name => 'Help - Getting Started',
+		help => 'A quick getting started help dialog',
+		menu => 'help',
+	},
+	'action-jshint' => {
+		name => 'JSHint',
+		help => 'Run JSHint on the current editor tab',
+		menu => 'tools',
+	},
+	'action-open-file' => {
+		name => 'Open File(s)',
+		help => "Opens one or more files in an editor tab",
+		menu => 'file',
+	},
+	'action-new-file' => {
+		name => 'New File',
+		help => "Opens a new file in an editor tab",
+		menu => 'file',
+	},
+	'action-options' => {
+		name => 'Options',
+		help => 'Open the options dialog',
+		menu => 'tools',
+	},
+	'action-perl-tidy' => {
+		name => 'Perl Tidy',
+		help => 'Run the Perl::Tidy tool on the current editor tab',
+		menu => 'tools',
+	},
+	'action-perl-critic' => {
+		name => 'Perl Critic',
+		help => 'Run the Perl::Critic tool on the current editor tab',
+		menu => 'tools',
+	},
+	'action-plugin-manager' => {
+		name => 'Plugin Manager',
+		help => 'Opens the plugin manager',
+		menu => 'tools',
+	},
+	'action-save-file' => {
+		name => 'Save File',
+		help => "Saves the current file ",
+		menu => 'file',
+	},
+	'action-syntax-check' => {
+		name => 'Syntax Check',
+		help => 'Run the syntax check tool on the current editor tab',
+		menu => 'run',
+	},
+	'action-perl-doc' => {
+		name => 'Help - Perl Documentation',
+		help => 'Opens the Perl help documentation dialog',
+		menu => 'help',
+	},
+	'action-repl' => {
+		name => 'REPL - Read-Print-Eval-Loop',
+		help => 'Opens the Read-Print-Eval-Loop dialog',
+		menu => 'tools',
+	},
+	'action-run' => {
+		name => 'Run',
+		help => 'Run the current editor source file using the run dialog',
+		menu => 'run',
+	},
+);
+
+sub menus {
+	my %menus = ();
+	
+	for my $name (keys %actions) {
+		my $action = actions{$name};
+		my $menu = $action{menu};
+		unless($menus{$menu}) {
+		$menus{$menu} = {
+			action => $name,
+			name   => $action{name},
+		};
+		}
+		
+	}
+
+	%menus;
+}
+
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
@@ -93,11 +210,10 @@ sub run_parrot {
 }
 
 sub run_perlbrew_exec {
-	my $self = shift;
+	my $self   = shift;
 	my $source = shift->{source};
-	$self->_capture_cmd_output( 'perlbrew', ['exec', 'perl'], $source );
+	$self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ], $source );
 }
-
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
@@ -358,86 +474,6 @@ sub find_action {
 
 	# Quote every special regex character
 	my $query = quotemeta( shift->{action} // '' );
-
-	# The actions
-	my %actions = (
-		'action-about' => {
-			name => 'About Farabi',
-			help => 'Opens an dialog about the current application',
-		},
-		'action-close-file' => {
-			name => 'Close File',
-			help => "Closes the current open file",
-		},
-		'action-close-all-files' => {
-			name => 'Close All Files',
-			help => "Closes all of the open files",
-		},
-		'action-dump-ppi-tree' => {
-			name => 'Dump the PPI tree',
-			help => "Dumps the PPI tree into the output pane",
-		},
-		'action-find-duplicate-perl-code' => {
-			name => 'Find Duplicate Perl Code',
-			help => 'Finds any duplicate perl code in the current lib folder',
-		},
-		'action-goto-line' => {
-			name => 'Goto Line',
-			help => 'A dialog to jump to the needed line',
-		},
-		'action-help' => {
-			name => 'Help - Getting Started',
-			help => 'A quick getting started help dialog',
-		},
-		'action-jshint' => {
-			name => 'JSHint',
-			help => 'Run JSHint on the current editor tab',
-		},
-		'action-open-file' => {
-			name => 'Open File(s)',
-			help => "Opens one or more files in an editor tab",
-		},
-		'action-new-file' => {
-			name => 'New File',
-			help => "Opens a new file in an editor tab",
-		},
-		'action-options' => {
-			name => 'Options',
-			help => 'Open the options dialog',
-		},
-		'action-perl-tidy' => {
-			name => 'Perl Tidy',
-			help => 'Run the Perl::Tidy tool on the current editor tab',
-		},
-		'action-perl-critic' => {
-			name => 'Perl Critic',
-			help => 'Run the Perl::Critic tool on the current editor tab',
-		},
-		'action-plugin-manager' => {
-			name => 'Plugin Manager',
-			help => 'Opens the plugin manager',
-		},
-		'action-save-file' => {
-			name => 'Save File',
-			help => "Saves the current file ",
-		},
-		'action-syntax-check' => {
-			name => 'Syntax Check',
-			help => 'Run the syntax check tool on the current editor tab',
-		},
-		'action-perl-doc' => {
-			name => 'Help - Perl Documentation',
-			help => 'Opens the Perl help documentation dialog',
-		},
-		'action-repl' => {
-			name => 'REPL - Read-Print-Eval-Loop',
-			help => 'Opens the Read-Print-Eval-Loop dialog',
-		},
-		'action-run' => {
-			name => 'Run',
-			help => 'Run the current editor source file using the run dialog',
-		},
-	);
 
 	# Find matched actions
 	my @matches;
@@ -1035,7 +1071,7 @@ sub syntax_check {
 	}
 
 	# Sort problems by line numerically
-	@problems = sort {$a->{line} <=> $b->{line}} @problems;
+	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
 	return \@problems;
 }
