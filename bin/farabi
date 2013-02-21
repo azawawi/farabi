@@ -20,13 +20,13 @@ $dev ? unshift( @INC, $lib ) : push( @INC, $lib );
 use Getopt::Long;
 my $host = "*";
 my $port;
-my $version;
+my $opt_version;
 my $help;
 my $result = GetOptions(
 	"host=s"  => \$host,
 	"port=i"  => \$port,
 	"help"    => \$help,
-	"version" => \$version
+	"version" => \$opt_version,
 );
 
 if ($help) {
@@ -41,8 +41,8 @@ HELP
 	exit;
 }
 
-if ($version) {
-
+if ($opt_version) {
+	my $version;
 	if ( open my $fh, "<", "dist.ini" ) {
 		while ( my $line = <$fh> ) {
 			if ( $line =~ /^version\s*=\s*(\S+)/ ) {
@@ -52,7 +52,7 @@ if ($version) {
 		close $fh;
 	}
 	require Farabi;
-	$version = $version // $Farabi::VERSION // 'unreleased';
+	$version = $version // ($Farabi::VERSION || 'unreleased');
 	say "Farabi v$version";
 	exit;
 }
