@@ -1,6 +1,7 @@
 package Farabi::Editor;
 
 # ABSTRACT: Controller
+# VERSION
 
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);

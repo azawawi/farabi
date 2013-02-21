@@ -1,7 +1,9 @@
 package Farabi::Plugin::Debug;
 
-# ABSTRACT: Debugger support for Farabi
 use Moo;
+
+# ABSTRACT: Perl debugger support for Farabi
+# VERSION
 
 # Plugin module dependencies
 has 'deps' => (
@@ -15,7 +17,7 @@ has 'deps' => (
 has 'name' => (
 	is      => 'ro',
 	default => sub {
-		'Perl 5 Debugger';
+		'Perl debugger support';
 	}
 );
 

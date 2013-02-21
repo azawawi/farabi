@@ -2,6 +2,7 @@ package Farabi;
 use Mojo::Base 'Mojolicious';
 
 # ABSTRACT: Modern Perl IDE
+# VERSION
 
 sub startup {
 	my $app = shift;

@@ -1,8 +1,9 @@
 package Farabi::Plugin::PerlTidy;
 
-# ABSTRACT: Perl::Tidy support for Farabi
-
 use Moo;
+
+# ABSTRACT: Perl::Tidy support for Farabi
+# VERSION
 
 # Plugin module dependencies
 has 'deps' => (

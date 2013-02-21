@@ -1,11 +1,12 @@
 #!/usr/bin/env perl
 
-# PODNAME:  farabi
-# ABSTRACT: Run Farabi webserver
-
 use strict;
 use warnings;
-use v5.10;
+use 5.010001;
+
+# PODNAME:  farabi
+# ABSTRACT: Run Farabi webserver
+# VERSION
 
 use File::Basename 'dirname';
 use File::Spec::Functions qw(catdir splitdir);
