@@ -77,6 +77,17 @@ Please run the following command and then open http://127.0.0.1:4040 in your bro
 
   farabi
 
+
+=head1 FEATURES
+
+=item Open File(s)
+
+The dialog provides partial filename search inside the directory where Farabi was started.
+Matched single or multiple file selections can then be opened in one batch.
+
+B<WARNING:> Please do not start farabi in a folder with too many files like your home directory
+because this feature's performance will eventually suffer.
+
 =head1 TECHNOLOGIES USED
 
 =over
