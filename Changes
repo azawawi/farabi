@@ -2,6 +2,19 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    - Added FEATURES documentation for Open file(s). 
+    - Added the new great action-based menu bar
+
+    [CHANGED]
+    - Fix Bug: q{farabi --version} returns q{Farabi v1}
+    - Fix #14 by adding the requested documentation warning
+    - Bumped Debug::Client to 0.24. bowtie++
+
+    [REMOVED]
+    - Removed unused test scripts. These were being installed by mistake. Sorry :)
+    - Remove unused POST routes
+
 0.38      2013-02-21 08:51:45 Asia/Baghdad
 
     [ADDED]
