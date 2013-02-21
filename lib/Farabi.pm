@@ -64,10 +64,10 @@ __END__
 =head1 SYNOPSIS
 
   # Run on the default port 4040
-  $ farabi daemon
+  $ farabi
   
   # Run it on port 5050
-  $ farabi daemon --port
+  $ farabi --port 5050
 
 =head1 DESCRIPTION
 

@@ -17,7 +17,7 @@ Supported Browsers
 ==================
 Farabi needs a modern browser that supports HTML 5 and websockets.
 
-My current test setup is Firefox 18 and Chrome 24.
+My current test setup is Firefox 19 and Chrome 24.
 
 The following browsers could be theoritically supported:
 
