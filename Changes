@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.38      2013-02-21 08:51:45 Asia/Baghdad
+
     [ADDED]
     - Added the match bracket feature
     - Added Goto line dialog to jump to a specific line in the current editor
