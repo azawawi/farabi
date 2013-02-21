@@ -24,7 +24,6 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
-	$route->post('/')->to('editor#default');
 
 	# Setup the Farabi database
 	eval { $app->_setup_database; };
