@@ -25,6 +25,11 @@ sub startup {
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
 
+	eval { $app->_setup_dirs };
+	if ($@) {
+		die "Failure to create \$HOME/.farabi directory structure, reason: $@";
+	}
+
 	# Setup the Farabi database
 	eval { $app->_setup_database; };
 	if ($@) {
@@ -33,6 +38,20 @@ sub startup {
 
 	# Setup websocket message handler
 	$route->websocket('/websocket')->to('editor#websocket');
+}
+
+#
+# Create the following directory structure:
+# .farabi
+# .farabi/projects
+#
+sub _setup_dirs {
+	require File::HomeDir;
+	require Path::Tiny;
+
+	my $projects =
+	  Path::Tiny::path( File::HomeDir->home, ".farabi", "projects" );
+	$projects->mkpath;
 }
 
 # Setup the Farabi database
