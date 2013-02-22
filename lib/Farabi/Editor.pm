@@ -6,6 +6,7 @@ package Farabi::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
+use Path::Tiny;
 
 # The actions
 
@@ -565,13 +566,12 @@ sub find_file {
 	$rule->file->name(qr/$query/i);
 	my @files = $rule->in($dir);
 
-	require File::Basename;
 	my @matches;
 	for my $file (@files) {
 		push @matches,
 		  {
 			id   => $file,
-			name => File::Basename::basename($file),
+			name => path($file)->basename,
 		  };
 	}
 
@@ -605,8 +605,7 @@ sub open_file {
 		$result{mode} = _find_editor_mode_from_filename($filename);
 
 		# Simplify filename
-		require File::Basename;
-		$result{filename} = File::Basename::basename($filename);
+		$result{filename} = path($filename)->basename;
 
 		# Add or update record file record
 		$self->_add_or_update_recent_file_record($filename);
