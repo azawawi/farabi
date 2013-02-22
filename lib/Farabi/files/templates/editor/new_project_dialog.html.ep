@@ -1,0 +1,54 @@
+	<!-- New Project dialog -->
+  <div class="modal hide fade" id="new-project-dialog" tabindex="-1" role=
+  "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <h3 id="myModalLabel">New Project</h3>
+    </div>
+
+    <div class="modal-body">
+      <form class="form-horizontal">
+        <div class="control-group">
+          <label class="control-label" for="distro">Distribution:</label>
+         <div class="controls">
+            <input type="text" id="distro" placeholder="Foo::Bar">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="modules">Modules:</label>
+         <div class="controls">
+            <input type="text" id="modules" placeholder="Foo::Bar, Foo::Bat">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="dir">Directory:</label>
+         <div class="controls">
+			 <input class="input-xlarge" type="text" id="dir" placeholder="Directory" value="<%= app->projects_dir %>">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="builders">Builders:</label>
+         <div class="controls">
+            <input type="text" id="builders" placeholder="Module::Build, Module::Install">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="author">Author:</label>
+         <div class="controls">
+            <input type="text" id="author" placeholder="Batman">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label" for="email">Email:</label>
+         <div class="controls">
+            <input type="text" id="email" placeholder="batman@gotham.city">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button id="ok-button" class="btn btn-primary" data-dismiss=
+      "modal" aria-hidden="true">OK</button> <button id=
+      "cancel-button" class="btn btn-warning" data-dismiss="modal" aria-hidden=
+      "true">Cancel</button>
+    </div>
+  </div>
