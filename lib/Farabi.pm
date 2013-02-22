@@ -1,8 +1,16 @@
 package Farabi;
+
 use Mojo::Base 'Mojolicious';
+use Path::Tiny;
 
 # ABSTRACT: Modern Perl IDE
 # VERSION
+
+# Application SQLite database and projects are stored in this directory
+has 'home_dir';
+
+# Projects are stored in this directory
+has 'projects_dir';
 
 sub startup {
 	my $app = shift;
@@ -46,20 +54,23 @@ sub startup {
 # .farabi/projects
 #
 sub _setup_dirs {
-	require File::HomeDir;
-	require Path::Tiny;
+	my $app = shift;
 
-	my $projects =
-	  Path::Tiny::path( File::HomeDir->home, ".farabi", "projects" );
-	$projects->mkpath;
+	require File::HomeDir;
+
+	$app->home_dir( path( File::HomeDir->home, ".farabi" ) );
+	$app->projects_dir( path( $app->home_dir, "projects" ) );
+	$app->projects_dir->mkpath;
 }
 
 # Setup the Farabi database
 sub _setup_database {
+	my $app = shift;
 
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
-	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+	my $dbname = path( $app->home_dir, "farabi.db" );
+	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$dbname");
 
 	# Create tables if they do not exist
 	$db->query(<<SQL);
