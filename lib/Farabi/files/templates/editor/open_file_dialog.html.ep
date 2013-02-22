@@ -6,7 +6,7 @@
     </div>
 
     <div class="modal-body">
-      <form class="form-vertical">
+      <form class="form-horizontal">
         <div class="control-group">
           <label class="control-label" for="file">File:</label>
          <div class="controls">
