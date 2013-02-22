@@ -50,7 +50,7 @@ body {
 	border: 1px solid #DDD !important;
 }
 
-.activeline {
+.CodeMirror-activeline-background {
 	background: #e8f2ff !important;
 }
 
