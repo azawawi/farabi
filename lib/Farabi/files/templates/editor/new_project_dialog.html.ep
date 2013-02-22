@@ -1,4 +1,7 @@
 	<!-- New Project dialog -->
+<%
+use Path::Tiny;
+%>
   <div class="modal hide fade" id="new-project-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
@@ -10,37 +13,37 @@
         <div class="control-group">
           <label class="control-label" for="distro">Distribution:</label>
          <div class="controls">
-            <input type="text" id="distro" placeholder="Foo::Bar">
+            <input type="text" id="distro" placeholder="Foo::Bar" value="Foo::Bar">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="modules">Modules:</label>
          <div class="controls">
-            <input type="text" id="modules" placeholder="Foo::Bar, Foo::Bat">
+            <input type="text" id="modules" placeholder="Foo::Bar, Foo::Bat" value="Foo::Bar, Foo::Bat">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="dir">Directory:</label>
          <div class="controls">
-			 <input class="input-xlarge" type="text" id="dir" placeholder="Directory" value="<%= app->projects_dir %>">
+			 <input class="input-xlarge" type="text" id="dir" placeholder="Directory" value="<%= path(app->projects_dir, 'foo-bar') %>">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="builders">Builders:</label>
          <div class="controls">
-            <input type="text" id="builders" placeholder="Module::Build, Module::Install">
+            <input type="text" id="builders" placeholder="Module::Build, Module::Install" value="Module::Build">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="author">Author:</label>
          <div class="controls">
-            <input type="text" id="author" placeholder="Batman">
+            <input type="text" id="author" placeholder="Mr. Foo Bar, The Great" value="Mr. Foo Bar, The Great">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label" for="email">Email:</label>
          <div class="controls">
-            <input type="text" id="email" placeholder="batman@gotham.city">
+            <input type="text" id="email" placeholder="foobarz@cpan.org" value="foobarz@cpan.org">
           </div>
         </div>
       </form>
