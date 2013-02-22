@@ -1121,18 +1121,18 @@ sub syntax_check {
 # Create a project using Module::Starter
 sub create_project {
 	my $self = shift;
-	my $opt = shift;
-	
+	my $opt  = shift;
+
 	my %args = (
-		distro => $opt->{distro},
-		modules => $opt->{modules},
-		dir     => $opt->{dir},
-		builder => $opt->{builder},
-		license => $opt->{license},
-		author  => $opt->{author},
-		email => $opt->{email},
+		distro       => $opt->{distro},
+		modules      => $opt->{modules},
+		dir          => $opt->{dir},
+		builder      => $opt->{builder},
+		license      => $opt->{license},
+		author       => $opt->{author},
+		email        => $opt->{email},
 		ignores_type => $opt->{ignores_type},
-		force => $opt->{force},
+		force        => $opt->{force},
 	);
 
 	Module::Starter->create_distro(%args);
