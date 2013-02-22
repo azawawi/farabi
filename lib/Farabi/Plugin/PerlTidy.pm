@@ -12,7 +12,7 @@ has 'deps' => (
 		[ 'Perl::Tidy' => '20120714', ];
 	}
 );
-s
+
 # Plugin's name
 has 'name' => (
 	is      => 'ro',
