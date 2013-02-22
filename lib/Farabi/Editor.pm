@@ -22,29 +22,35 @@ my %actions = (
 		menu  => $file_menu,
 		order => 1,
 	},
+	'action-new-project' => {
+		name  => 'New Project',
+		help  => "Creates a new project using Module::Starter",
+		menu  => $file_menu,
+		order => 2,
+	},
 	'action-open-file' => {
 		name  => 'Open File(s)',
 		help  => "Opens one or more files in an editor tab",
 		menu  => $file_menu,
-		order => 2,
+		order => 3,
 	},
 	'action-save-file' => {
 		name  => 'Save File',
 		help  => "Saves the current file ",
 		menu  => $file_menu,
-		order => 3,
+		order => 4,
 	},
 	'action-close-file' => {
 		name  => 'Close File',
 		help  => "Closes the current open file",
 		menu  => $file_menu,
-		order => 4,
+		order => 5,
 	},
 	'action-close-all-files' => {
 		name  => 'Close All Files',
 		help  => "Closes all of the open files",
 		menu  => $file_menu,
-		order => 5,
+		order => 6,
 	},
 	'action-goto-line' => {
 		name  => 'Goto Line',
@@ -1113,6 +1119,26 @@ sub syntax_check {
 	return \@problems;
 }
 
+# Create a project using Module::Starter
+sub create_project {
+	my $self = shift;
+	my $opt = shift;
+	
+	my %args = (
+		distro => $opt->{distro},
+		modules => $opt->{modules},
+		dir     => $opt->{dir},
+		builder => $opt->{builder},
+		license => $opt->{license},
+		author  => $opt->{author},
+		email => $opt->{email},
+		ignores_type => $opt->{ignores_type},
+		force => $opt->{force},
+	);
+
+	Module::Starter->create_distro(%args);
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1160,6 +1186,7 @@ sub websocket {
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
+				'new-project'              => 1,
 			};
 
 			my $action = $result->{action} or return;

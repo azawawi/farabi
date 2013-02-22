@@ -16,6 +16,7 @@
 <script src="about_dialog.js"></script>
 <script src="actions_dialog.js"></script>
 <script src="find_duplicate_perl_code_dialog.js"></script>
+<script src="new_project_dialog.js"></script>
 <script src="open_file_dialog.js"></script>
 <script src="perl_critic_dialog.js"></script>
 <script src="options_dialog.js"></script>
@@ -134,6 +135,7 @@
 <%= include "editor/help_dialog"%>
 <%= include "editor/run_dialog"%>
 <%= include "editor/options_dialog"%>
+<%= include "editor/new_project_dialog"%>
 <%= include "editor/open_file_dialog"%>
 <%= include "editor/perl_doc_dialog"%>
 <%= include "editor/repl_dialog"%>
