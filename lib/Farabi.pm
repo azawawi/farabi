@@ -19,13 +19,7 @@ sub startup {
 	$app->secret('Hulk, Smash!');
 
 	# Use content from directories under lib/Farabi/files
-	require File::Basename;
-	require File::Spec::Functions;
-	$app->home->parse(
-		File::Spec::Functions::catdir(
-			File::Basename::dirname(__FILE__), 'Farabi'
-		)
-	);
+	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
 	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
 	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
 
