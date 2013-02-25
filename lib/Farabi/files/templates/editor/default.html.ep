@@ -64,7 +64,8 @@
 							<li><%
 								my $menus = Farabi::Editor->menus;
 								for my $menu_key (sort keys %$menus) {
-									my $menu_name = ($menu_key =~ s/^\d{2}\.//r);
+									my $menu_name = $menu_key;
+									$menu_name =~ s/^\d{2}\.//;
 							    %>
                       <li id="<%= $menu_name %>-dropdown" class="dropdown">
 						  
