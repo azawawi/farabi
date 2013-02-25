@@ -1,6 +1,8 @@
 Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
+
+0.41      2013-02-25 17:50:34 Asia/Baghdad
     [FIXED]
     - Fix Test::MinimumVersion dependency typo
 
