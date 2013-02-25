@@ -2,6 +2,46 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    Disable new project action because it is not ready for prime time and i need to release a better farabi release
+    - Added t/02-minimum-per.t to make sure post 5.10.1-isms do not creep into the code
+    - Added File::HomeDir 1.00 to dependencies
+    - Added Path::Tiny 0.013 to dependencies
+    - Add a disabled "New Project" action. This will be enabled once it is ready.
+
+    [CHANGED]
+   Upgrade to CodeMirror v3.1.
+    Bump dependencies:
+      Perl::Tidy to 20121207 and Mojolicious 3.87
+      Reuse the new active line addon from CodeMirror 3.1
+      Rewrite code to be simpler using Path::Tiny instead of arcane File::*
+	Most forms are now horizontal instead of vertical (i.e. label beside the field)
+	Farabi SQLite database now reside in ~/.farabi/farabi.db
+	$HOME/.farabi and $HOME/.farabi/projects are now created by default
+	
+    Added auto close brackets feature
+    Selected text is now shown in a clear white over blue text
+    When the "Farabi" link in the menu bar is clicked, the about dialog is shown
+   Added [Test::Compile] to dist.ini and fix compilation errors in FP::PerlTidy
+    Fix bug: find-file/find-action are fired too often on each key press
+
+    [FIXED]
+- Fix a perl 5.14-ism in the menu generation code
+- Fixed Module::Starter dependency to be 1.60 instead of 1.6
+
+    [REMOVED]
+
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+
 0.39      2013-02-22 01:34:00 Asia/Baghdad
 
     [ADDED]
