@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.40      2013-02-25 17:43:30 Asia/Baghdad
+
     [ADDED]
     - Added auto close brackets feature
     - Added t/02-minimum-per.t to make sure post 5.10.1-isms do not creep into the code
