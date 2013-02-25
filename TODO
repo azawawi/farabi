@@ -14,7 +14,6 @@ More tests for various actions in t/
 Autocomplete sections in http://perldoc.perl.org/perlpodstyle.html
 Link to POD style http://perldoc.perl.org/perlpodstyle.html
 Link to Perl style http://perldoc.perl.org/perlstyle.html
-Add IO functions so that Perlito work. https://github.com/fglock/Perlito/blob/master/html/perlito5.js#L1041
 Save scratch to Ideas folder. Basically you sometimes need a proof of concept script and do not want to pollute desktop/home/project folder
 Add Comment / Uncomment to Perl mode
 Add not_found.development.html.ep and not_found.html.ep
