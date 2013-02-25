@@ -12,6 +12,9 @@ has 'home_dir';
 # Projects are stored in this directory
 has 'projects_dir';
 
+# The database name and location
+has 'db_name';
+
 sub startup {
 	my $app = shift;
 
@@ -32,8 +35,11 @@ sub startup {
 		die "Failure to create \$HOME/.farabi directory structure, reason: $@";
 	}
 
+	# The database name
+	$app->db_name(path($app->home_dir, 'farabi.db'));
+
 	# Setup the Farabi database
-	eval { $app->_setup_database; };
+	eval { $app->_setup_database };
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
@@ -63,8 +69,8 @@ sub _setup_database {
 
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
-	my $dbname = path( $app->home_dir, "farabi.db" );
-	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$dbname");
+	my $db_name = $app->db_name;
+	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	# Create tables if they do not exist
 	$db->query(<<SQL);

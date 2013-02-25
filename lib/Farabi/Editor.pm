@@ -629,7 +629,8 @@ sub _add_or_update_recent_file_record {
 	my $filename = shift;
 
 	require DBIx::Simple;
-	my $db = DBIx::Simple->connect('dbi:SQLite:dbname=farabi.db');
+	my $db_name = $self->app->db_name;
+	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	my $sql = <<'SQL';
 SELECT id, name, datetime(last_used,'localtime')
