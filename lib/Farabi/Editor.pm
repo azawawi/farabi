@@ -23,12 +23,13 @@ my %actions = (
 		menu  => $file_menu,
 		order => 1,
 	},
-	'action-new-project' => {
-		name  => 'New Project',
-		help  => "Creates a new project using Module::Starter",
-		menu  => $file_menu,
-		order => 2,
-	},
+	#TODO enable new project action once it is finished
+	#'action-new-project' => {
+	#	name  => 'New Project',
+	#	help  => "Creates a new project using Module::Starter",
+	#	menu  => $file_menu,
+	#	order => 2,
+	#},
 	'action-open-file' => {
 		name  => 'Open File(s)',
 		help  => "Opens one or more files in an editor tab",
