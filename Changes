@@ -2,6 +2,18 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    - Added the option to toggle the visibility of tabs and spaces (default: on)
+    - Added an input tab that allows input text to be sent as STDIN to the script when run.
+
+    [FIXED]
+    - Fix regression where editor is sometimes not visible when a file is opened.
+      This regression happened from the 3.1 CodeMirror upgrade.
+    - Fixed various JSHint warnings.
+
+    [CHANGED]
+    - Upgrade to JSHint 1.0.0 stable
+
 0.41      2013-02-25 17:50:34 Asia/Baghdad
 
     [FIXED]
