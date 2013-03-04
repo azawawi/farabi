@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.42      2013-03-04 16:44:55 Asia/Baghdad
+
     [ADDED]
     - Added the option to toggle the visibility of tabs and spaces (default: on)
     - Added an input tab that allows input text to be sent as STDIN to the script when run.
