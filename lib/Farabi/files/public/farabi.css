@@ -184,3 +184,9 @@ body {
 	height: 550px;
 	overflow: auto;
 }
+
+.cm-whitespace {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAAxJREFUGFdjYGBgAAAABAABXM3/aQAAAABJRU5ErkJggg==);
+	background-repeat: no-repeat;
+	background-position: center;
+}
