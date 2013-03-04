@@ -23,6 +23,7 @@ my %actions = (
 		menu  => $file_menu,
 		order => 1,
 	},
+
 	#TODO enable new project action once it is finished
 	#'action-new-project' => {
 	#	name  => 'New Project',
@@ -212,6 +213,7 @@ sub _capture_cmd_output {
 	my $cmd    = shift;
 	my $opts   = shift;
 	my $source = shift;
+	my $input  = shift;
 
 	# Check source parameter
 	unless ( defined $source ) {
@@ -219,13 +221,30 @@ sub _capture_cmd_output {
 		return;
 	}
 
+	# Source is stored in a temporary file
 	require File::Temp;
-	my $tmp = File::Temp->new;
-	print $tmp $source;
-	close $tmp;
+	my $source_fh = File::Temp->new;
+	print $source_fh $source;
+	close $source_fh;
+
+	# Input is stored in a temporary file
+	my $input_fh;
+	if(defined $input) {
+		$input_fh = File::Temp->new;
+		print $input_fh $input;
+		close $input_fh;
+	}
+
 
 	my ( $stdout, $stderr, $exit ) = capture {
-		system( $cmd, @$opts, $tmp->filename );
+		if ( defined $input_fh ) {
+
+			system( $cmd, @$opts, $source_fh->filename,
+				"<" . $input_fh->filename );
+		}
+		else {
+			system( $cmd, @$opts, $source_fh->filename );
+		}
 	};
 	my $result = {
 		stdout => $stdout,
@@ -238,26 +257,35 @@ sub _capture_cmd_output {
 
 sub run_perl {
 	my $self   = shift;
-	my $source = shift->{source};
-	$self->_capture_cmd_output( $^X, [], $source );
+	my $params = shift;
+	my $source = $params->{source};
+	my $input  = $params->{input};
+	$self->_capture_cmd_output( $^X, [], $source, $input );
 }
 
 sub run_rakudo {
 	my $self   = shift;
-	my $source = shift->{source};
-	$self->_capture_cmd_output( 'perl6', [], $source );
+	my $params = shift;
+	my $source = $params->{source};
+	my $input  = $params->{input};
+	$self->_capture_cmd_output( 'perl6', [], $source, $input );
 }
 
 sub run_parrot {
 	my $self   = shift;
-	my $source = shift->{source};
-	$self->_capture_cmd_output( 'parrot', [], $source );
+	my $params = shift;
+	my $source = $params->{source};
+	my $input  = $params->{input};
+	$self->_capture_cmd_output( 'parrot', [], $source, $input );
 }
 
 sub run_perlbrew_exec {
 	my $self   = shift;
-	my $source = shift->{source};
-	$self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ], $source );
+	my $params = shift;
+	my $source = $params->{source};
+	my $input  = $params->{input};
+	$self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
+		$source, $input );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -631,7 +659,7 @@ sub _add_or_update_recent_file_record {
 
 	require DBIx::Simple;
 	my $db_name = $self->app->db_name;
-	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
+	my $db      = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	my $sql = <<'SQL';
 SELECT id, name, datetime(last_used,'localtime')
