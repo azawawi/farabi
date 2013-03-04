@@ -28,8 +28,14 @@
 						</tr>
 						<tr>
 							<td><label class="checkbox"> <input
-									id="whitespace_checkbox" type="checkbox" value="">
-									<strong>Whitespace?</strong>
+									id="show_tabs_checkbox" type="checkbox" checked>
+									<strong>Show Tabs?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="show_spaces_checkbox" type="checkbox" checked>
+									<strong>Show Spaces?</strong>
 							</label></td>
 						</tr>
 						<tr>
