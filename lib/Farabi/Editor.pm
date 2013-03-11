@@ -1185,6 +1185,18 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
+sub step_in {
+	my $self = shift;
+}
+
+sub step_over {
+	my $self = shift;
+}
+
+sub step_out {
+	my $self = shift;
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
