@@ -139,7 +139,7 @@
 						</div>
 						<div class="tab-pane" id="diff-tab">
 							<div class="farabi-bordered">
-								<div id="diff"></div>
+								<textarea id="diff"></textarea>
 							</div>
 						</div>
 					</div>

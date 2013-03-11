@@ -114,20 +114,20 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 9,
 	},
-	'action-step-in' => {
-		name  => 'Step In',
+	'action-debug-step-in' => {
+		name  => 'Debug - Step In',
 		help  => '',
 		menu  => $run_menu,
 		order => 1,
 	},
-	'action-step-over' => {
-		name  => 'Step Over',
+	'action-debug-step-over' => {
+		name  => 'Debug - Step Over',
 		help  => '',
 		menu  => $run_menu,
 		order => 2,
 	},
-	'action-step-out' => {
-		name  => 'Step Out',
+	'action-debug-step-out' => {
+		name  => 'Debug - Step Out',
 		help  => '',
 		menu  => $run_menu,
 		order => 3,
@@ -238,17 +238,15 @@ sub _capture_cmd_output {
 	my $source = shift;
 	my $input  = shift;
 
-	# Check source parameter
-	unless ( defined $source ) {
-		$self->app->log->warn('Undefined "source" parameter');
-		return;
-	}
+	require File::Temp;
 
 	# Source is stored in a temporary file
-	require File::Temp;
-	my $source_fh = File::Temp->new;
-	print $source_fh $source;
-	close $source_fh;
+	my $source_fh;
+	if ( defined $source ) {
+		$source_fh = File::Temp->new;
+		print $source_fh $source;
+		close $source_fh;
+	}
 
 	# Input is stored in a temporary file
 	my $input_fh;
@@ -261,11 +259,21 @@ sub _capture_cmd_output {
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
-			system( $cmd, @$opts, $source_fh->filename,
-				"<" . $input_fh->filename );
+			if ( defined $source_fh ) {
+				system( $cmd, @$opts, $source_fh->filename,
+					"<" . $input_fh->filename );
+			}
+			else {
+				system( $cmd, @$opts, "<" . $input_fh->filename );
+			}
 		}
 		else {
-			system( $cmd, @$opts, $source_fh->filename );
+			if ( defined $source_fh ) {
+				system( $cmd, @$opts, $source_fh->filename );
+			}
+			else {
+				system( $cmd, @$opts );
+			}
 		}
 	};
 	my $result = {
@@ -1208,6 +1216,8 @@ sub debug_step_out {
 # Show Git changes between commits
 sub git_diff {
 	my $self = shift;
+
+	$self->_capture_cmd_output( 'git', ['diff'] );
 }
 
 # The default root handler
@@ -1258,10 +1268,10 @@ sub websocket {
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
-				'action-debug-step-in'     => 1,
-				'action-debug-step-over'   => 1,
-				'action-debug-step-out'    => 1,
-				'action-git-diff'          => 1,
+				'debug-step-in'            => 1,
+				'debug-step-over'          => 1,
+				'debug-step-out'           => 1,
+				'git-diff'                 => 1,
 			};
 
 			my $action = $result->{action} or return;
