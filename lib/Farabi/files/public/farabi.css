@@ -194,3 +194,8 @@ body {
 	height: 550px;
 	overflow: auto;
 }
+
+#diff {
+	height: 550px;
+	overflow: auto;
+}
