@@ -24,13 +24,12 @@ my %actions = (
 		order => 1,
 	},
 
-	#TODO enable new project action once it is finished
-	#'action-new-project' => {
-	#	name  => 'New Project',
-	#	help  => "Creates a new project using Module::Starter",
-	#	menu  => $file_menu,
-	#	order => 2,
-	#},
+	'action-new-project' => {
+		name  => 'New Project',
+		help  => "Creates a new project using Module::Starter",
+		menu  => $file_menu,
+		order => 2,
+	},
 	'action-open-file' => {
 		name  => 'Open File(s)',
 		help  => "Opens one or more files in an editor tab",
@@ -97,17 +96,23 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 6,
 	},
+	'action-git-diff' => {
+		name  => 'Git Diff',
+		help  => 'Show Git changes between commits',
+		menu  => $tools_menu,
+		order => 7,
+	},
 	'action-repl' => {
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
-		order => 7,
+		order => 8,
 	},
 	'action-dump-ppi-tree' => {
 		name  => 'Dump the PPI tree',
 		help  => "Dumps the PPI tree into the output pane",
 		menu  => $tools_menu,
-		order => 8,
+		order => 9,
 	},
 	'action-step-in' => {
 		name  => 'Step In',
@@ -1185,15 +1190,23 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-sub step_in {
+# Step in code in debug mode
+sub debug_step_in {
 	my $self = shift;
 }
 
-sub step_over {
+# Step over code in debug mode
+sub debug_step_over {
 	my $self = shift;
 }
 
-sub step_out {
+# Step out code in debug mode
+sub debug_step_out {
+	my $self = shift;
+}
+
+# Show Git changes between commits
+sub git_diff {
 	my $self = shift;
 }
 
@@ -1234,9 +1247,6 @@ sub websocket {
 				'run-rakudo'               => 1,
 				'run-parrot'               => 1,
 				'run-perlbrew-exec'        => 1,
-				'action-step-in'           => 1,
-				'action-step-over'         => 1,
-				'action-step-out'          => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
@@ -1248,6 +1258,10 @@ sub websocket {
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
+				'action-debug-step-in'     => 1,
+				'action-debug-step-over'   => 1,
+				'action-debug-step-out'    => 1,
+				'action-git-diff'          => 1,
 			};
 
 			my $action = $result->{action} or return;
