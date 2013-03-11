@@ -115,34 +115,40 @@ my %actions = (
 		order => 9,
 	},
 	'action-debug-step-in' => {
-		name  => 'Debug - Step In',
+		name  => 'Step In',
 		help  => '',
 		menu  => $run_menu,
 		order => 1,
 	},
 	'action-debug-step-over' => {
-		name  => 'Debug - Step Over',
+		name  => 'Step Over',
 		help  => '',
 		menu  => $run_menu,
 		order => 2,
 	},
 	'action-debug-step-out' => {
-		name  => 'Debug - Step Out',
+		name  => 'Step Out',
 		help  => '',
 		menu  => $run_menu,
 		order => 3,
+	},
+	'action-debug-stop' => {
+		name  => 'Stop Debugging',
+		help  => '',
+		menu  => $run_menu,
+		order => 4,
 	},
 	'action-run' => {
 		name  => 'Run',
 		help  => 'Run the current editor source file using the run dialog',
 		menu  => $run_menu,
-		order => 4
+		order => 5,
 	},
 	'action-syntax-check' => {
 		name  => 'Syntax Check',
 		help  => 'Run the syntax check tool on the current editor tab',
 		menu  => $run_menu,
-		order => 5,
+		order => 6,
 	},
 	'action-help' => {
 		name  => 'Help - Getting Started',
@@ -1213,6 +1219,11 @@ sub debug_step_out {
 	my $self = shift;
 }
 
+# Stop debugging
+sub debug_stop {
+	my $self = shift;
+}
+
 # Show Git changes between commits
 sub git_diff {
 	my $self = shift;
@@ -1271,6 +1282,7 @@ sub websocket {
 				'debug-step-in'            => 1,
 				'debug-step-over'          => 1,
 				'debug-step-out'           => 1,
+				'debug-stop'               => 1,
 				'git-diff'                 => 1,
 			};
 
