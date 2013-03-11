@@ -109,17 +109,35 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 8,
 	},
+	'action-step-in' => {
+		name  => 'Step In',
+		help  => '',
+		menu  => $run_menu,
+		order => 1,
+	},
+	'action-step-over' => {
+		name  => 'Step Over',
+		help  => '',
+		menu  => $run_menu,
+		order => 2,
+	},
+	'action-step-out' => {
+		name  => 'Step Out',
+		help  => '',
+		menu  => $run_menu,
+		order => 3,
+	},
 	'action-run' => {
 		name  => 'Run',
 		help  => 'Run the current editor source file using the run dialog',
 		menu  => $run_menu,
-		order => 1,
+		order => 4
 	},
 	'action-syntax-check' => {
 		name  => 'Syntax Check',
 		help  => 'Run the syntax check tool on the current editor tab',
 		menu  => $run_menu,
-		order => 2,
+		order => 5,
 	},
 	'action-help' => {
 		name  => 'Help - Getting Started',
@@ -229,12 +247,11 @@ sub _capture_cmd_output {
 
 	# Input is stored in a temporary file
 	my $input_fh;
-	if(defined $input) {
+	if ( defined $input ) {
 		$input_fh = File::Temp->new;
 		print $input_fh $input;
 		close $input_fh;
 	}
-
 
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
@@ -1205,6 +1222,9 @@ sub websocket {
 				'run-rakudo'               => 1,
 				'run-parrot'               => 1,
 				'run-perlbrew-exec'        => 1,
+				'action-step-in'           => 1,
+				'action-step-over'         => 1,
+				'action-step-out'          => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,

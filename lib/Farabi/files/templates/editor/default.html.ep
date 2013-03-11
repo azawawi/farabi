@@ -106,6 +106,7 @@
 						<li><a href="#output-tab" data-toggle="tab">Output</a></li>
 						<li><a href="#pod-tab" data-toggle="tab">POD</a></li>
 						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
+						<li><a href="#debug-tab" data-toggle="tab">Debug</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="input-tab">
@@ -119,7 +120,7 @@
 							</div>
 						</div>
 						<div class="tab-pane" id="pod-tab">
-							<div class="farabi-borsdered">
+							<div class="farabi-bordered">
 								<div id="pod"></div>
 							</div>
 						</div>
@@ -128,6 +129,11 @@
 								<div id="problems">
 									<table class="table table-bordered table-hover"></table>
 								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="debug-tab">
+							<div class="farabi-bordered">
+								<div id="debug"></div>
 							</div>
 						</div>
 					</div>
