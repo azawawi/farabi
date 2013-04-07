@@ -2,6 +2,23 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    - Added "Perl Strip" action in the tool menu to reduce script size by stripping
+      whitespace, comments, pod etc using Perl::Strip
+    - Add more documentation about the output tab
+    - No need for exit code at the end of a diff
+    - Added Diff tab along with a 'Git Diff' action in the tools menu
+    - Added various dummy debug actions
+
+    [FIXED]
+    - Fix JSHint version in About dialog
+    - Require mojolicious 3.89 to get the fix for dual life autodie under morbo
+    - Fix editor refresh bug in tabs.
+
+    [CHANGED]
+    - Sort prerequisties in dist.ini
+    - Enabled dummy 'New Project' action
+
 0.42      2013-03-04 16:44:55 Asia/Baghdad
 
     [ADDED]
