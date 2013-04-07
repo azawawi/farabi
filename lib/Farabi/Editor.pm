@@ -84,23 +84,29 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 4,
 	},
+	'action-perl-strip' => {
+		name  => 'Perl Strip',
+		help  => 'Run Perl::Strip on the current editor tab',
+		menu  => $tools_menu,
+		order => 5,
+	},
 	'action-jshint' => {
 		name  => 'JSHint',
 		help  => 'Run JSHint on the current editor tab',
 		menu  => $tools_menu,
-		order => 5,
+		order => 6,
 	},
 	'action-find-duplicate-perl-code' => {
 		name  => 'Find Duplicate Perl Code',
 		help  => 'Finds any duplicate perl code in the current lib folder',
 		menu  => $tools_menu,
-		order => 6,
+		order => 7,
 	},
 	'action-git-diff' => {
 		name  => 'Git Diff',
 		help  => 'Show Git changes between commits',
 		menu  => $tools_menu,
-		order => 7,
+		order => 8,
 	},
 	'action-repl' => {
 		name  => 'REPL - Read-Print-Eval-Loop',
@@ -1231,6 +1237,30 @@ sub git_diff {
 	$self->_capture_cmd_output( 'git', ['diff'] );
 }
 
+sub perl_strip {
+	my $self   = shift;
+	my $source = shift->{source};
+
+	my %result = (
+		error  => 1,
+		source => '',
+	);
+
+	# Check 'source' parameter
+	unless ( defined $source ) {
+		$self->app->log->warn('Undefined "source" parameter');
+		return \%result;
+	}
+
+	eval {
+		require Perl::Strip;
+		my $ps  = Perl::Strip->new;
+		$result{source} = $ps->strip($source);
+	};
+
+	return \%result;
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1271,6 +1301,7 @@ sub websocket {
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
+				'perl-strip'               => 1,
 				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
