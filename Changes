@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.43      2013-04-07 15:01:24 Asia/Baghdad
+
     [ADDED]
     - Added "Perl Strip" action in the tool menu to reduce script size by stripping
       whitespace, comments, pod etc using Perl::Strip
