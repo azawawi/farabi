@@ -2,6 +2,11 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [CHANGED]
+    - Upgrade JSHint to 1.1.0
+    - Upgrade Bootstrap to 2.3.1
+    - Upgrade CodeMirror to 3.11
+
 0.43      2013-04-07 15:01:24 Asia/Baghdad
 
     [ADDED]
