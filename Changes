@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.44      2013-04-08 11:21:16 Asia/Baghdad
+
     [CHANGED]
     - Upgrade JSHint to 1.1.0
     - Upgrade Bootstrap to 2.3.1
