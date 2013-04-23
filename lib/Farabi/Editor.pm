@@ -112,13 +112,19 @@ my %actions = (
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
-		order => 8,
+		order => 9,
+	},
+	'action-spell-check' => {
+		name  => 'Check Spelling',
+		help  => "Checks current tab spelling using Spellunker",
+		menu  => $tools_menu,
+		order => 10,
 	},
 	'action-dump-ppi-tree' => {
 		name  => 'Dump the PPI tree',
 		help  => "Dumps the PPI tree into the output pane",
 		menu  => $tools_menu,
-		order => 9,
+		order => 11,
 	},
 	'action-debug-step-in' => {
 		name  => 'Step In',
@@ -1261,6 +1267,18 @@ sub perl_strip {
 	return \%result;
 }
 
+sub spell_check {
+	my $self = shift;
+	my $source = shift->{source};
+	
+	my %results = (
+		error => 1,
+		source => '',
+	);
+	
+	
+}
+
 # The default root handler
 sub default {
 	my $self = shift;
@@ -1306,6 +1324,7 @@ sub websocket {
 				'pod-check'                => 1,
 				'save-file'                => 1,
 				'syntax-check'             => 1,
+				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
