@@ -741,7 +741,7 @@ SQL
 	$db->disconnect;
 }
 
-# Finds the editor mode from the the filename
+# Finds the editor mode from the filename
 sub _find_editor_mode_from_filename {
 	my $filename = shift;
 
