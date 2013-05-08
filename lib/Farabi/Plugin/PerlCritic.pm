@@ -2,7 +2,7 @@ package Farabi::Plugin::PerlCritic;
 
 use Moo;
 
-# ABSTRACT: Perl::Critc support for Farabi
+# ABSTRACT: Perl::Critic support for Farabi
 # VERSION
 
 # Plugin module dependencies
