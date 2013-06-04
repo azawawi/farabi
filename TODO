@@ -1,3 +1,6 @@
+Add minil new, dist, release commands. Project starter will now use Minilla
+
+
 Add Unicode Table Search for Perl with preview!
 Fix damn bug about POD fragments
 More POD about current functionality
