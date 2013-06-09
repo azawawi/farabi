@@ -1,5 +1,5 @@
 Add minil new, dist, release commands. Project starter will now use Minilla
-
+Add support for REPL using Reply instead of ancient Devel::REPL
 
 Add Unicode Table Search for Perl with preview!
 Fix damn bug about POD fragments
