@@ -1,5 +1,9 @@
 Add minil new, dist, release commands. Project starter will now use Minilla
+
 Add support for REPL using Reply instead of ancient Devel::REPL
+
+Add App::Ack support through the following command:
+	ack "use 5\.0" --sort-files --noenv --nobreak
 
 Add Unicode Table Search for Perl with preview!
 Fix damn bug about POD fragments
