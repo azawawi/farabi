@@ -1,6 +1,8 @@
 Farabi
 ======
 
+[![Build Status](https://api.travis-ci.org/azawawi/farabi.png?branch=master)](https://travis-ci.org/azawawi/farabi)
+
 This is a modern web-based Perl IDE that runs inside your favorite browser.
 
 To start Farabi, please type the following command:
