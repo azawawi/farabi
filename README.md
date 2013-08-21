@@ -9,7 +9,7 @@ To start Farabi, please type the following command:
 
     farabi
 
-And then Open http://127.0.0.1:4040/ in your favourite modern browser.
+And then open http://127.0.0.1:4040/ in your favourite modern browser.
 
 To run it on a different port, please use:
 
