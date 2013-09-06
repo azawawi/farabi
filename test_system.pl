@@ -4,7 +4,8 @@ use EV;
 use AnyEvent ();
 use Data::Printer;
 use IO::All;
-use Dancer2;
+use Dancer;
+use Twiggy::Server;
 
 my $pid;
 our $w;
@@ -139,4 +140,17 @@ get '/result/:index' => sub {
 	return '<pre>' . $result->[1] . $result->[2] . '</pre>';
 };
 
-dance;
+# Run twiggy...
+my $server = Twiggy::Server->new(
+	host => '127.0.0.1',
+	port => 5000,
+);
+
+my $app = sub {
+	my $env = shift;
+	Dancer->dance( Dancer::Request->new( env => $env ) );
+};
+
+$server->register_service($app);
+
+EV::loop;
