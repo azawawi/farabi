@@ -36,49 +36,7 @@ else {
 }
 
 get '/' => sub {
-    return <<HTML;
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-table {
-	width: 100%;
-	border: 1px solid black;
-}
-iframe {
-	border: 1px solid black;
-	width: 100%;
-	height: 500px;
-}
-</style>
-<script>
-
-
-function start() {
-	document.getElementById("out1").src = "/run/0";
-	document.getElementById("out2").src = "/run/1";
-	document.getElementById("out3").src = "/run/2";
-	
-	var interval = setInterval(function() {
-		document.getElementById("out1").src = "/result/0";
-		document.getElementById("out2").src = "/result/1";
-		document.getElementById("out3").src = "/result/2";
-	}, 2000);
-}
-</script>
-</head>
-<body>
-<button id="start" onClick="start()">Start!</button>
-<table>
-	<tr>
-		<td><iframe id="out1"></iframe></td>
-		<td><iframe id="out2"></iframe></td>
-		<td><iframe id="out3"></iframe></td>
-	</tr>
-</table>
-</body>
-</html>
-HTML
+    return template 'index';
 };
 
 get '/run/:cmd_id' => sub {
