@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use Dancer;
 use TestApp;
-use EV             ();
+use AnyEvent::Loop ();
 use Twiggy::Server ();
 
 # Create a twiggy AnyEvent server
@@ -12,13 +12,11 @@ my $server = Twiggy::Server->new(
 
 # Define our dancer application
 my $app = sub {
-    my $env = shift;
-    Dancer->dance( Dancer::Request->new( env => $env ) );
+    Dancer->dance( Dancer::Request->new( env => $_[0] ) );
 };
 
 # The dancer application is run by twiggy
 $server->register_service($app);
 
 # Now we run the event loop
-EV::loop;
-
+AnyEvent::Loop::run;

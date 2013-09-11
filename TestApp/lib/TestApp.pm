@@ -3,7 +3,6 @@ use Dancer ':syntax';
 
 use Modern::Perl;
 use File::Temp ();
-use EV;
 use AnyEvent ();
 use Data::Printer;
 use IO::All;

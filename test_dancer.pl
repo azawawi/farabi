@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 use Modern::Perl;
-use EV       ();
-use AnyEvent ();
+use AnyEvent       ();
+use AnyEvent::Loop ();
 use Dancer ':syntax';
 use Scalar::Util   ();
 use Twiggy::Server ();
@@ -79,4 +79,4 @@ my $app = sub {
 $server->register_service($app);
 
 # Run the main event loop
-EV::loop;
+AnyEvent::Loop::run;
