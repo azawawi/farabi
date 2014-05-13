@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.45      2014-05-13 14:01:12+03:00 Asia/Jerusalem
+
     [ADDED]
     - TravisCI GitHub integration is now working
     - Added initial Splunker Spell checking (IN PROGRESS)
