@@ -1,9 +1,0 @@
-#table {
-	width: 100%;
-	border: 1px solid black;
-}
-#out1,#out2,#out3 {
-	border: 1px solid black;
-	width: 100%;
-	height: 500px;
-}
