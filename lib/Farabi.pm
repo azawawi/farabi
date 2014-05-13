@@ -19,7 +19,7 @@ sub startup {
 	my $app = shift;
 
 	# Change secret passphrase that is used for signed cookies
-	$app->secret('Hulk, Smash!');
+	$app->secrets(['Hulk, Smash!']);
 
 	# Use content from directories under lib/Farabi/files
 	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
