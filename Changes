@@ -2,6 +2,20 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    [ADDED]
+    - TravisCI GitHub integration is now working
+    - Added initial Splunker Spell checking (IN PROGRESS)
+    - Various package dependencies on Minilla, Debug::Client and Reply (IN PROGRESS)
+
+    [CHANGED]
+    - Upgrade CodeMirror to 3.12
+
+    [FIXED]
+    - Merge pull #19 "pod fix" dsteinbrunner++
+    - Merge pull #20 "Mojolicious 4.91 no longer has 'secret' method" chorny++
+    - Various Documentation fixes (shlomif++)
+    - Require Parse::ErrorString::Perl 0.18 to get rid of the perl 5.18+ warning line noise
+
 0.44      2013-04-08 11:21:16 Asia/Baghdad
 
     [CHANGED]
