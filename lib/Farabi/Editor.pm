@@ -126,30 +126,30 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 11,
 	},
-	'action-debug-step-in' => {
-		name  => 'Step In',
-		help  => '',
-		menu  => $run_menu,
-		order => 1,
-	},
-	'action-debug-step-over' => {
-		name  => 'Step Over',
-		help  => '',
-		menu  => $run_menu,
-		order => 2,
-	},
-	'action-debug-step-out' => {
-		name  => 'Step Out',
-		help  => '',
-		menu  => $run_menu,
-		order => 3,
-	},
-	'action-debug-stop' => {
-		name  => 'Stop Debugging',
-		help  => '',
-		menu  => $run_menu,
-		order => 4,
-	},
+#	'action-debug-step-in' => {
+#		name  => 'Step In',
+#		help  => '',
+#		menu  => $run_menu,
+#		order => 1,
+#	},
+#	'action-debug-step-over' => {
+#		name  => 'Step Over',
+#		help  => '',
+#		menu  => $run_menu,
+#		order => 2,
+#	},
+#	'action-debug-step-out' => {
+#		name  => 'Step Out',
+#		help  => '',
+#		menu  => $run_menu,
+#		order => 3,
+#	},
+#	'action-debug-stop' => {
+#		name  => 'Stop Debugging',
+#		help  => '',
+#		menu  => $run_menu,
+#		order => 4,
+#	},
 	'action-run' => {
 		name  => 'Run',
 		help  => 'Run the current editor source file using the run dialog',
@@ -1216,25 +1216,25 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-# Step in code in debug mode
-sub debug_step_in {
-	my $self = shift;
-}
+## Step in code in debug mode
+#sub debug_step_in {
+#	my $self = shift;
+#}
 
-# Step over code in debug mode
-sub debug_step_over {
-	my $self = shift;
-}
+## Step over code in debug mode
+#sub debug_step_over {
+#	my $self = shift;
+#}
 
-# Step out code in debug mode
-sub debug_step_out {
-	my $self = shift;
-}
+## Step out code in debug mode
+#sub debug_step_out {
+#	my $self = shift;
+#}
 
-# Stop debugging
-sub debug_stop {
-	my $self = shift;
-}
+## Stop debugging
+#sub debug_stop {
+#	my $self = shift;
+#}
 
 # Show Git changes between commits
 sub git_diff {
@@ -1329,10 +1329,10 @@ sub websocket {
 				'find-plugins'             => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
-				'debug-step-in'            => 1,
-				'debug-step-over'          => 1,
-				'debug-step-out'           => 1,
-				'debug-stop'               => 1,
+#				'debug-step-in'            => 1,
+#				'debug-step-over'          => 1,
+#				'debug-step-out'           => 1,
+#				'debug-stop'               => 1,
 				'git-diff'                 => 1,
 			};
 
