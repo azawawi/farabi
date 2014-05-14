@@ -1,3 +1,26 @@
+#-----------------------------------------------------------------------------------------------------------
+AutoCompletion support
+
+See example http://codemirror.net/addon/hint/python-hint.js
+
+We can do it in JavaScript or alternatively pull it from Perl land to make it more relevant to script
+minimum version.
+
+Autocompletion of Perl operators is useful.
+Autocompletion of Perl operation **with documentation** on the side is very useful when selected
+
+Autocompletion of Perl functions pulled from syntax highlighted
+
+Autocompletion of Package::Name::XYZ is done by reusing the "Module name in package name parsed from 02packages.details.txt.gz"
+
+Question: What if the user wants to autocomplete stuff on his machine?
+Use Metacpan or local perldoc if needed. Integration with perlbrew is a possibility...
+
+The project i am working with is using v5.16 but Farabi is installed on system Perl or perlbrewed 5.18
+
+e.g.
+use v5.10;
+
 #------------------------------------------------------------------------------------------------------------
 From String::InterpolatedVariables SYNOPSIS
 This is particularly useful if you are using PPI to parse Perl documents, and you want to know
