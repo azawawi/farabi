@@ -22,7 +22,15 @@
 				<dd>Replace all</dd>
 				<dt>F10 or F11</dt>
 				<dd>Toggle Fullscreen editing. Please use ESC to exit</dd>
-				<dt>Ctrl-L</dt>
+				<dt>Alt-N</dt>
+				<dd>New file</dd>
+				<dt>Alt-O</dt>
+				<dd>Close file</dd>
+				<dt>Alt-S</dt>
+				<dd>Save file</dd>
+				<dt>Alt-W</dt>
+				<dd>Close file</dd>
+				<dt>Alt-L</dt>
 				<dd>Goto line</dd>
 			</dl>
 		</div>
