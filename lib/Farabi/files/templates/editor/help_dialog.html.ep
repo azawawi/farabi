@@ -22,6 +22,8 @@
 				<dd>Replace all</dd>
 				<dt>F10 or F11</dt>
 				<dd>Toggle Fullscreen editing. Please use ESC to exit</dd>
+				<dt>Ctrl-L</dt>
+				<dd>Goto line</dd>
 			</dl>
 		</div>
 		<div class="modal-footer">
