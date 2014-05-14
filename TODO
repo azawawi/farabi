@@ -1,4 +1,10 @@
 #-----------------------------------------------------------------------------------------------------------
+Add trailing space option to Farabi since we already have it in client-side CodeMirror
+
+See the demo
+http://codemirror.net/demo/trailingspace.html
+
+#-----------------------------------------------------------------------------------------------------------
 AutoCompletion support
 
 See example http://codemirror.net/addon/hint/python-hint.js
