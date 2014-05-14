@@ -20,6 +20,8 @@
 				<dd>Replace</dd>
 				<dt>Shift-Ctrl-R</dt>
 				<dd>Replace all</dd>
+				<dt>F10 or F11</dt>
+				<dd>Toggle Fullscreen editing. Please use ESC to exit</dd>
 			</dl>
 		</div>
 		<div class="modal-footer">

@@ -44,6 +44,9 @@
 <script src="assets/codemirror/addon/edit/matchbrackets.js"></script>
 
 
+<link rel="stylesheet" href="assets/codemirror/addon/display/fullscreen.css">
+<script src="assets/codemirror/addon/display/fullscreen.js"></script>
+
 </head>
 <body>
 	<div class="container-fluid">
