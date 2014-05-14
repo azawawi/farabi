@@ -1,4 +1,24 @@
 #------------------------------------------------------------------------------------------------------------
+From String::InterpolatedVariables SYNOPSIS
+This is particularly useful if you are using PPI to parse Perl documents, and you want to know
+what variables would be interpolated inside the PPI::Token::Quote::Double and PPI::Token::Quote::Interpolate objects
+you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
+
+# This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
+# PPI and later on the fast Compiler::Lexer
+
+#------------------------------------------------------------------------------------------------------------
+use v5.18;
+use String::InterpolatedVariables;
+use Data::Printer;
+ 
+my $variables = String::InterpolatedVariables::extract(
+        'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
+);
+p $variables;
+#------------------------------------------------------------------------------------------------------------
+
+#------------------------------------------------------------------------------------------------------------
 #---
 #--- Use this script to "cache Module names in Farabi in $FARABI_HOME/cpan/02packages.details.txt.gz"
 # courtesy of https://github.com/sharyanto/scripts/blob/master/get-tarball-path-from-local-cpan
