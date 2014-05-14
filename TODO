@@ -1,3 +1,5 @@
+Blueish theme for Perl syntax highlighting. Please https://github.com/jasonlong/lavalamp
+
 Add minil new, dist, release commands. Project starter will now use Minilla
 
 Add support for REPL using Reply instead of ancient Devel::REPL
