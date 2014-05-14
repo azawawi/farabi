@@ -21,11 +21,6 @@ body {
 	min-height: 550px;
 }
 
-.CodeMirror-gutter {
-	width: 3em;
-	background: white;
-}
-
 .CodeMirror-selected  { 
 	background-color: blue !important;
 }
@@ -42,10 +37,6 @@ body {
 
 .farabi-bordered {
 	border: 1px solid #DDD !important;
-}
-
-.CodeMirror-activeline-background {
-	background: #e8f2ff !important;
 }
 
 #help_search_dialog .preview {
