@@ -1,6 +1,38 @@
-Blueish theme for Perl syntax highlighting. Please https://github.com/jasonlong/lavalamp
+#------------------------------------------------------------------------------------------------------------
+#---
+#--- Use this script to "cache Module names in Farabi in $FARABI_HOME/cpan/02packages.details.txt.gz"
+# courtesy of https://github.com/sharyanto/scripts/blob/master/get-tarball-path-from-local-cpan
+#-----------------------------------------------------------------------------------------------------------
+use v5.18;
+use HTTP::Tiny;
 
-Add minil new, dist, release commands. Project starter will now use Minilla
+#if(-z '02packages.details.txt.gz') {
+#my $response = HTTP::Tiny->new->get('http://www.cpan.org/modules/02packages.details.txt.gz');
+#die "Failed!\n" unless $response->{success};
+#print $response->{content} if length $response->{content};
+#}
+
+#TODO decompress 02packages.details.txt.gz and use in the parsing loop below
+
+my $filename =
+  q{C:/Users/azawawi/.cpanm/sources/http%www.cpan.org/02packages.details.txt};
+open my $fh, "<", $filename or die "Cannot open $filename";
+while (<$fh>) {
+    next unless /\S/;
+    next if /^\S+:\s/;
+    chomp;
+    my ( $pkg, $ver, $path ) = split /\s+/, $_;
+
+    if ( $pkg =~ /^Moose/ ) {
+        say "$pkg => $ver";
+    }
+}
+close $fh;
+----------------------------------------------------------------------------------------------------------
+
+# Blueish theme for Perl syntax highlighting. Please https://github.com/jasonlong/lavalamp
+
+# Add minil new, dist, release commands. Project starter will now use Minilla
 
 Add support for REPL using Reply instead of ancient Devel::REPL
 
