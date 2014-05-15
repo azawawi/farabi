@@ -17,6 +17,10 @@
 										include "editor/theme_selector"%></td>
 						</tr>
 						<tr>
+							<td><strong>POD Style:</strong><br><%= include
+								"editor/pod_style_selector"%></td>
+						</tr>
+						<tr>
 							<td><strong>Critic Severity:</strong><br><%= include
 								"editor/critic_severity_selector"%></td>
 						</tr>
@@ -35,6 +39,12 @@
 						<tr>
 							<td><label class="checkbox"> <input
 									id="show_spaces_checkbox" type="checkbox" checked>
+									<strong>Show Spaces?</strong>
+							</label></td>
+						</tr>
+						<tr>
+							<td><label class="checkbox"> <input
+									id="pod_style_checkbox" type="checkbox" checked>
 									<strong>Show Spaces?</strong>
 							</label></td>
 						</tr>

@@ -529,9 +529,35 @@ sub _find_installed_modules {
 # Convert Perl POD source to HTML
 sub pod2html {
 	my $self = shift;
-	my $source = shift->{source} // '';
+	my $source = $_[0]->{source} // '';
+	my $style = $_[0]->{style} // '';
+
+	my %stylesheets = (
+    'cpan'=> [
+        'assets/podstyle/orig/cpan.css',
+        'assets/podstyle/cpan.css'
+    ],
+    'metacpan'=> [
+        'assets/podstyle/orig/metacpan.css',
+        'assets/podstyle/metacpan/shCore.css',
+        'assets/podstyle/metacpan/shThemeDefault.css',
+        'assets/podstyle/metacpan.css'
+    ],
+    'github'=> [
+        'assets/podstyle/orig/github.css',
+        'assets/podstyle/github.css'
+    ],
+    'none'=> []
+	);
 
 	my $html = _pod2html($source);
+	my $t = '';
+	for my $style (@{$stylesheets{$style}}) {
+		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
+	}
+	$html =~ s{(</head>)}{</head>$t$1};
+	say $t;
+
 	return $html;
 }
 
