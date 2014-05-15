@@ -3,6 +3,17 @@ Farabi TODO list
 
 This is the list of project TODO tasks.
 
+Welcome message at startup
+==========================
+
+Open a tab on a new installation that open Farabi Changes file
+
+Question: How to identify a new cpanm installation
+Answer: store in farabi database a farabi version. when the active version is higher, open a new ''changes'' and update the version table to the new version
+
+or we can simply a Changes menu item :)
+
+
 Trailing space support
 ======================
 
