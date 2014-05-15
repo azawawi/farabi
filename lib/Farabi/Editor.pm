@@ -66,12 +66,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-plugin-manager' => {
-		name  => 'Plugin Manager',
-		help  => 'Opens the plugin manager',
-		menu  => $tools_menu,
-		order => 2,
-	},
 	'action-perl-tidy' => {
 		name  => 'Perl Tidy',
 		help  => 'Run the Perl::Tidy tool on the current editor tab',
@@ -1062,113 +1056,6 @@ sub dump_ppi_tree {
 	return \%result;
 }
 
-# Find all Farabi plugins
-sub find_plugins {
-	my $self = shift;
-
-	# Create a non-instantiating plugin finder object
-	require Module::Pluggable::Object;
-	my $finder = Module::Pluggable::Object->new(
-		search_path => 'Farabi::Plugin',
-		require     => 1,
-		inner       => 0,
-	);
-
-	# Find all plugins
-	my @plugins;
-	for my $plugin ( $finder->plugins ) {
-		my $o;
-		eval { require $plugin; $o = $plugin->new; };
-		if ($@) {
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $plugin,
-				status => 'Plugin creation failure',
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		unless ( defined $o ) {
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $plugin,
-				status => 'Plugin creation failure',
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		if ( $o->can('name') ) {
-
-			# 'name' is supported
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $o->name,
-				status => '',
-			  };
-
-		}
-		else {
-			# No 'name' support
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => '',
-				status => q{Does not support 'name'!},
-			  };
-
-			# No need to process anymore
-			next;
-		}
-
-		if ( $o->can('deps') ) {
-
-			my $status = '';
-
-			my $deps = $o->deps;
-			for my $name ( keys %$deps ) {
-				my $version = $deps->{$name};
-
-				# Validate module dependency rule
-				eval "require $name $version";
-				if ($@) {
-
-					# Dependency rule not met
-					$status .= "'$name' $version or later not found\n";
-				}
-
-			}
-
-			# deps is supported
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => $deps,
-				status => $status,
-			  };
-		}
-		else {
-			# No deps support
-			push @plugins,
-			  {
-				id     => $plugin,
-				name   => '',
-				status => q{Does not support 'deps'!},
-			  };
-		}
-
-	}
-
-	# Return the plugins list
-	return \@plugins;
-}
-
 # Syntax check the provided source string
 sub syntax_check {
 	my $self   = shift;
@@ -1326,7 +1213,6 @@ sub websocket {
 				'syntax-check'             => 1,
 				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
-				'find-plugins'             => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
 #				'debug-step-in'            => 1,
