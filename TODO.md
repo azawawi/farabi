@@ -11,7 +11,8 @@ happened that added the following interesting features:
 - POD::Web::View - http://blogs.perl.org/users/michal_wojciechowski/2013/10/pod-web-view.html
 - 'Borrow' and attribute copyright to 'original'' authors from https://github.com/odyniec/POD-Web-View/tree/master/public/css/pod-stylesheets/orig
 - Since farabi is already web-based enabled, we should get a faster update
-- the 'POD style selector' is useful as an option. Default to MetaCPAN
+- (**DONE**) the 'POD style selector' is useful as an option. Default to MetaCPAN
+- Did not insert the scripts yet in previewed POD
 - Add "Open URL" functionality
 - Add "Upload file" functionality
 
@@ -199,14 +200,6 @@ Detect older unsupported browsers and drop them a similar message:
 Save state in farabi
 Conserve height for wide screens. Small thumbnail-style Control menu on the left/right. Expandable on click.
 Indexer problem: Search mechanism is wrong if farabi is run in user home dir
-Investigate integrating perl6 support through the following:
-	viv hello.p6 -5 | perl
-	perl6 hello.p6
-
-Rosetta code browser in "Learn" tab. You can select Task and then use the mimetype
-	http://rosettacode.org/wiki/User_input/Text#Perl_6
-	http://rosettacode.org/wiki/Category:Perl_6
-
 
 To install Pithub, we need Net::SSLeay installed and hence
 sudo apt-get install libssl-dev
