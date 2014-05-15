@@ -18,7 +18,7 @@ my $help_menu  = '05.Help';
 
 my %actions = (
 	'action-new-file' => {
-		name  => 'New File',
+		name  => 'New File - Alt+N',
 		help  => "Opens a new file in an editor tab",
 		menu  => $file_menu,
 		order => 1,
@@ -31,19 +31,19 @@ my %actions = (
 		order => 2,
 	},
 	'action-open-file' => {
-		name  => 'Open File(s)',
+		name  => 'Open File(s) - Alt+O',
 		help  => "Opens one or more files in an editor tab",
 		menu  => $file_menu,
 		order => 3,
 	},
 	'action-save-file' => {
-		name  => 'Save File',
+		name  => 'Save File - Alt+S',
 		help  => "Saves the current file ",
 		menu  => $file_menu,
 		order => 4,
 	},
 	'action-close-file' => {
-		name  => 'Close File',
+		name  => 'Close File - Alt+W',
 		help  => "Closes the current open file",
 		menu  => $file_menu,
 		order => 5,
@@ -55,7 +55,7 @@ my %actions = (
 		order => 6,
 	},
 	'action-goto-line' => {
-		name  => 'Goto Line',
+		name  => 'Goto Line - Alt+L',
 		help  => 'A dialog to jump to the needed line',
 		menu  => $edit_menu,
 		order => 1,
@@ -151,7 +151,7 @@ my %actions = (
 #		order => 4,
 #	},
 	'action-run' => {
-		name  => 'Run',
+		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
 		menu  => $run_menu,
 		order => 5,
