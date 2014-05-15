@@ -54,11 +54,18 @@ Server-side jshint support
 Why use client side support when it can lock on big files... Why
 keep upgrading Farabi when the updated jshint command can be simply used
 
+- .jshintrc is your jshint file
+
+- its documentation is found at http://jshint.org/docs/options/
+
 - Installation notes for jshint tool:
 
     sudo apt-get install nodejs
     sudo npm install -g jshint
     jshint  # should be in /usr/local/bin/jshint
+    
+
+
 
 - Sample jshint run to parse:
     test.js: line 14, col 3, Unreachable '/123/' after 'return'.
@@ -70,6 +77,11 @@ keep upgrading Farabi when the updated jshint command can be simply used
     test.js: line 17, col 4, Unexpected '@'.
     test.js: line 17, col 3, Expected an assignment or function call and instead saw an expression.
     test.js: line 17, col 4, Missing semicolon.
+
+- Sample errors
+    ERROR: Can't open test1.js
+    
+    ERROR: Can't parse config file: /home/azawawi/farabi/.jshintrc
 
 Trailing space support
 ======================
