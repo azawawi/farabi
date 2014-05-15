@@ -3,6 +3,24 @@ Farabi TODO list
 
 This is the list of project TODO tasks.
 
+POD::Web::View
+==============
+While i was hibernating and playig Mists of Pandaria, an interesting competing project
+happened that added the following interesting features:
+
+- POD::Web::View - http://blogs.perl.org/users/michal_wojciechowski/2013/10/pod-web-view.html
+- 'Borrow' and attribute copyright to 'original'' authors from https://github.com/odyniec/POD-Web-View/tree/master/public/css/pod-stylesheets/orig
+- Since farabi is already web-based enabled, we should get a faster update
+- the 'POD style selector' is useful as an option. Default to MetaCPAN
+- Add "Open URL" functionality
+- Add "Upload file" functionality
+
+Auto Git diff
+=============
+when 'Git diff' tab is open, run 'Git command' like POD
+
+Question: How about we generalize 'Git diff' in the feature to 'VCS Differences' or 'Differences'
+
 Welcome message at startup
 ==========================
 
