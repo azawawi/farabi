@@ -56,7 +56,7 @@ You can also look for information at:
 Copyright and License
 =====================
 
-Copyright (C) 2012-2013 Ahmad M. Zawawi
+Copyright (C) 2012-2014 Ahmad M. Zawawi
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.
