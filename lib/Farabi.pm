@@ -29,6 +29,7 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
+	$route->post('/preview')->to('editor#preview');
 
 	eval { $app->_setup_dirs };
 	if ($@) {

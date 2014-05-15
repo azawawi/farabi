@@ -55,6 +55,7 @@ body {
 #pod {
 	height: 550px;
 	overflow: auto;
+	width: 100%;
 }
 
 #pod h1 {

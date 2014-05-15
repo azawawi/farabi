@@ -124,7 +124,7 @@
 						</div>
 						<div class="tab-pane" id="preview-tab">
 							<div class="farabi-bordered">
-								<div id="pod"></div>
+								<iframe id="pod" src="about:blank"></iframe>
 							</div>
 						</div>
 						<div class="tab-pane" id="problems-tab">

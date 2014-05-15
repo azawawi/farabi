@@ -527,10 +527,10 @@ sub _find_installed_modules {
 }
 
 # Convert Perl POD source to HTML
-sub pod2html {
+sub preview {
 	my $self = shift;
-	my $source = $_[0]->{source} // '';
-	my $style = $_[0]->{style} // '';
+	my $source =$self->param('source') // '';
+	my $style = $self->param('style') // 'metacpan';
 
 	my %stylesheets = (
     'cpan'=> [
@@ -556,18 +556,16 @@ sub pod2html {
 		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
 	}
 	$html =~ s{(</head>)}{</head>$t$1};
-	say $t;
-
-	return $html;
+	$self->render(text => $html, format => 'html');
 }
 
 sub _pod2html {
 	my $pod = shift;
 
-	require Pod::Simple::XHTML;
-	my $psx = Pod::Simple::XHTML->new;
-	$psx->no_errata_section(1);
-	$psx->no_whining(1);
+	require Pod::Simple::HTML;
+	my $psx = Pod::Simple::HTML->new;
+	#$psx->no_errata_section(1);
+	#$psx->no_whining(1);
 	$psx->output_string( \my $html );
 	$psx->parse_string_document($pod);
 
@@ -1233,7 +1231,7 @@ sub websocket {
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
 				'perl-strip'               => 1,
-				'pod2html'                 => 1,
+#				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
 				'syntax-check'             => 1,
