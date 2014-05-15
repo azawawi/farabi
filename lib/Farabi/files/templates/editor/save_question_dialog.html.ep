@@ -1,5 +1,5 @@
   <!-- Save Question Dialog -->
-  <div class="modal hide fade" id="save-question-dialog" tabindex="-1" role=
+  <div class="modal hide" id="save-question-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <h3 id="myModalLabel">Save?</h3>

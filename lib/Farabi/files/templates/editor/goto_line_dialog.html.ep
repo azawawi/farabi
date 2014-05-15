@@ -1,5 +1,5 @@
 	<!-- Goto line dialog -->
-  <div class="modal hide fade" id="goto-line-dialog" tabindex="-1" role=
+  <div class="modal hide" id="goto-line-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <h3 id="myModalLabel">Goto Line</h3>

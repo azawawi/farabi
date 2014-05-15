@@ -1,5 +1,5 @@
   <!-- Find Duplicate Perl Code Dialog -->
-  <div class="modal hide fade" id="duplicate-perl-code-dialog" tabindex="-1" role=
+  <div class="modal hide" id="duplicate-perl-code-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <h3 id="myModalLabel">Find Duplicate Perl Code</h3>

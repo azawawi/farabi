@@ -2,7 +2,7 @@
 <%
 use Path::Tiny;
 %>
-  <div class="modal hide fade" id="new-project-dialog" tabindex="-1" role=
+  <div class="modal hide" id="new-project-dialog" tabindex="-1" role=
   "dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
       <h3 id="myModalLabel">New Project</h3>
