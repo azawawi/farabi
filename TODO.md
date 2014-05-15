@@ -116,7 +116,6 @@ Show progress when building index and allow to fire a re-index operation later
 Faster search index
 Search MetaCPAN within Farabi
 Support browsing of code and selection of resources using MetaCPAN API http://api.metacpan.org/source/TEMPIRE/Mojolicious-3.41/
-Active line should change on different themes.
 Print what's that language when using the language selector
 Show me an example...
 Add favicon
