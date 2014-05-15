@@ -1,0 +1,6 @@
+<select id="pod_style_selector" class="input-medium">
+	<option value="cpan">CPAN</option>
+	<option value="metacpan" selected>Metacpan</option>
+	<option value="github">GitHub</option>
+	<option value="none">None (plain HTML)</option>
+</select>
