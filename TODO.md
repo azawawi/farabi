@@ -1,7 +1,7 @@
 Farabi TODO list
 ================
 
-This is the list of project TODO tasks.
+This is the TODO list. Please feel free to work on it and kindly send a pull request.
 
 POD::Web::View
 ==============
@@ -20,6 +20,17 @@ Auto Git diff
 when 'Git diff' tab is open, run 'Git command' like POD
 
 Question: How about we generalize 'Git diff' in the feature to 'VCS Differences' or 'Differences'
+
+Documentation Tab
+=================
+
+Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used
+- Cursor is over 'print' in editor, tab should display perldoc -f 'print' in that tab
+- Cursor is over 'use XYZ'in editor, tab should display perldoc XYZ... if XYZ is not in Module::Path, http://metacpan.org/module/XYZ
+
+Spellunker support
+==================
+Display Spellunking errors to "Problems" tab under "warnings" and source spellunker
 
 Welcome message at startup
 ==========================
