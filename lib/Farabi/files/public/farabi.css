@@ -173,7 +173,7 @@ body {
 	background-repeat: no-repeat;
 }
 
-#debug {
+#doc {
 	height: 550px;
 	overflow: auto;
 }
@@ -182,3 +182,4 @@ body {
 	height: 550px;
 	overflow: auto;
 }
+

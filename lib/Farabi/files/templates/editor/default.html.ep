@@ -21,7 +21,6 @@
 <script src="perl_critic_dialog.js"></script>
 <script src="options_dialog.js"></script>
 <script src="repl_dialog.js"></script>
-<script src="plugin_manager_dialog.js"></script>
 <script src="run_dialog.js"></script>
 <script src="save_question_dialog.js"></script>
 <script src="goto_line_dialog.js"></script>
@@ -107,10 +106,10 @@
 					<ul id="rightTab" class="nav nav-tabs">
 						<li class="active"><a href="#input-tab" data-toggle="tab">Input</a></li>
 						<li><a href="#output-tab" data-toggle="tab">Output</a></li>
-						<li><a href="#pod-tab" data-toggle="tab">POD</a></li>
+						<li><a href="#diff-tab" data-toggle="tab">Changes</a></li>
 						<li><a href="#problems-tab" data-toggle="tab">Problems</a></li>
-						<li><a href="#debug-tab" data-toggle="tab">Debug</a></li>
-						<li><a href="#diff-tab" data-toggle="tab">Diff</a></li>
+						<li><a href="#doc-tab" data-toggle="tab">Documentation</a></li>
+						<li><a href="#preview-tab" data-toggle="tab">Preview</a></li>
 					</ul>
 					<div id="rightTabContent" class="tab-content">
 						<div class="tab-pane active" id="input-tab">
@@ -123,7 +122,7 @@
 								<textarea id="output"></textarea>
 							</div>
 						</div>
-						<div class="tab-pane" id="pod-tab">
+						<div class="tab-pane" id="preview-tab">
 							<div class="farabi-bordered">
 								<div id="pod"></div>
 							</div>
@@ -135,9 +134,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane" id="debug-tab">
+						<div class="tab-pane" id="doc-tab">
 							<div class="farabi-bordered">
-								<div id="debug"></div>
+								<div id="doc"></div>
 							</div>
 						</div>
 						<div class="tab-pane" id="diff-tab">
