@@ -49,6 +49,17 @@ It can be useful while developing farabi to Generalize 'POD' tab into 'Preview'
 
 Markdown Perl-based rendering can be done with [Text::Markdown]
 
+Server-side jshint support
+==========================
+Why use client side support when it can lock on big files... Why
+keep upgrading Farabi when the updated jshint command can be simply used
+
+- Installation notes for jshint tool:
+
+    sudo apt-get install nodejs
+    sudo npm install -g jshint
+    jshint  # should be in /usr/local/bin/jshint
+
 Trailing space support
 ======================
 
