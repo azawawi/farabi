@@ -30,6 +30,8 @@
 				<dd>Save file</dd>
 				<dt>Alt-W</dt>
 				<dd>Close file</dd>
+				<dt>Alt-Enter</dt>
+				<dd>Run</dd>
 				<dt>Alt-L</dt>
 				<dd>Goto line</dd>
 			</dl>
