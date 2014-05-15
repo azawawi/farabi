@@ -21,14 +21,6 @@ body {
 	min-height: 550px;
 }
 
-.CodeMirror-selected  { 
-	background-color: blue !important;
-}
-
-.CodeMirror-selectedtext {
-	color: white !important;
-}
-
 .CodeMirror-focused .cm-matchhighlight {
 	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAFklEQVQI12NgYGBgkKzc8x9CMDAwAAAmhwSbidEoSQAAAABJRU5ErkJggg==);
 	background-position: bottom;
