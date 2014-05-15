@@ -1,11 +1,18 @@
-#-----------------------------------------------------------------------------------------------------------
+Farabi TODO list
+================
+
+This is the list of project TODO tasks.
+
+Trailing space support
+======================
+
 Add trailing space option to Farabi since we already have it in client-side CodeMirror
 
 See the demo
 http://codemirror.net/demo/trailingspace.html
 
-#-----------------------------------------------------------------------------------------------------------
 AutoCompletion support
+======================
 
 See example http://codemirror.net/addon/hint/python-hint.js
 
@@ -23,29 +30,24 @@ Question: What if the user wants to autocomplete stuff on his machine?
 Use Metacpan or local perldoc if needed. Integration with perlbrew is a possibility...
 
 The project i am working with is using v5.16 but Farabi is installed on system Perl or perlbrewed 5.18
+============
 
-e.g.
-use v5.10;
-
-#------------------------------------------------------------------------------------------------------------
 From String::InterpolatedVariables SYNOPSIS
 This is particularly useful if you are using PPI to parse Perl documents, and you want to know
 what variables would be interpolated inside the PPI::Token::Quote::Double and PPI::Token::Quote::Interpolate objects
 you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
 
-# This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
-# PPI and later on the fast Compiler::Lexer
+This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
+PI and later on the fast Compiler::Lexer
 
-#------------------------------------------------------------------------------------------------------------
-use v5.18;
-use String::InterpolatedVariables;
-use Data::Printer;
+    use v5.18;
+    use String::InterpolatedVariables;
+    use Data::Printer;
  
-my $variables = String::InterpolatedVariables::extract(
-        'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
-);
-p $variables;
-#------------------------------------------------------------------------------------------------------------
+    my $variables = String::InterpolatedVariables::extract(
+           'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
+    );
+    p $variables;
 
 #------------------------------------------------------------------------------------------------------------
 #---
