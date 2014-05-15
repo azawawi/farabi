@@ -14,6 +14,12 @@ Answer: store in farabi database a farabi version. when the active version is hi
 or we can simply a Changes menu item :)
 
 
+Markdown preview file 'support'
+===============================
+It can be useful while developing farabi to Generalize 'POD' tab into 'Preview'
+
+Markdown Perl-based rendering can be done with [Text::Markdown]
+
 Trailing space support
 ======================
 
@@ -54,12 +60,13 @@ PI and later on the fast Compiler::Lexer
     use v5.18;
     use String::InterpolatedVariables;
     use Data::Printer;
- 
+    
     my $variables = String::InterpolatedVariables::extract(
            'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
     );
     p $variables;
 
+CPAN 
 #------------------------------------------------------------------------------------------------------------
 #---
 #--- Use this script to "cache Module names in Farabi in $FARABI_HOME/cpan/02packages.details.txt.gz"
