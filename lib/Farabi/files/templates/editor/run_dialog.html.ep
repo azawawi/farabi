@@ -13,9 +13,6 @@
 
           <div class="controls">
             <select id="runtime" size="10">
-              <option id="parrot">
-		Parrot
-	      </option>
 
               <option id="perlito-5">
                 Perlito 5
@@ -28,9 +25,6 @@
 			<option id="perlbrew-exec">
 				Perlbrew exec
 				</option>
-              <option id="rakudo">
-                Rakudo Perl 6
-              </option>
             </select>
           </div>
         </div>

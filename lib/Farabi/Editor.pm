@@ -305,21 +305,6 @@ sub run_perl {
 	$self->_capture_cmd_output( $^X, [], $source, $input );
 }
 
-sub run_rakudo {
-	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'perl6', [], $source, $input );
-}
-
-sub run_parrot {
-	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'parrot', [], $source, $input );
-}
 
 sub run_perlbrew_exec {
 	my $self   = shift;
@@ -774,9 +759,6 @@ sub _find_editor_mode_from_filename {
 		pl         => 'perl',
 		pm         => 'perl',
 		t          => 'perl',
-		p6         => 'perl6',
-		pm6        => 'perl6',
-		pir        => 'pir',
 		css        => 'css',
 		js         => 'javascript',
 		json       => 'javascript',
@@ -818,14 +800,6 @@ sub repl_eval {
 		'perl' => {
 
 			# Special case that uses an internal inprocess Devel::REPL object
-		},
-		'rakudo' => {
-			cmd    => 'perl6',
-			prompt => '> \Z',
-		},
-		'niecza' => {
-			cmd    => 'Niecza.exe',
-			prompt => 'niecza> \Z',
 		},
 	);
 
@@ -1224,17 +1198,13 @@ sub websocket {
 				'find-file'                => 1,
 				'open-file'                => 1,
 				'run-perl'                 => 1,
-				'run-rakudo'               => 1,
-				'run-parrot'               => 1,
 				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
 				'perl-critic'              => 1,
 				'perl-strip'               => 1,
-#				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
-#				'syntax-check'             => 1,
 				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
 				'repl-eval'                => 1,

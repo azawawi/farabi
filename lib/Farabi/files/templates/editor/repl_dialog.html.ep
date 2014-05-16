@@ -18,7 +18,6 @@
 							<button id="run-button" class="btn">Run</button>
 							<select id="runtime">
 								<option id="perl">Perl</option>
-								<option id="rakudo" selected="selected">Perl 6 - Rakudo</option>
 							</select>
 						</div>
 					</div>
