@@ -777,8 +777,8 @@ sub _find_editor_mode_from_filename {
 		conf       => 'properties',
 		properties => 'properties',
 		ini        => 'properties',
-		txt        => 'plain',
-		'log'      => 'plain',
+		txt        => 'null',
+		'log'      => 'null',
 		yml        => 'yaml',
 		yaml       => 'yaml',
 		coffee     => 'coffeescript',
@@ -787,7 +787,7 @@ sub _find_editor_mode_from_filename {
 	);
 
 	# No extension, let us use default text mode
-	return 'plain' unless defined $extension;
+	return 'null' unless defined $extension;
 	return $extension_to_mode{$extension};
 }
 
