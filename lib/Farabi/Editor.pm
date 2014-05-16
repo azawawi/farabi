@@ -1083,7 +1083,7 @@ sub dump_ppi_tree {
 # Syntax check the provided source string
 sub syntax_check {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my $result = $self->_capture_cmd_output( "$^X", ["-c"], $source );
 
@@ -1104,7 +1104,7 @@ sub syntax_check {
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	return \@problems;
+	$self->render(json => \@problems);
 }
 
 # Create a project using Module::Starter
@@ -1234,7 +1234,7 @@ sub websocket {
 #				'pod2html'                 => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
-				'syntax-check'             => 1,
+#				'syntax-check'             => 1,
 				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
 				'repl-eval'                => 1,

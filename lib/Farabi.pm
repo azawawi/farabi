@@ -30,6 +30,7 @@ sub startup {
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
 	$route->post('/preview')->to('editor#preview');
+	$route->post("/syntax_check")->to('editor#syntax_check');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
