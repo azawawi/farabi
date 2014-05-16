@@ -1146,6 +1146,9 @@ sub ack {
 
 	use Data::Printer;
 	p $text;
+	
+	#TODO needs more thought on how to secure it again --xyz-command or escaping...
+	# WARNING at the moment this is not secure
 	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
 
 	$self->render(json => $o);

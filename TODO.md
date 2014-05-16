@@ -26,6 +26,11 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 	Display Spellunking errors to "Problems" tab under "warnings" and source spellunker
 
+- Try to secure Ack command line from injection.
+
+- All problem source (spellunker,syntax check,jshint,perl critic,..etc) should agree on
+	a central problem manager than should coordinate between them. Seriously :)
+
 - Welcome message at startup
 
 	Open a tab on a new installation that open Farabi Changes file

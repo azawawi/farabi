@@ -24,6 +24,13 @@ Please run the following command and then open http://127.0.0.1:4040 in your bro
 
   farabi
 
+=head1 SECURITY WARNING
+
+B<Farabi is an experiment in progress>. It is a web-based user interface with a backend Perl web server.
+Please B<DO NOT> serve it on the Internet unless you jail it in an isolated uber-secure 
+environment that has proper CPU and I/O limits and non-root access.
+
+You have been warned, young padawan :)
 
 =head1 FEATURES
 
