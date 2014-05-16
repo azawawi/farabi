@@ -72,12 +72,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 9,
 	},
-	'action-dump-ppi-tree' => {
-		name  => 'Dump the PPI tree',
-		help  => "Dumps the PPI tree into the output pane",
-		menu  => $tools_menu,
-		order => 11,
-	},
 	'action-run' => {
 		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
@@ -114,6 +108,12 @@ sub menus {
 			help  => 'Run the Perl::Critic tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 4,
+		};
+		$actions{'action-dump-ppi-tree'} = {
+			name  => 'Dump the PPI tree',
+			help  => "Dumps the PPI tree into the output pane",
+			menu  => $tools_menu,
+			order => 11,
 		};
 	};
 
@@ -169,6 +169,15 @@ sub menus {
 			help  => 'Show Git changes between commits',
 			menu  => $tools_menu,
 			order => 8,
+		};
+	}
+
+	if(defined File::Which::which('ack')) {
+		$actions{'action-ack'} = {
+			name  => 'Find in files (ack)',
+			help  => 'Find the current selected text using Ack and displays results in the search tab',
+			menu  => $tools_menu,
+			order => 2,
 		};
 	}
 
@@ -260,6 +269,10 @@ sub _capture_cmd_output {
 		print $input_fh $input;
 		close $input_fh;
 	}
+	
+	use Data::Printer;
+	p $cmd;
+	p $opts;
 
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
@@ -1122,6 +1135,18 @@ sub git_diff {
 	my $self = shift;
 
 	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
+
+	$self->render(json => $o);
+}
+
+# Search files in your current project folder for a textual pattern
+sub ack {
+	my $self = shift;
+	my $text = $self->param('text');
+
+	use Data::Printer;
+	p $text;
+	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
 
 	$self->render(json => $o);
 }

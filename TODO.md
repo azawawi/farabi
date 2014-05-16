@@ -16,10 +16,6 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	- Add "Open URL" functionality
 	- Add "Upload file" functionality
 
-- Auto Git diff
-
-	when 'Git diff' tab is open, run 'Git command' like POD
-
 - Documentation Tab
 
 	Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used

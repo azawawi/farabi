@@ -185,3 +185,7 @@ body {
 	overflow: auto;
 }
 
+#search {
+	height: 550px;
+	overflow: auto;
+}

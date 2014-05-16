@@ -8,9 +8,15 @@
 		</div>
 		<div class="modal-body">
 			<table class="table table-striped">
+<!--
 				<tr>
 					<td>F1</td>
 					<td>Context-sensitive help</td>
+				</tr>
+-->
+				<tr>
+					<td>Ctrl+Alt+F</td>
+					<td>Find in files (Ack)</td>
 				</tr>
 				<tr>
 					<td>Ctrl+F</td>

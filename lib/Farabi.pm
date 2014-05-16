@@ -84,6 +84,7 @@ sub startup {
 	$route->post("/dump_ppi_tree")->to('editor#dump_ppi_tree');
 	$route->post("/repl_eval")->to('editor#repl_eval');
 	$route->post("/ping")->to('editor#ping');
+	$route->post("/ack")->to('editor#ack');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
