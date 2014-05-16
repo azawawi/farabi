@@ -38,7 +38,7 @@
    		$name =~ s/\-/ /g;
    		$name =~ s/\b(\w)/\U$1/g;
 %>
-   		<option value=<%=$theme%><%=($theme eq 'default') ? 'selected' : ''%>><%=$name%></option>
+   		<option value="<%=$theme%>"<%=($theme eq 'default') ? ' selected' : ''%>><%=$name%></option>
 <%
    }
 %>
