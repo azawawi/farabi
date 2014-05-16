@@ -208,8 +208,8 @@ sub menus {
 # Taken from Padre::Plugin::PerlCritic
 sub perl_critic {
 	my $self     = shift;
-	my $source   = $_[0]->{source};
-	my $severity = $_[0]->{severity};
+	my $source   = $self->param('source');
+	my $severity = $self->param('severity');
 
 	# Check source parameter
 	if ( !defined $source ) {
@@ -240,7 +240,7 @@ sub perl_critic {
 		  };
 	}
 
-	return \@results;
+	$self->render(json => \@results);
 }
 
 sub _capture_cmd_output {
@@ -1212,7 +1212,6 @@ sub websocket {
 				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
 				'perl-tidy'                => 1,
-				'perl-critic'              => 1,
 				'perl-strip'               => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,

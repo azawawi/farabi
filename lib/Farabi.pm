@@ -32,6 +32,10 @@ sub startup {
 	$route->post("/syntax_check")->to('editor#syntax_check');
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post("/md2html")->to('editor#md2html');
+	$route->post("/perl_critic")->to('editor#perl_critic');
+
+	#TODO detect whether Perl::Critic is installed
+	#Perl::Critic             = 1.118
 
 	eval { $app->_setup_dirs };
 	if ($@) {
