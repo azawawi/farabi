@@ -83,6 +83,7 @@ sub startup {
 	$route->post("/run_perlbrew_exec")->to('editor#run_perlbrew_exec');
 	$route->post("/dump_ppi_tree")->to('editor#dump_ppi_tree');
 	$route->post("/repl_eval")->to('editor#repl_eval');
+	$route->post("/ping")->to('editor#ping');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -97,9 +98,6 @@ sub startup {
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
-
-	# Setup websocket message handler
-	$route->websocket('/websocket')->to('editor#websocket');
 }
 
 =head1 support_can_be_enabled

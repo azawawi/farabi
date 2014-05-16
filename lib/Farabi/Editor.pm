@@ -12,7 +12,7 @@ use Path::Tiny;
 
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
-my $run_menu   = '03.Run';
+my $build_menu   = '03.Build';
 my $tools_menu = '04.Tools';
 my $help_menu  = '05.Help';
 
@@ -81,7 +81,7 @@ my %actions = (
 	'action-run' => {
 		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
-		menu  => $run_menu,
+		menu  => $build_menu,
 		order => 5,
 	},
 	'action-help' => {
@@ -1173,44 +1173,8 @@ sub default {
 	$self->render;
 }
 
-# The websocket message handler
-sub websocket {
-	my $self = shift;
-
-	# WebSocket Connected... Create JSON object...
-	require Mojo::JSON;
-	my $json = Mojo::JSON->new;
-
-	# Disable inactivity timeout
-	Mojo::IOLoop->stream( $self->tx->connection )->timeout(0);
-
-	# Wait for a WebSocket message
-	$self->on(
-		message => sub {
-			my ( $ws, $message ) = @_;
-			my $result = $json->decode($message) or return;
-
-			my $actions = {
-				'help_search'              => 1,
-				'pod-check'                => 1,
-				'find-duplicate-perl-code' => 1,
-				'repl-eval'                => 1,
-				'new-project'              => 1,
-			};
-
-			my $action = $result->{action} or return;
-			$self->app->log->info("Processing '$action'");
-			if ( defined $actions->{$action} ) {
-				$action =~ s/-/_/g;
-				my $o = $self->$action( $result->{params} ) or return;
-				$ws->send( $json->encode($o) );
-			}
-			else {
-				$self->app->log->warn("'$action' not found!");
-			}
-
-		}
-	);
+sub ping {
+	$_[0]->render(text => "pong");
 }
 
 1;
