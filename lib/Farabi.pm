@@ -29,8 +29,9 @@ sub startup {
 	# Define routes
 	my $route = $app->routes;
 	$route->get('/')->to('editor#default');
-	$route->post('/preview')->to('editor#preview');
 	$route->post("/syntax_check")->to('editor#syntax_check');
+	$route->post('/pod2html')->to('editor#pod2html');
+	$route->post("/md2html")->to('editor#md2html');
 
 	eval { $app->_setup_dirs };
 	if ($@) {

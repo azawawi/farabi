@@ -512,7 +512,7 @@ sub _find_installed_modules {
 }
 
 # Convert Perl POD source to HTML
-sub preview {
+sub pod2html {
 	my $self = shift;
 	my $source =$self->param('source') // '';
 	my $style = $self->param('style') // 'metacpan';
@@ -555,6 +555,17 @@ sub _pod2html {
 	$psx->parse_string_document($pod);
 
 	return $html;
+}
+
+sub md2html {
+	my $self = shift;
+	my $text = $self->param('text') // '';
+
+	require Text::Markdown;
+	my $m = Text::Markdown->new;
+	my $html = $m->markdown($text);
+
+	$self->render(text => $html);
 }
 
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
