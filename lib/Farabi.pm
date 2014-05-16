@@ -6,6 +6,43 @@ use Path::Tiny;
 # ABSTRACT: Modern Perl IDE
 # VERSION
 
+=pod
+
+=head1 SYNOPSIS
+
+  # Run on the default port 4040
+  $ farabi
+  
+  # Run it on port 5050
+  $ farabi --port 5050
+
+=head1 DESCRIPTION
+
+This is a modern web-based Perl IDE that runs inside your favorite browser.
+
+Please run the following command and then open http://127.0.0.1:4040 in your browser:
+
+  farabi
+
+
+=head1 FEATURES
+
+=over
+
+=item Open File(s)
+
+The dialog provides partial filename search inside the directory where Farabi was started.
+Matched single or multiple file selections can then be opened in one batch.
+
+B<WARNING:> Please do not start farabi in a folder with too many files like your home directory
+because this feature's performance will eventually suffer.
+
+=back
+
+=head1 METHODS
+
+=cut
+
 # Application SQLite database and projects are stored in this directory
 has 'home_dir';
 
@@ -113,39 +150,6 @@ SQL
 
 1;
 __END__
-
-=pod
-
-=head1 SYNOPSIS
-
-  # Run on the default port 4040
-  $ farabi
-  
-  # Run it on port 5050
-  $ farabi --port 5050
-
-=head1 DESCRIPTION
-
-This is a modern web-based Perl IDE that runs inside your favorite browser.
-
-Please run the following command and then open http://127.0.0.1:4040 in your browser:
-
-  farabi
-
-
-=head1 FEATURES
-
-=over
-
-=item Open File(s)
-
-The dialog provides partial filename search inside the directory where Farabi was started.
-Matched single or multiple file selections can then be opened in one batch.
-
-B<WARNING:> Please do not start farabi in a folder with too many files like your home directory
-because this feature's performance will eventually suffer.
-
-=back
 
 =head1 TECHNOLOGIES USED
 
