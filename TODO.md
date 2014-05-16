@@ -1,119 +1,120 @@
 Farabi TODO list
 ================
 
-This is the TODO list. Please feel free to work on it and kindly send a pull request.
+This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
-POD::Web::View
-==============
-While i was hibernating and playig Mists of Pandaria, an interesting competing project
-happened that added the following interesting features:
+- POD::Web::View
 
-- POD::Web::View - http://blogs.perl.org/users/michal_wojciechowski/2013/10/pod-web-view.html
-- 'Borrow' and attribute copyright to 'original'' authors from https://github.com/odyniec/POD-Web-View/tree/master/public/css/pod-stylesheets/orig
-- Since farabi is already web-based enabled, we should get a faster update
-- (**DONE**) the 'POD style selector' is useful as an option. Default to MetaCPAN
-- Did not insert the scripts yet in previewed POD
-- Add "Open URL" functionality
-- Add "Upload file" functionality
+	While i was hibernating and playig Mists of Pandaria, an interesting competing project
+	happened that added the following interesting features:
 
-Auto Git diff
-=============
-when 'Git diff' tab is open, run 'Git command' like POD
+	- POD::Web::View - http://blogs.perl.org/users/michal_wojciechowski/2013/10/pod-web-view.html
+	- 'Borrow' and attribute copyright to 'original'' authors from https://github.com/odyniec/POD-Web-View/tree/master/public/css/pod-stylesheets/orig
+	- Since farabi is already web-based enabled, we should get a faster update
+	- (**DONE**) the 'POD style selector' is useful as an option. Default to MetaCPAN
+	- Did not insert the scripts yet in previewed POD
+	- Add "Open URL" functionality
+	- Add "Upload file" functionality
 
-Question: How about we generalize 'Git diff' in the feature to 'VCS Differences' or 'Differences'
+- Auto Git diff
 
-Documentation Tab
-=================
+	when 'Git diff' tab is open, run 'Git command' like POD
 
-Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used
-- Cursor is over 'print' in editor, tab should display perldoc -f 'print' in that tab
-- Cursor is over 'use XYZ'in editor, tab should display perldoc XYZ... if XYZ is not in Module::Path, http://metacpan.org/module/XYZ
+	Question: How about we generalize 'Git diff' in the feature to 'VCS Differences' or 'Differences'
 
-Spellunker support
-==================
-Display Spellunking errors to "Problems" tab under "warnings" and source spellunker
+- Documentation Tab
 
-Welcome message at startup
-==========================
+	Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used
+	- Cursor is over 'print' in editor, tab should display perldoc -f 'print' in that tab
+	- Cursor is over 'use XYZ'in editor, tab should display perldoc XYZ... if XYZ is not in Module::Path, http://metacpan.org/module/XYZ
 
-Open a tab on a new installation that open Farabi Changes file
+- Spellunker support
 
-Question: How to identify a new cpanm installation
-Answer: store in farabi database a farabi version. when the active version is higher, open a new ''changes'' and update the version table to the new version
+	Display Spellunking errors to "Problems" tab under "warnings" and source spellunker
 
-or we can simply a Changes menu item :)
+- Welcome message at startup
+
+	Open a tab on a new installation that open Farabi Changes file
+
+	Question: How to identify a new cpanm installation
+	Answer: store in farabi database a farabi version. when the active version is higher, open a new ''changes'' and update the version table to the new version
+
+	or we can simply a Changes menu item :)
 
 
-Server-side jshint support
-==========================
-Why use client side support when it can lock on big files... Why
-keep upgrading Farabi when the updated jshint command can be simply used
+- Server-side jshint support
 
-- .jshintrc is your jshint file
+	Why use client side support when it can lock on big files... Why
+	keep upgrading Farabi when the updated jshint command can be simply used
 
-- its documentation is found at http://jshint.org/docs/options/
+	- .jshintrc is your jshint file
 
-- Installation notes for jshint tool:
+	- its documentation is found at http://jshint.org/docs/options/
 
-    sudo apt-get install nodejs
-    sudo npm install -g jshint
-    jshint  # should be in /usr/local/bin/jshint
-    
+	- Installation notes for jshint tool:
+
+		sudo apt-get install nodejs
+		sudo npm install -g jshint
+		jshint  # should be in /usr/local/bin/jshint
 
 
 
-- Sample jshint run to parse:
-    test.js: line 14, col 3, Unreachable '/123/' after 'return'.
-    test.js: line 14, col 3, Expected an assignment or function call and instead saw an expression.
-    test.js: line 15, col 14, Unexpected '@'.
-    test.js: line 15, col 13, Expected an operator and instead saw '!'.
-    test.js: line 15, col 13, Expected an assignment or function call and instead saw an expression.
-    test.js: line 15, col 14, Missing semicolon.
-    test.js: line 17, col 4, Unexpected '@'.
-    test.js: line 17, col 3, Expected an assignment or function call and instead saw an expression.
-    test.js: line 17, col 4, Missing semicolon.
 
-- Sample errors
-    ERROR: Can't open test1.js
-    
-    ERROR: Can't parse config file: /home/azawawi/farabi/.jshintrc
+	- Sample jshint run to parse:
 
-Trailing space support
-======================
+		test.js: line 14, col 3, Unreachable '/123/' after 'return'.
+		test.js: line 14, col 3, Expected an assignment or function call and instead saw an expression.
+		test.js: line 15, col 14, Unexpected '@'.
+		test.js: line 15, col 13, Expected an operator and instead saw '!'.
+		test.js: line 15, col 13, Expected an assignment or function call and instead saw an expression.
+		test.js: line 15, col 14, Missing semicolon.
+		test.js: line 17, col 4, Unexpected '@'.
+		test.js: line 17, col 3, Expected an assignment or function call and instead saw an expression.
+		test.js: line 17, col 4, Missing semicolon.
+	```
 
-Add trailing space option to Farabi since we already have it in client-side CodeMirror
+	- Sample errors
+		ERROR: Can't open test1.js
 
-See the demo
-http://codemirror.net/demo/trailingspace.html
+		ERROR: Can't parse config file: /home/azawawi/farabi/.jshintrc
 
-AutoCompletion support
-======================
+- Trailing space support
 
-See example http://codemirror.net/addon/hint/python-hint.js
 
-We can do it in JavaScript or alternatively pull it from Perl land to make it more relevant to script
-minimum version.
+	Add trailing space option to Farabi since we already have it in client-side CodeMirror
 
-Autocompletion of Perl operators is useful.
-Autocompletion of Perl operation **with documentation** on the side is very useful when selected
+	See the demo
+	http://codemirror.net/demo/trailingspace.html
 
-Autocompletion of Perl functions pulled from syntax highlighted
+* AutoCompletion support
 
-Autocompletion of Package::Name::XYZ is done by reusing the "Module name in package name parsed from 02packages.details.txt.gz"
+	See example http://codemirror.net/addon/hint/python-hint.js
 
-Question: What if the user wants to autocomplete stuff on his machine?
-Use Metacpan or local perldoc if needed. Integration with perlbrew is a possibility...
+	We can do it in JavaScript or alternatively pull it from Perl land to make it more relevant to script
+	minimum version.
 
-The project i am working with is using v5.16 but Farabi is installed on system Perl or perlbrewed 5.18
-============
+	Autocompletion of Perl operators is useful.
+	Autocompletion of Perl operation **with documentation** on the side is very useful when selected
 
-From String::InterpolatedVariables SYNOPSIS
-This is particularly useful if you are using PPI to parse Perl documents, and you want to know
-what variables would be interpolated inside the PPI::Token::Quote::Double and PPI::Token::Quote::Interpolate objects
-you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
+	Autocompletion of Perl functions pulled from syntax highlighted
 
-This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
-PI and later on the fast Compiler::Lexer
+	Autocompletion of Package::Name::XYZ is done by reusing the "Module name in package name parsed from 02packages.details.txt.gz"
+
+	Question: What if the user wants to autocomplete stuff on his machine?
+	Use Metacpan or local perldoc if needed. Integration with perlbrew is a possibility...
+
+	The project i am working with is using v5.16 but Farabi is installed on system Perl or perlbrewed 5.18
+
+
+- Accurate PPI or Compiler::Lexer syntax highlighting
+
+	From String::InterpolatedVariables SYNOPSIS
+	This is particularly useful if you are using PPI to parse Perl documents, and you want to know
+	what variables would be interpolated inside the PPI::Token::Quote::Double and PPI::Token::Quote::Interpolate objects
+	you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
+
+	This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
+	PI and later on the fast Compiler::Lexer
 
     use v5.18;
     use String::InterpolatedVariables;
@@ -124,76 +125,102 @@ PI and later on the fast Compiler::Lexer
     );
     p $variables;
 
-CPAN 
-#------------------------------------------------------------------------------------------------------------
-#---
-#--- Use this script to "cache Module names in Farabi in $FARABI_HOME/cpan/02packages.details.txt.gz"
-# courtesy of https://github.com/sharyanto/scripts/blob/master/get-tarball-path-from-local-cpan
-#-----------------------------------------------------------------------------------------------------------
-use v5.18;
-use HTTP::Tiny;
+* CPAN Module name support
 
-#if(-z '02packages.details.txt.gz') {
-#my $response = HTTP::Tiny->new->get('http://www.cpan.org/modules/02packages.details.txt.gz');
-#die "Failed!\n" unless $response->{success};
-#print $response->{content} if length $response->{content};
-#}
+ Use this script to "cache Module names in Farabi in $FARABI_HOME/cpan/02packages.details.txt.gz"
+ courtesy of https://github.com/sharyanto/scripts/blob/master/get-tarball-path-from-local-cpan
 
-#TODO decompress 02packages.details.txt.gz and use in the parsing loop below
+		use v5.18;
+		use HTTP::Tiny;
 
-my $filename =
-  q{C:/Users/azawawi/.cpanm/sources/http%www.cpan.org/02packages.details.txt};
-open my $fh, "<", $filename or die "Cannot open $filename";
-while (<$fh>) {
-    next unless /\S/;
-    next if /^\S+:\s/;
-    chomp;
-    my ( $pkg, $ver, $path ) = split /\s+/, $_;
+		if(-z '02packages.details.txt.gz') {
+		my $response = HTTP::Tiny->new->get('http://www.cpan.org/modules/02packages.details.txt.gz');
+			die "Failed!\n" unless $response->{success};
+			print $response->{content} if length $response->{content};
+		}
 
-    if ( $pkg =~ /^Moose/ ) {
-        say "$pkg => $ver";
-    }
-}
-close $fh;
-----------------------------------------------------------------------------------------------------------
+- Read Module Names
 
-# Blueish theme for Perl syntax highlighting. Please https://github.com/jasonlong/lavalamp
+	Download and decompress 02packages.details.txt.gz and use in the parsing loop below:
 
-# Add minil new, dist, release commands. Project starter will now use Minilla
+		my $filename =
+		  q{C:/Users/azawawi/.cpanm/sources/http%www.cpan.org/02packages.details.txt};
+		open my $fh, "<", $filename or die "Cannot open $filename";
+		while (<$fh>) {
+			next unless /\S/;
+			next if /^\S+:\s/;
+			chomp;
+			my ( $pkg, $ver, $path ) = split /\s+/, $_;
 
-Add support for REPL using Reply instead of ancient Devel::REPL
+			if ( $pkg =~ /^Moose/ ) {
+				say "$pkg => $ver";
+			}
+		}
+		close $fh;
 
-Add App::Ack support through the following command:
-	ack "use 5\.0" --sort-files --noenv --nobreak
+- Blueish theme for Perl syntax highlighting. Please https://github.com/jasonlong/lavalamp
 
-Add Unicode Table Search for Perl with preview!
-Fix damn bug about POD fragments
-More POD about current functionality
-Show progress when loading Perlito for the first time
-Show progress when building index and allow to fire a re-index operation later
-Faster search index
-Search MetaCPAN within Farabi
-Support browsing of code and selection of resources using MetaCPAN API http://api.metacpan.org/source/TEMPIRE/Mojolicious-3.41/
-Print what's that language when using the language selector
-Show me an example...
-Add favicon
-More tests for various actions in t/
-Autocomplete sections in http://perldoc.perl.org/perlpodstyle.html
-Link to POD style http://perldoc.perl.org/perlpodstyle.html
-Link to Perl style http://perldoc.perl.org/perlstyle.html
-Save scratch to Ideas folder. Basically you sometimes need a proof of concept script and do not want to pollute desktop/home/project folder
-Add Comment / Uncomment to Perl mode
-Add not_found.development.html.ep and not_found.html.ep
-Use full screen API (if enabled).
-Detect older unsupported browsers and drop them a similar message:
+- Add minil new, dist, release commands. Project starter will now use Minilla
+
+- Add support for REPL using Reply instead of ancient Devel::REPL
+
+- Add App::Ack support through the following command:
+
+	```
+		ack "use 5\.0" --sort-files --noenv --nobreak
+	```
+
+- Add Unicode Table Search for Perl with preview!
+
+- Fix damn bug about POD fragments
+
+- More POD documentation in Farabi.pm and Editor.pm about current functionality
+
+- Show progress when loading Perlito for the first time
+
+- Show progress when building index and allow to fire a re-index operation later
+
+- Faster search index
+
+- Search MetaCPAN within Farabi
+
+- Support browsing of code and selection of resources using MetaCPAN API http://api.metacpan.org/source/TEMPIRE/Mojolicious-3.41/
+
+- Print what's that language when using the language selector
+
+- Show me an example...
+
+- Add favicon
+
+- More tests for various actions in t/
+
+- Autocomplete sections in http://perldoc.perl.org/perlpodstyle.html
+
+- Link to POD style http://perldoc.perl.org/perlpodstyle.html
+
+- Link to Perl style http://perldoc.perl.org/perlstyle.html
+
+- Save scratch to Ideas folder. Basically you sometimes need a proof of concept script and do not want to pollute desktop/home/project folder
+
+- Add Comment / Uncomment to Perl mode
+
+- Add not_found.development.html.ep and not_found.html.ep
+
+- Use full screen API (if enabled).
+
+- Detect older unsupported browsers and drop them a similar message:
+
 	unfortunately your computer or browser are out of date.
 	You will not be able to view the full content of this site,
 	but you may click HERE for a minified version.
 	We strongly suggest that you upgrade and use one of the following browsers
 	firefox, mozilla, ie, opera, safari"
-Save state in farabi
-Conserve height for wide screens. Small thumbnail-style Control menu on the left/right. Expandable on click.
-Indexer problem: Search mechanism is wrong if farabi is run in user home dir
 
-To install Pithub, we need Net::SSLeay installed and hence
-sudo apt-get install libssl-dev
+- Save state in farabi
+
+- Conserve height for wide screens. Small thumbnail-style Control menu on the left/right. Expandable on click.
+
+- Indexer problem: Search mechanism is wrong if farabi is run in user home dir
+
+- To install Pithub for Github support, we need Net::SSLeay installed and hence
+	sudo apt-get install libssl-dev
