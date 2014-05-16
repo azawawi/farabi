@@ -92,6 +92,7 @@ sub startup {
 	$route->post("/repl_eval")->to('editor#repl_eval');
 	$route->post("/ping")->to('editor#ping');
 	$route->post("/ack")->to('editor#ack');
+	$route->post("/midgen")->to('editor#midgen');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -125,6 +126,7 @@ sub support_can_be_enabled {
 		'Perl::Strip' => '1.1',
 		'Spellunker'  => '0.0.17',
 		'Code::CutNPaste' => '0.04',
+		'App::Midgen' => '0.32',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};

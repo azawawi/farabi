@@ -152,7 +152,16 @@ sub menus {
 			order => 7,
 		};
 	};
-	
+
+	if($self->app->support_can_be_enabled('App::Midgen')) {
+		$actions{'action-midgen'} = {
+			name  => 'Find package dependencies (midgen)',
+			help  => 'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
+			menu  => $tools_menu,
+			order => 7,
+		};
+	};
+
 	require File::Which;
 	if(defined File::Which::which('jshint')) {
 		$actions{'action-jshint'} = {
@@ -1143,6 +1152,19 @@ sub ack {
 	#TODO needs more thought on how to secure it again --xyz-command or escaping...
 	# WARNING at the moment this is not secure
 	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
+
+	$self->render(json => $o);
+}
+
+# Check requires & test_requires of your package for CPAN inclusion.
+sub midgen {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'midgen', [] );
+
+	# Remove ansi color sequences
+	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
+	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 
 	$self->render(json => $o);
 }
