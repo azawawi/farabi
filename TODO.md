@@ -44,12 +44,6 @@ Answer: store in farabi database a farabi version. when the active version is hi
 or we can simply a Changes menu item :)
 
 
-Markdown preview file 'support'
-===============================
-It can be useful while developing farabi to Generalize 'POD' tab into 'Preview'
-
-Markdown Perl-based rendering can be done with [Text::Markdown]
-
 Server-side jshint support
 ==========================
 Why use client side support when it can lock on big files... Why
