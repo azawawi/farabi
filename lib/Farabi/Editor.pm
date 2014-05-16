@@ -150,12 +150,6 @@ my %actions = (
 		menu  => $run_menu,
 		order => 5,
 	},
-	'action-syntax-check' => {
-		name  => 'Syntax Check',
-		help  => 'Run the syntax check tool on the current editor tab',
-		menu  => $run_menu,
-		order => 6,
-	},
 	'action-help' => {
 		name  => 'Help - Getting Started',
 		help  => 'A quick getting started help dialog',
