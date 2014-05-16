@@ -270,10 +270,6 @@ sub _capture_cmd_output {
 		close $input_fh;
 	}
 	
-	use Data::Printer;
-	p $cmd;
-	p $opts;
-
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
@@ -1144,9 +1140,6 @@ sub ack {
 	my $self = shift;
 	my $text = $self->param('text');
 
-	use Data::Printer;
-	p $text;
-	
 	#TODO needs more thought on how to secure it again --xyz-command or escaping...
 	# WARNING at the moment this is not secure
 	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
