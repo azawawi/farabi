@@ -21,7 +21,7 @@
 								"editor/pod_style_selector"%></td>
 						</tr>
 						<%
-						if($self->app->perl_critic_support_enabled) {
+						if($self->app->support_can_be_enabled('Perl::Critic')) {
 						%>
 						<tr>
 							<td><strong>Perl::Critic Severity:</strong><br><%= include

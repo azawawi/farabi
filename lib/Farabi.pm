@@ -70,6 +70,9 @@ sub startup {
 	$route->post('/pod2html')->to('editor#pod2html');
 	$route->post("/md2html")->to('editor#md2html');
 	$route->post("/perl_critic")->to('editor#perl_critic');
+	$route->post("/perl_tidy")->to('editor#perl_tidy');
+	$route->post("/perl_strip")->to('editor#perl_strip');
+	$route->post("/spellunker")->to('editor#spellunker');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -89,44 +92,33 @@ sub startup {
 	$route->websocket('/websocket')->to('editor#websocket');
 }
 
-=head1 perl_critic_support_enabled
+=head1 support_can_be_enabled
 
-Returns 1 when a required Perl::Critic with version XYZ is found otherwise returns 0.
+Returns 1 when a required C<module> with a specific version is found otherwise returns 0.
 
-It can be used in the future to toggle Perl::Critic runtime support
-
-=cut
-sub perl_critic_support_enabled {
-	my $app = shift;
-
-	my $REQUIRED_VERSION = '1.118';
-	eval qq{use Perl::Critic $REQUIRED_VERSION;};
-	if($@) {
-		$app->log->warn("Perl::Critic support is disabled. Please install Perl::Critic $REQUIRED_VERSION or later.");
-		return 0;
-	} else {
-		$app->log->info("Perl::Critic support is enabled");
-		return 1;
-	}
-}
-
-=head1 perl_tidy_support_enabled
-
-Returns 1 when a required Perl::Tidy with version XYZ is found otherwise returns 0.
-
-It can be used in the future to toggle Perl::Tidy runtime support
+It can be used in the future to toggle feature XYZ runtime support
 
 =cut
-sub perl_tidy_support_enabled {
+sub support_can_be_enabled {
 	my $app = shift;
+	my $module = shift;
 
-	my $REQUIRED_VERSION = '20121207';
-	eval qq{use Perl::Tidy $REQUIRED_VERSION;};
+	my %REQUIRED_VERSION = (
+		'Perl::Critic' => '1.118',
+		'Perl::Tidy' => '20121207',
+		'Perl::Strip' => '1.1',
+		'Spellunker'  => '0.0.17',
+	);
+
+	my $version = $REQUIRED_VERSION{$module};
+	return 0 unless defined $version;
+
+	eval qq{use $module $version;};
 	if($@) {
-		$app->log->warn("Perl::Tidy support is disabled. Please install Perl::Tidy $REQUIRED_VERSION or later.");
+		$app->log->warn("$module support is disabled. Please install $module $version or later.");
 		return 0;
 	} else {
-		$app->log->info("Perl::Tidy support is enabled");
+		$app->log->info("$module support is enabled");
 		return 1;
 	}
 }

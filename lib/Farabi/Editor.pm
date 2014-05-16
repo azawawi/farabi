@@ -66,12 +66,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-perl-strip' => {
-		name  => 'Perl Strip',
-		help  => 'Run Perl::Strip on the current editor tab',
-		menu  => $tools_menu,
-		order => 5,
-	},
 	'action-jshint' => {
 		name  => 'JSHint',
 		help  => 'Run JSHint on the current editor tab',
@@ -95,12 +89,6 @@ my %actions = (
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
 		menu  => $tools_menu,
 		order => 9,
-	},
-	'action-spell-check' => {
-		name  => 'Check Spelling',
-		help  => "Checks current tab spelling using Spellunker",
-		menu  => $tools_menu,
-		order => 10,
 	},
 	'action-dump-ppi-tree' => {
 		name  => 'Dump the PPI tree',
@@ -162,7 +150,7 @@ sub menus {
 	my $self = shift;
 	my $menus = ();
 
-	if($self->app->perl_critic_support_enabled) {
+	if($self->app->support_can_be_enabled('Perl::Critic')) {
 		$actions{'action-perl-critic'} = {
 			name  => 'Perl Critic',
 			help  => 'Run the Perl::Critic tool on the current editor tab',
@@ -171,12 +159,30 @@ sub menus {
 		};
 	};
 
-	if($self->app->perl_tidy_support_enabled) {
+	if($self->app->support_can_be_enabled('Perl::Tidy')) {
 		$actions{'action-perl-tidy'} = {
 			name  => 'Perl Tidy',
 			help  => 'Run the Perl::Tidy tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 3,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Perl::Strip')) {
+		$actions{'action-perl-strip'} = {
+			name  => 'Perl Strip',
+			help  => 'Run Perl::Strip on the current editor tab',
+			menu  => $tools_menu,
+			order => 5,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Spellunker')) {
+		$actions{'action-spellunker'} = {
+			name  => 'Spellunker',
+			help  => "Checks current tab spelling using Spellunker",
+			menu  => $tools_menu,
+			order => 10,
 		};
 	};
 
@@ -320,7 +326,7 @@ sub run_perlbrew_exec {
 # TODO document it in 'SEE ALSO' POD section
 sub perl_tidy {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	# Check 'source' parameter
 	unless ( defined $source ) {
@@ -358,7 +364,7 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # i.e. Autocompletion
@@ -1113,26 +1119,6 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-## Step in code in debug mode
-#sub debug_step_in {
-#	my $self = shift;
-#}
-
-## Step over code in debug mode
-#sub debug_step_over {
-#	my $self = shift;
-#}
-
-## Step out code in debug mode
-#sub debug_step_out {
-#	my $self = shift;
-#}
-
-## Stop debugging
-#sub debug_stop {
-#	my $self = shift;
-#}
-
 # Show Git changes between commits
 sub git_diff {
 	my $self = shift;
@@ -1142,7 +1128,7 @@ sub git_diff {
 
 sub perl_strip {
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my %result = (
 		error  => 1,
@@ -1161,19 +1147,18 @@ sub perl_strip {
 		$result{source} = $ps->strip($source);
 	};
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
-sub spell_check {
+sub spellunker {
 	my $self = shift;
-	my $source = shift->{source};
-	
-	my %results = (
-		error => 1,
-		source => '',
-	);
-	
-	
+	my $text = $self->param('text');
+
+	require Spellunker::Pod;
+	my $spellunker = Spellunker::Pod->new();
+	my @t = $spellunker->check_text($text);
+
+	$self->render(json => \@t);
 }
 
 # The default root handler
@@ -1212,18 +1197,11 @@ sub websocket {
 				'run-perl'                 => 1,
 				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
-				'perl-tidy'                => 1,
-				'perl-strip'               => 1,
 				'pod-check'                => 1,
 				'save-file'                => 1,
-				'spell-check'              => 1,
 				'find-duplicate-perl-code' => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
-#				'debug-step-in'            => 1,
-#				'debug-step-over'          => 1,
-#				'debug-step-out'           => 1,
-#				'debug-stop'               => 1,
 				'git-diff'                 => 1,
 			};
 
