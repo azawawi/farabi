@@ -34,9 +34,6 @@ sub startup {
 	$route->post("/md2html")->to('editor#md2html');
 	$route->post("/perl_critic")->to('editor#perl_critic');
 
-	#TODO detect whether Perl::Critic is installed
-	#Perl::Critic             = 1.118
-
 	eval { $app->_setup_dirs };
 	if ($@) {
 		die "Failure to create \$HOME/.farabi directory structure, reason: $@";
@@ -53,6 +50,27 @@ sub startup {
 
 	# Setup websocket message handler
 	$route->websocket('/websocket')->to('editor#websocket');
+}
+
+=head1 perl_critic_support_enabled
+
+Returns 1 when a required Perl::Critic with version XYZ is installed otherwise returns 0.
+
+It can be used in the future to toggle Perl::Critic runtime support
+
+=cut
+sub perl_critic_support_enabled {
+	my $app = shift;
+
+	my $PERL_CRITIC_VERSION = '1.118';
+	eval qq{use Perl::Critic $PERL_CRITIC_VERSION;};
+	if($@) {
+		$app->log->warn("Perl::Critic support is disabled. Please install Perl::Critic $PERL_CRITIC_VERSION or later.");
+		return 0;
+	} else {
+		$app->log->info("Perl::Critic support is enabled");
+		return 1;
+	}
 }
 
 #

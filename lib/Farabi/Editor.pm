@@ -72,12 +72,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 3,
 	},
-	'action-perl-critic' => {
-		name  => 'Perl Critic',
-		help  => 'Run the Perl::Critic tool on the current editor tab',
-		menu  => $tools_menu,
-		order => 4,
-	},
 	'action-perl-strip' => {
 		name  => 'Perl Strip',
 		help  => 'Run Perl::Strip on the current editor tab',
@@ -171,7 +165,17 @@ my %actions = (
 );
 
 sub menus {
+	my $self = shift;
 	my $menus = ();
+
+	if($self->app->perl_critic_support_enabled) {
+		$actions{'action-perl-critic'} = {
+			name  => 'Perl Critic',
+			help  => 'Run the Perl::Critic tool on the current editor tab',
+			menu  => $tools_menu,
+			order => 4,
+		},
+	};
 
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};

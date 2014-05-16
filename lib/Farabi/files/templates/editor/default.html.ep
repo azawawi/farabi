@@ -63,7 +63,7 @@
                     <ul class="nav">
 						<li><button class="actions-button btn btn-primary" type="button"><b>A</b>ctions</button><li>
 							<li><%
-								my $menus = Farabi::Editor->menus;
+								my $menus = $self->menus;
 								for my $menu_key (sort keys %$menus) {
 									my $menu_name = $menu_key;
 									$menu_name =~ s/^\d{2}\.//;

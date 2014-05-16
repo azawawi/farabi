@@ -20,10 +20,16 @@
 							<td><strong>POD Style:</strong><br><%= include
 								"editor/pod_style_selector"%></td>
 						</tr>
+						<%
+						if($self->app->perl_critic_support_enabled) {
+						%>
 						<tr>
-							<td><strong>Critic Severity:</strong><br><%= include
+							<td><strong>Perl::Critic Severity:</strong><br><%= include
 								"editor/critic_severity_selector"%></td>
 						</tr>
+						<%
+						}
+						%>
 						<tr>
 							<td><label class="checkbox"> <input
 									id="line_numbers_checkbox" type="checkbox" value="" checked>
