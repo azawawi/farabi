@@ -66,12 +66,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-perl-tidy' => {
-		name  => 'Perl Tidy',
-		help  => 'Run the Perl::Tidy tool on the current editor tab',
-		menu  => $tools_menu,
-		order => 3,
-	},
 	'action-perl-strip' => {
 		name  => 'Perl Strip',
 		help  => 'Run Perl::Strip on the current editor tab',
@@ -174,7 +168,16 @@ sub menus {
 			help  => 'Run the Perl::Critic tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 4,
-		},
+		};
+	};
+
+	if($self->app->perl_tidy_support_enabled) {
+		$actions{'action-perl-tidy'} = {
+			name  => 'Perl Tidy',
+			help  => 'Run the Perl::Tidy tool on the current editor tab',
+			menu  => $tools_menu,
+			order => 3,
+		};
 	};
 
 	for my $name ( keys %actions ) {

@@ -91,7 +91,7 @@ sub startup {
 
 =head1 perl_critic_support_enabled
 
-Returns 1 when a required Perl::Critic with version XYZ is installed otherwise returns 0.
+Returns 1 when a required Perl::Critic with version XYZ is found otherwise returns 0.
 
 It can be used in the future to toggle Perl::Critic runtime support
 
@@ -99,13 +99,34 @@ It can be used in the future to toggle Perl::Critic runtime support
 sub perl_critic_support_enabled {
 	my $app = shift;
 
-	my $PERL_CRITIC_VERSION = '1.118';
-	eval qq{use Perl::Critic $PERL_CRITIC_VERSION;};
+	my $REQUIRED_VERSION = '1.118';
+	eval qq{use Perl::Critic $REQUIRED_VERSION;};
 	if($@) {
-		$app->log->warn("Perl::Critic support is disabled. Please install Perl::Critic $PERL_CRITIC_VERSION or later.");
+		$app->log->warn("Perl::Critic support is disabled. Please install Perl::Critic $REQUIRED_VERSION or later.");
 		return 0;
 	} else {
 		$app->log->info("Perl::Critic support is enabled");
+		return 1;
+	}
+}
+
+=head1 perl_tidy_support_enabled
+
+Returns 1 when a required Perl::Tidy with version XYZ is found otherwise returns 0.
+
+It can be used in the future to toggle Perl::Tidy runtime support
+
+=cut
+sub perl_tidy_support_enabled {
+	my $app = shift;
+
+	my $REQUIRED_VERSION = '20121207';
+	eval qq{use Perl::Tidy $REQUIRED_VERSION;};
+	if($@) {
+		$app->log->warn("Perl::Tidy support is disabled. Please install Perl::Tidy $REQUIRED_VERSION or later.");
+		return 0;
+	} else {
+		$app->log->info("Perl::Tidy support is enabled");
 		return 1;
 	}
 }
