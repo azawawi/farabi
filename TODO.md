@@ -20,8 +20,6 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 	when 'Git diff' tab is open, run 'Git command' like POD
 
-	Question: How about we generalize 'Git diff' in the feature to 'VCS Differences' or 'Differences'
-
 - Documentation Tab
 
 	Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used
@@ -53,7 +51,7 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 	- Installation notes for jshint tool:
 
-		sudo apt-get install nodejs
+		sudo apt-get install nodejs-legacy npm
 		sudo npm install -g jshint
 		jshint  # should be in /usr/local/bin/jshint
 

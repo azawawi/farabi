@@ -24,12 +24,12 @@ my %actions = (
 		order => 1,
 	},
 
-	'action-new-project' => {
-		name  => 'New Project',
-		help  => "Creates a new project using Module::Starter",
-		menu  => $file_menu,
-		order => 2,
-	},
+#	'action-new-project' => {
+#		name  => 'New Project',
+#		help  => "Creates a new project using Module::Starter",
+#		menu  => $file_menu,
+#		order => 2,
+#	},
 	'action-open-file' => {
 		name  => 'Open File(s) - Alt+O',
 		help  => "Opens one or more files in an editor tab",
@@ -66,24 +66,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-jshint' => {
-		name  => 'JSHint',
-		help  => 'Run JSHint on the current editor tab',
-		menu  => $tools_menu,
-		order => 6,
-	},
-	'action-find-duplicate-perl-code' => {
-		name  => 'Find Duplicate Perl Code',
-		help  => 'Finds any duplicate perl code in the current lib folder',
-		menu  => $tools_menu,
-		order => 7,
-	},
-	'action-git-diff' => {
-		name  => 'Git Diff',
-		help  => 'Show Git changes between commits',
-		menu  => $tools_menu,
-		order => 8,
-	},
 	'action-repl' => {
 		name  => 'REPL - Read-Print-Eval-Loop',
 		help  => 'Opens the Read-Print-Eval-Loop dialog',
@@ -96,30 +78,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 11,
 	},
-#	'action-debug-step-in' => {
-#		name  => 'Step In',
-#		help  => '',
-#		menu  => $run_menu,
-#		order => 1,
-#	},
-#	'action-debug-step-over' => {
-#		name  => 'Step Over',
-#		help  => '',
-#		menu  => $run_menu,
-#		order => 2,
-#	},
-#	'action-debug-step-out' => {
-#		name  => 'Step Out',
-#		help  => '',
-#		menu  => $run_menu,
-#		order => 3,
-#	},
-#	'action-debug-stop' => {
-#		name  => 'Stop Debugging',
-#		help  => '',
-#		menu  => $run_menu,
-#		order => 4,
-#	},
 	'action-run' => {
 		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
@@ -127,17 +85,17 @@ my %actions = (
 		order => 5,
 	},
 	'action-help' => {
-		name  => 'Help - Getting Started',
+		name  => 'Getting Started',
 		help  => 'A quick getting started help dialog',
 		menu  => $help_menu,
 		order => 1,
 	},
-	'action-perl-doc' => {
-		name  => 'Help - Perl Documentation',
-		help  => 'Opens the Perl help documentation dialog',
-		menu  => $help_menu,
-		order => 2,
-	},
+#	'action-perl-doc' => {
+#		name  => 'Perl Documentation',
+#		help  => 'Opens the Perl help documentation dialog',
+#		menu  => $help_menu,
+#		order => 2,
+#	},
 	'action-about' => {
 		name  => 'About Farabi',
 		help  => 'Opens an dialog about the current application',
@@ -185,6 +143,34 @@ sub menus {
 			order => 10,
 		};
 	};
+
+	if($self->app->support_can_be_enabled('Code::CutNPaste')) {
+		$actions{'action-code-cutnpaste'} = {
+			name  => 'Find Cut and Paste code...',
+			help  => 'Finds any duplicate Perl code in the current lib folder',
+			menu  => $tools_menu,
+			order => 7,
+		};
+	};
+	
+	require File::Which;
+	if(defined File::Which::which('jshint')) {
+		$actions{'action-jshint'} = {
+			name  => 'JSHint',
+			help  => 'Run JSHint on the current editor tab',
+			menu  => $tools_menu,
+			order => 6,
+		};
+	}
+	
+	if(defined File::Which::which('git')) {
+		$actions{'action-git-diff'} = {
+			name  => 'Git Diff',
+			help  => 'Show Git changes between commits',
+			menu  => $tools_menu,
+			order => 8,
+		};
+	}
 
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};
@@ -306,20 +292,24 @@ sub _capture_cmd_output {
 
 sub run_perl {
 	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( $^X, [], $source, $input );
+	my $source = $self->param('source');
+	my $input  = $self->param('input');
+
+	my $o = $self->_capture_cmd_output( $^X, [], $source, $input );
+
+	$self->render(json => $o);
 }
 
 
 sub run_perlbrew_exec {
 	my $self   = shift;
-	my $params = shift;
-	my $source = $params->{source};
-	my $input  = $params->{input};
-	$self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
+	my $source = $self->param('source');
+	my $input  = $self->param('input');
+
+	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
 		$source, $input );
+
+	$self->render(json => $o);
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -370,7 +360,7 @@ sub perl_tidy {
 # i.e. Autocompletion
 sub help_search {
 	my $self = shift;
-	my $topic = shift->{topic} // '';
+	my $topic = $self->param('topic') // '';
 
 	# Determine perlfunc POD path
 	require File::Spec;
@@ -470,7 +460,7 @@ sub help_search {
 		close $fh;
 	}
 
-	return \@help_results;
+	$self->render(json => \@help_results);
 }
 
 sub _module_pod {
@@ -578,7 +568,7 @@ sub md2html {
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
 sub pod_check {
 	my $self = shift;
-	my $source = shift->{source} // '';
+	my $source = $self->param('source') // '';
 
 	require Pod::Checker;
 	require IO::String;
@@ -607,7 +597,7 @@ sub pod_check {
 		}
 	}
 
-	return \@problems;
+	$self->render(json => \@problems);
 }
 
 # Find a list of matched actions
@@ -615,7 +605,7 @@ sub find_action {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( shift->{action} // '' );
+	my $query = quotemeta( $self->param('action') // '' );
 
 	# Find matched actions
 	my @matches;
@@ -636,7 +626,7 @@ sub find_action {
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
 	# And return matches array reference
-	return \@matches;
+	$self->render(json => \@matches);
 }
 
 # Find a list of matches files
@@ -644,7 +634,7 @@ sub find_file {
 	my $self = shift;
 
 	# Quote every special regex character
-	my $query = quotemeta( shift->{filename} // '' );
+	my $query = quotemeta( $self->param('filename') // '' );
 
 	# Determine directory
 	require Cwd;
@@ -682,14 +672,14 @@ sub find_file {
 	}
 
 	# Return the matched file array reference
-	return \@matches;
+	$self->render(json => \@matches);
 }
 
 # Return the file contents or a failure string
 sub open_file {
 	my $self = shift;
 
-	my $filename = shift->{filename} // '';
+	my $filename = $self->param('filename') // '';
 
 	my %result = ();
 	if ( open my $fh, '<', $filename ) {
@@ -718,7 +708,7 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Add or update record file record
@@ -837,7 +827,8 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Prepare the REPL command....
@@ -863,7 +854,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Global shared object at the moment
@@ -890,7 +881,8 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			return \%result;
+			$self->render(json => \%result);
+			return;
 		}
 
 		# Create the REPL object
@@ -919,14 +911,14 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Save(s) the specified filename
 sub save_file {
 	my $self     = shift;
-	my $filename = $_[0]->{filename};
-	my $source   = $_[0]->{source};
+	my $filename = $self->param('filename');
+	my $source   = $self->param('source');
 
 	# Define output and error strings
 	my %result = ( err => '', );
@@ -938,7 +930,8 @@ sub save_file {
 		$result{err} = "filename parameter is invalid";
 
 		# Return the result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Check contents parameter
@@ -948,7 +941,8 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	if ( open my $fh, ">", $filename ) {
@@ -962,14 +956,14 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Find duplicate Perl code in the current 'lib' folder
-sub find_duplicate_perl_code {
+sub code_cutnpaste {
 
 	my $self = shift;
-	my $dirs = shift->{dirs};
+	my $dirs = $self->param('dirs');
 
 	my %result = (
 		count  => 0,
@@ -981,7 +975,8 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	my @dirs;
@@ -1006,7 +1001,8 @@ sub find_duplicate_perl_code {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Finds the duplicates
@@ -1030,14 +1026,15 @@ END
 	# Returns the find duplicate perl code result
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
-	return \%result;
+
+	$self->render(json => \%result);
 }
 
 # Dumps the PPI tree for the given source parameter
 sub dump_ppi_tree {
 
 	my $self   = shift;
-	my $source = shift->{source};
+	my $source = $self->param('source');
 
 	my %result = (
 		output => '',
@@ -1049,7 +1046,8 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	# Load PPI at runtime
@@ -1069,7 +1067,7 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	return \%result;
+	$self->render(json => \%result);
 }
 
 # Syntax check the provided source string
@@ -1123,7 +1121,9 @@ sub create_project {
 sub git_diff {
 	my $self = shift;
 
-	$self->_capture_cmd_output( 'git', ['diff'] );
+	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
+
+	$self->render(json => $o);
 }
 
 sub perl_strip {
@@ -1138,7 +1138,8 @@ sub perl_strip {
 	# Check 'source' parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		return \%result;
+		$self->render(json => \%result);
+		return;
 	}
 
 	eval {
@@ -1190,19 +1191,11 @@ sub websocket {
 			my $result = $json->decode($message) or return;
 
 			my $actions = {
-				'dump-ppi-tree'            => 1,
-				'find-action'              => 1,
-				'find-file'                => 1,
-				'open-file'                => 1,
-				'run-perl'                 => 1,
-				'run-perlbrew-exec'        => 1,
 				'help_search'              => 1,
 				'pod-check'                => 1,
-				'save-file'                => 1,
 				'find-duplicate-perl-code' => 1,
 				'repl-eval'                => 1,
 				'new-project'              => 1,
-				'git-diff'                 => 1,
 			};
 
 			my $action = $result->{action} or return;

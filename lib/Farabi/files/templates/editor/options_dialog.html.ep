@@ -7,33 +7,33 @@
 			<h3 id="myModalLabel">Options</h3>
 		</div>
 		<div class="modal-body">
-					<table>
+					<table class="table">
 						<tr>
 							<td><strong>Mode:</strong><br><%= include
 								"editor/mode_selector"%></td>
-						</tr>
-						<tr>
 							<td><strong>Theme:<strong><br><%=
 										include "editor/theme_selector"%></td>
 						</tr>
 						<tr>
 							<td><strong>POD Style:</strong><br><%= include
 								"editor/pod_style_selector"%></td>
-						</tr>
 						<%
 						if($self->app->support_can_be_enabled('Perl::Critic')) {
 						%>
-						<tr>
 							<td><strong>Perl::Critic Severity:</strong><br><%= include
 								"editor/critic_severity_selector"%></td>
-						</tr>
 						<%
 						}
 						%>
+						</tr>
 						<tr>
 							<td><label class="checkbox"> <input
 									id="line_numbers_checkbox" type="checkbox" value="" checked>
 									<strong>Line Numbers?</strong>
+							</label></td>
+							<td><label class="checkbox"> <input
+									id="right_side_shown_checkbox" type="checkbox" value="" checked>
+									<strong>Right Side Shown?</strong>
 							</label></td>
 						</tr>
 						<tr>
@@ -41,23 +41,9 @@
 									id="show_tabs_checkbox" type="checkbox" checked>
 									<strong>Show Tabs?</strong>
 							</label></td>
-						</tr>
-						<tr>
 							<td><label class="checkbox"> <input
 									id="show_spaces_checkbox" type="checkbox" checked>
 									<strong>Show Spaces?</strong>
-							</label></td>
-						</tr>
-						<tr>
-							<td><label class="checkbox"> <input
-									id="pod_style_checkbox" type="checkbox" checked>
-									<strong>Show Spaces?</strong>
-							</label></td>
-						</tr>
-						<tr>
-							<td><label class="checkbox"> <input
-									id="right_side_shown_checkbox" type="checkbox" value="" checked>
-									<strong>Right Side Shown?</strong>
 							</label></td>
 						</tr>
 						<tr>
@@ -71,6 +57,7 @@
 									</div>
 								</div>
 							</td>
+							<td>&nbsp;</td>
 						</tr>
 					</table>
 		</div>

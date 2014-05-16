@@ -73,6 +73,16 @@ sub startup {
 	$route->post("/perl_tidy")->to('editor#perl_tidy');
 	$route->post("/perl_strip")->to('editor#perl_strip');
 	$route->post("/spellunker")->to('editor#spellunker');
+	$route->post("/code_cutnpaste")->to('editor#code_cutnpaste');
+	$route->post("/git_diff")->to('editor#git_diff');
+	$route->post("/open_file")->to('editor#open_file');
+	$route->post("/save_file")->to('editor#save_file');
+	$route->post("/find_file")->to('editor#find_file');
+	$route->post("/find_action")->to('editor#find_action');
+	$route->post("/run_perl")->to('editor#run_perl');
+	$route->post("/run_perlbrew_exec")->to('editor#run_perlbrew_exec');
+	$route->post("/dump_ppi_tree")->to('editor#dump_ppi_tree');
+	$route->post("/repl_eval")->to('editor#repl_eval');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -108,6 +118,7 @@ sub support_can_be_enabled {
 		'Perl::Tidy' => '20121207',
 		'Perl::Strip' => '1.1',
 		'Spellunker'  => '0.0.17',
+		'Code::CutNPaste' => '0.04',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};
