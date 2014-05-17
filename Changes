@@ -2,6 +2,48 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    * Please try Farabi and let me know what you like and what loathe :)
+    * Security warning: do not think of deploying this release on the internet. You have been warned :)
+
+[ADDED]
+    - Minimal farabi with less dependencies
+    - Added 'minil test' and 'dzil test' to build menu for an initial seed for the Minilla and Dist::Zilla runtime project support.
+    - Spellunker runtime support now displays errors in problems. 
+    - Added App::midgen runtime support to generate Makefile.PL et all requires/recommends
+    - Various documentation updates
+    - Added 'ack' runtime support. Press Ctrl-Alt-F to find selected text in current project folder
+      and display results in search tab.
+    - Problems tab is the first tab now
+    - Fix codemirror mode error on plain text files
+    - Git diff is now updated on an open/save file (if the changes tab is visible) or a changes tab click.
+    - Farabi is now using simple AJAX request instead of buggy websocket support
+    - Ping HTTP message is now sent every 5 seconds
+    - Run menu is now called Build
+    - Use runtime Code::CutNPaste support to find duplicate code
+    - Disable incomplete features like new project, help documentation/search
+    - git diff, and jshint are now enabled if you have their commands in your $PATH. Please note that JSHint is still executed in the client-side.
+    - Options dialog is more beautiful :)
+    - Spellunker::Pod runtime support is here :)
+    - Perl::Strip (to minify your Perl script) runtime support
+    - Added Perl::Tidy and Perl::Critic runtime support . If you have the required version, Farabi will use it otherwise it will disable the support
+    - Various code refactoring
+    - TODO is now TODO.pm
+    - Added Markdown auto preview support. Pod tab is now called "Preview"
+    - Syntax/preview to be on focus as well on editor change
+    - Remove buggy auto bracket codemirror support.
+    - Remove Perl 6 (rakudo) and parrot support. Farabi will focus on Perl script and web-based development.
+    - Update theme list to contain CodeMirror's full list
+    - Farabi can now auto preview POD (if the preview tab is visible) in cpan, metacpan, github CSS themes (Courtesy of "POD Web view" by Michał Wojciechowski).
+      Please use the "POD style" option in Tools/Options to change it.
+    - Debug is now Documentation tab
+    - Diff tab is now called "Changes"
+    - POD tab is now called "Preview" to prepare farabi for the future Markdown preview support
+    - A bit of tab reordering
+    - If preview tab is visible, delayed POD rendering is active (buggy because of the websocket bridge bug)
+    - Remove unused plugin manager JS reference
+    - Remove plugin manager skeleton implementation. It sucked...
+    - Show keyboard shortcuts in the menu
+
     [CHANGED]
     - Upgrade CodeMirror to 4.1
 
