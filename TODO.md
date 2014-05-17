@@ -22,10 +22,6 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	- Cursor is over 'print' in editor, tab should display perldoc -f 'print' in that tab
 	- Cursor is over 'use XYZ'in editor, tab should display perldoc XYZ... if XYZ is not in Module::Path, http://metacpan.org/module/XYZ
 
-- Spellunker support
-
-	Display Spellunking errors to "Problems" tab under "warnings" and source spellunker
-
 - Try to secure Ack command line from injection.
 
 - All problem source (spellunker,syntax check,jshint,perl critic,..etc) should agree on
