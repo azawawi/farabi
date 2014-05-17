@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+0.46      2014-05-17 15:09:03+03:00 Asia/Baghdad
+
     * Please try Farabi and let me know what you like and what loathe :)
     * SECURITY WARNING: Please do not think of deploying this release on the internet. 
       You have been warned!
