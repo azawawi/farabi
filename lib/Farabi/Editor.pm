@@ -1238,9 +1238,22 @@ sub spellunker {
 
 	require Spellunker::Pod;
 	my $spellunker = Spellunker::Pod->new();
-	my @t = $spellunker->check_text($text);
+	my @errors = $spellunker->check_text($text);
 
-	$self->render(json => \@t);
+	my @problems;
+	foreach my $error (@errors) {
+		push @problems,
+		  {
+		  message => join(" ", @{$error->[2]}),,
+			file    => '-',
+			line    => $error->[0],
+		  };
+	}
+
+	# Sort problems by line numerically
+	@problems = sort { $a->{line} <=> $b->{line} } @problems;
+
+	$self->render(json => \@problems);
 }
 
 # The default root handler
