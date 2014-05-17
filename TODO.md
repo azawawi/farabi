@@ -16,6 +16,11 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	- Add "Open URL" functionality
 	- Add "Upload file" functionality
 
+- Automatic variable highlighting (VIM)
+
+	- Highlight the variable that your cursor is currently on. Please see http://blogs.perl.org/users/ovid/2014/05/automatic-variable-highlighting-in-vim.html)
+	- Add an ON/OFF option for it
+
 - Documentation Tab
 
 	Add a documentation tab  with the following 'auto' features if documentation tab is open or F2 was used
