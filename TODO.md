@@ -62,21 +62,20 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 	- Sample jshint run to parse:
 
-		test.js: line 14, col 3, Unreachable '/123/' after 'return'.
-		test.js: line 14, col 3, Expected an assignment or function call and instead saw an expression.
-		test.js: line 15, col 14, Unexpected '@'.
-		test.js: line 15, col 13, Expected an operator and instead saw '!'.
-		test.js: line 15, col 13, Expected an assignment or function call and instead saw an expression.
-		test.js: line 15, col 14, Missing semicolon.
-		test.js: line 17, col 4, Unexpected '@'.
-		test.js: line 17, col 3, Expected an assignment or function call and instead saw an expression.
-		test.js: line 17, col 4, Missing semicolon.
-	```
+			test.js: line 14, col 3, Unreachable '/123/' after 'return'.
+			test.js: line 14, col 3, Expected an assignment or function call and instead saw an expression.
+			test.js: line 15, col 14, Unexpected '@'.
+			test.js: line 15, col 13, Expected an operator and instead saw '!'.
+			test.js: line 15, col 13, Expected an assignment or function call and instead saw an expression.
+			test.js: line 15, col 14, Missing semicolon.
+			test.js: line 17, col 4, Unexpected '@'.
+			test.js: line 17, col 3, Expected an assignment or function call and instead saw an expression.
+			test.js: line 17, col 4, Missing semicolon.
 
-	- Sample errors
-		ERROR: Can't open test1.js
+	- Sample errors:
 
-		ERROR: Can't parse config file: /home/azawawi/farabi/.jshintrc
+			ERROR: Can't open test1.js
+			ERROR: Can't parse config file: /home/azawawi/farabi/.jshintrc
 
 - Trailing space support
 
