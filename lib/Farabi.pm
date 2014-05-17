@@ -93,6 +93,8 @@ sub startup {
 	$route->post("/ping")->to('editor#ping');
 	$route->post("/ack")->to('editor#ack');
 	$route->post("/midgen")->to('editor#midgen');
+	$route->post("/minil_test")->to('editor#minil_test');
+	$route->post("/dzil_test")->to('editor#dzil_test');
 
 	eval { $app->_setup_dirs };
 	if ($@) {
@@ -127,6 +129,8 @@ sub support_can_be_enabled {
 		'Spellunker'  => '0.0.17',
 		'Code::CutNPaste' => '0.04',
 		'App::Midgen' => '0.32',
+		'Minilla' => '0.4.6',
+		'Dist::Zilla' => '5.016',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};

@@ -162,6 +162,24 @@ sub menus {
 		};
 	};
 
+	if($self->app->support_can_be_enabled('Minilla')) {
+		$actions{'action-minil-test'} = {
+			name  => 'minil test',
+			help  => "Runs 'minil test' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
+	};
+
+	if($self->app->support_can_be_enabled('Dist::Zilla')) {
+		$actions{'action-dzil-test'} = {
+			name  => 'dzil test',
+			help  => "Runs 'dzil test' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
+	};
+
 	require File::Which;
 	if(defined File::Which::which('jshint')) {
 		$actions{'action-jshint'} = {
@@ -1168,6 +1186,26 @@ sub midgen {
 
 	$self->render(json => $o);
 }
+
+
+# Runs 'minil test' in the current project folder
+sub minil_test {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'minil', ['test'] );
+
+	$self->render(json => $o);
+}
+
+# Runs 'dzil test' in the current project folder
+sub dzil_test {
+	my $self = shift;
+
+	my $o = $self->_capture_cmd_output( 'dzil', ['test'] );
+
+	$self->render(json => $o);
+}
+
 
 sub perl_strip {
 	my $self   = shift;
