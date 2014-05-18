@@ -12,7 +12,7 @@ use Path::Tiny;
 
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
-my $build_menu   = '03.Build';
+my $build_menu = '03.Build';
 my $tools_menu = '04.Tools';
 my $help_menu  = '05.Help';
 
@@ -24,12 +24,12 @@ my %actions = (
 		order => 1,
 	},
 
-#	'action-new-project' => {
-#		name  => 'New Project',
-#		help  => "Creates a new project using Module::Starter",
-#		menu  => $file_menu,
-#		order => 2,
-#	},
+	#	'action-new-project' => {
+	#		name  => 'New Project',
+	#		help  => "Creates a new project using Module::Starter",
+	#		menu  => $file_menu,
+	#		order => 2,
+	#	},
 	'action-open-file' => {
 		name  => 'Open File(s) - Alt+O',
 		help  => "Opens one or more files in an editor tab",
@@ -84,12 +84,13 @@ my %actions = (
 		menu  => $help_menu,
 		order => 1,
 	},
-#	'action-perl-doc' => {
-#		name  => 'Perl Documentation',
-#		help  => 'Opens the Perl help documentation dialog',
-#		menu  => $help_menu,
-#		order => 2,
-#	},
+
+	#	'action-perl-doc' => {
+	#		name  => 'Perl Documentation',
+	#		help  => 'Opens the Perl help documentation dialog',
+	#		menu  => $help_menu,
+	#		order => 2,
+	#	},
 	'action-about' => {
 		name  => 'About Farabi',
 		help  => 'Opens an dialog about the current application',
@@ -99,10 +100,10 @@ my %actions = (
 );
 
 sub menus {
-	my $self = shift;
+	my $self  = shift;
 	my $menus = ();
 
-	if($self->app->support_can_be_enabled('Perl::Critic')) {
+	if ( $self->app->support_can_be_enabled('Perl::Critic') ) {
 		$actions{'action-perl-critic'} = {
 			name  => 'Perl Critic',
 			help  => 'Run the Perl::Critic tool on the current editor tab',
@@ -115,54 +116,55 @@ sub menus {
 			menu  => $tools_menu,
 			order => 11,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Perl::Tidy')) {
+	if ( $self->app->support_can_be_enabled('Perl::Tidy') ) {
 		$actions{'action-perl-tidy'} = {
 			name  => 'Perl Tidy',
 			help  => 'Run the Perl::Tidy tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 3,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Perl::Strip')) {
+	if ( $self->app->support_can_be_enabled('Perl::Strip') ) {
 		$actions{'action-perl-strip'} = {
 			name  => 'Perl Strip',
 			help  => 'Run Perl::Strip on the current editor tab',
 			menu  => $tools_menu,
 			order => 5,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Spellunker')) {
+	if ( $self->app->support_can_be_enabled('Spellunker') ) {
 		$actions{'action-spellunker'} = {
 			name  => 'Spellunker',
 			help  => "Checks current tab spelling using Spellunker",
 			menu  => $tools_menu,
 			order => 10,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Code::CutNPaste')) {
+	if ( $self->app->support_can_be_enabled('Code::CutNPaste') ) {
 		$actions{'action-code-cutnpaste'} = {
 			name  => 'Find Cut and Paste code...',
 			help  => 'Finds any duplicate Perl code in the current lib folder',
 			menu  => $tools_menu,
 			order => 7,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('App::Midgen')) {
+	if ( $self->app->support_can_be_enabled('App::Midgen') ) {
 		$actions{'action-midgen'} = {
-			name  => 'Find package dependencies (midgen)',
-			help  => 'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
+			name => 'Find package dependencies (midgen)',
+			help =>
+'Find package dependencies in the current lib folder and outputs a sample Makefile DSL',
 			menu  => $tools_menu,
 			order => 7,
 		};
-	};
+	}
 
-	if($self->app->support_can_be_enabled('Dist::Zilla')) {
+	if ( $self->app->support_can_be_enabled('Dist::Zilla') ) {
 		$actions{'action-dzil-build'} = {
 			name  => 'dzil build',
 			help  => "Runs 'dzil build' on the current project",
@@ -181,10 +183,10 @@ sub menus {
 			menu  => $build_menu,
 			order => 2,
 		};
-	};
+	}
 
 	require File::Which;
-	if(defined File::Which::which('jshint')) {
+	if ( defined File::Which::which('jshint') ) {
 		$actions{'action-jshint'} = {
 			name  => 'JSHint',
 			help  => 'Run JSHint on the current editor tab',
@@ -192,8 +194,8 @@ sub menus {
 			order => 6,
 		};
 	}
-	
-	if(defined File::Which::which('git')) {
+
+	if ( defined File::Which::which('git') ) {
 		$actions{'action-git-diff'} = {
 			name  => 'Git Diff',
 			help  => 'Show Git changes between commits',
@@ -202,19 +204,21 @@ sub menus {
 		};
 	}
 
-	if(defined File::Which::which('ack')) {
+	if ( defined File::Which::which('ack') ) {
 		$actions{'action-ack'} = {
-			name  => 'Find in files (ack)',
-			help  => 'Find the current selected text using Ack and displays results in the search tab',
+			name => 'Find in files (ack)',
+			help =>
+'Find the current selected text using Ack and displays results in the search tab',
 			menu  => $tools_menu,
 			order => 2,
 		};
 	}
 
-	if(defined File::Which::which('cpanm')) {
+	if ( defined File::Which::which('cpanm') ) {
 		$actions{'action-cpanm'} = {
-			name  => 'Install CPAN module (cpanminus)',
-			help  => 'Install the selected module via App::cpanminus (aka cpanm)',
+			name => 'Install CPAN module (cpanminus)',
+			help =>
+			  'Install the selected module via App::cpanminus (aka cpanm)',
 			menu  => $tools_menu,
 			order => 3,
 		};
@@ -281,7 +285,7 @@ sub perl_critic {
 		  };
 	}
 
-	$self->render(json => \@results);
+	$self->render( json => \@results );
 }
 
 sub _capture_cmd_output {
@@ -308,7 +312,7 @@ sub _capture_cmd_output {
 		print $input_fh $input;
 		close $input_fh;
 	}
-	
+
 	my ( $stdout, $stderr, $exit ) = capture {
 		if ( defined $input_fh ) {
 
@@ -345,9 +349,8 @@ sub run_perl {
 
 	my $o = $self->_capture_cmd_output( $^X, [], $source, $input );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
-
 
 sub run_perlbrew_exec {
 	my $self   = shift;
@@ -357,7 +360,7 @@ sub run_perlbrew_exec {
 	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
 		$source, $input );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Taken from Padre::Plugin::PerlTidy
@@ -402,7 +405,7 @@ sub perl_tidy {
 
 	$result{source} = $destination;
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # i.e. Autocompletion
@@ -508,7 +511,7 @@ sub help_search {
 		close $fh;
 	}
 
-	$self->render(json => \@help_results);
+	$self->render( json => \@help_results );
 }
 
 sub _module_pod {
@@ -558,45 +561,43 @@ sub _find_installed_modules {
 
 # Convert Perl POD source to HTML
 sub pod2html {
-	my $self = shift;
-	my $text =$self->param('source') // '';
+	my $self  = shift;
+	my $text  = $self->param('source') // '';
 	my $style = $self->param('style') // 'metacpan';
 
-	$self->render(text => _pod2html($text, $style), format => 'html');
+	$self->render( text => _pod2html( $text, $style ), format => 'html' );
 }
 
 sub _pod2html {
-	my $text = shift;
+	my $text  = shift;
 	my $style = shift;
 
 	require Pod::Simple::HTML;
 	my $psx = Pod::Simple::HTML->new;
+
 	#$psx->no_errata_section(1);
 	#$psx->no_whining(1);
 	$psx->output_string( \my $html );
 	$psx->parse_string_document($text);
-	
+
 	my %stylesheets = (
-    'cpan'=> [
-        'assets/podstyle/orig/cpan.css',
-        'assets/podstyle/cpan.css'
-    ],
-    'metacpan'=> [
-        'assets/podstyle/orig/metacpan.css',
-        'assets/podstyle/metacpan/shCore.css',
-        'assets/podstyle/metacpan/shThemeDefault.css',
-        'assets/podstyle/metacpan.css'
-    ],
-    'github'=> [
-        'assets/podstyle/orig/github.css',
-        'assets/podstyle/github.css'
-    ],
-    'none'=> []
+		'cpan' =>
+		  [ 'assets/podstyle/orig/cpan.css', 'assets/podstyle/cpan.css' ],
+		'metacpan' => [
+			'assets/podstyle/orig/metacpan.css',
+			'assets/podstyle/metacpan/shCore.css',
+			'assets/podstyle/metacpan/shThemeDefault.css',
+			'assets/podstyle/metacpan.css'
+		],
+		'github' =>
+		  [ 'assets/podstyle/orig/github.css', 'assets/podstyle/github.css' ],
+		'none' => []
 	);
 
 	my $t = '';
-	for my $style (@{$stylesheets{$style}}) {
-		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
+	for my $style ( @{ $stylesheets{$style} } ) {
+		$t .=
+qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
 	}
 	$html =~ s{(</head>)}{</head>$t$1};
 
@@ -608,10 +609,10 @@ sub md2html {
 	my $text = $self->param('text') // '';
 
 	require Text::Markdown;
-	my $m = Text::Markdown->new;
+	my $m    = Text::Markdown->new;
 	my $html = $m->markdown($text);
 
-	$self->render(text => $html);
+	$self->render( text => $html );
 }
 
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
@@ -646,7 +647,7 @@ sub pod_check {
 		}
 	}
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
 }
 
 # Find a list of matched actions
@@ -675,7 +676,7 @@ sub find_action {
 	@matches = sort { $a->{name} cmp $b->{name} } @matches;
 
 	# And return matches array reference
-	$self->render(json => \@matches);
+	$self->render( json => \@matches );
 }
 
 # Find a list of matches files
@@ -721,7 +722,7 @@ sub find_file {
 	}
 
 	# Return the matched file array reference
-	$self->render(json => \@matches);
+	$self->render( json => \@matches );
 }
 
 # Return the file contents or a failure string
@@ -757,7 +758,7 @@ sub open_file {
 	}
 
 	# Return the file contents or the error message
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Add or update record file record
@@ -876,7 +877,7 @@ sub repl_eval {
 		my %result = ( err => "Failed to find runtime '$runtime_id'", );
 
 		# Return the REPL result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -903,7 +904,7 @@ sub repl_eval {
 	$result{err} = $err;
 
 	# Return the REPL result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Global shared object at the moment
@@ -930,7 +931,7 @@ sub _devel_repl_eval {
 			$result{err} = 'Unable to find Devel::REPL';
 
 			# Return the REPL result
-			$self->render(json => \%result);
+			$self->render( json => \%result );
 			return;
 		}
 
@@ -960,7 +961,7 @@ sub _devel_repl_eval {
 	}
 
 	# Return the REPL result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Save(s) the specified filename
@@ -979,7 +980,7 @@ sub save_file {
 		$result{err} = "filename parameter is invalid";
 
 		# Return the result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -990,7 +991,7 @@ sub save_file {
 		$result{err} = "source parameter is invalid";
 
 		# Return the REPL result
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1005,7 +1006,7 @@ sub save_file {
 		$result{err} = "Cannot save $filename";
 	}
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Find duplicate Perl code in the current 'lib' folder
@@ -1024,7 +1025,7 @@ sub code_cutnpaste {
 
 		# Return the error result
 		$result{error} = "Error:\ndirs parameter is invalid";
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1050,7 +1051,7 @@ sub code_cutnpaste {
 
 		# Return the error result
 		$result{error} = "Code::CutNPaste validation error:\n" . $@;
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1076,7 +1077,7 @@ END
 	$result{count}  = scalar @$duplicates;
 	$result{output} = $output;
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Dumps the PPI tree for the given source parameter
@@ -1095,7 +1096,7 @@ sub dump_ppi_tree {
 
 		# Return the error JSON result
 		$result{error} = "Error:\nSource parameter is undefined";
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
@@ -1116,7 +1117,7 @@ sub dump_ppi_tree {
 	$result{output} = $dumper->string;
 
 	# Return the JSON result
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 # Syntax check the provided source string
@@ -1143,7 +1144,7 @@ sub syntax_check {
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
 }
 
 # Create a project using Module::Starter
@@ -1172,7 +1173,7 @@ sub git_diff {
 
 	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Search files in your current project folder for a textual pattern
@@ -1180,11 +1181,12 @@ sub ack {
 	my $self = shift;
 	my $text = $self->param('text');
 
-	#TODO needs more thought on how to secure it again --xyz-command or escaping...
-	# WARNING at the moment this is not secure
-	my $o = $self->_capture_cmd_output( 'ack', [q{--literal}, q{--sort-files}, q{--match}, qq{$text}] );
+ #TODO needs more thought on how to secure it again --xyz-command or escaping...
+ # WARNING at the moment this is not secure
+	my $o = $self->_capture_cmd_output( 'ack',
+		[ q{--literal}, q{--sort-files}, q{--match}, qq{$text} ] );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Check requires & test_requires of your package for CPAN inclusion.
@@ -1197,7 +1199,7 @@ sub midgen {
 	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Install module XYZ via App::cpanminus
@@ -1207,7 +1209,7 @@ sub cpanm {
 
 	my $o = $self->_capture_cmd_output( 'cpanm', [$module] );
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
 
 # Runs 'dzil build|test|clean' in the current project folder
@@ -1215,21 +1217,21 @@ sub dzil {
 	my $self = shift;
 	my $cmd = $self->param('cmd') // '';
 
-	my %valid_cmds = ('build'=>1, 'test'=>1, 'clean'=>1);
+	my %valid_cmds = ( 'build' => 1, 'test' => 1, 'clean' => 1 );
 	my $o;
-	if(defined $valid_cmds{$cmd}) {
+	if ( defined $valid_cmds{$cmd} ) {
 		$o = $self->_capture_cmd_output( 'dzil', [$cmd] );
-	} else {
+	}
+	else {
 		$o = {
 			stdout => 'Unknown dzil command',
 			stderr => '',
-			'exit' => 0, 
+			'exit' => 0,
 		};
 	}
 
-	$self->render(json => $o);
+	$self->render( json => $o );
 }
-
 
 sub perl_strip {
 	my $self   = shift;
@@ -1243,17 +1245,17 @@ sub perl_strip {
 	# Check 'source' parameter
 	unless ( defined $source ) {
 		$self->app->log->warn('Undefined "source" parameter');
-		$self->render(json => \%result);
+		$self->render( json => \%result );
 		return;
 	}
 
 	eval {
 		require Perl::Strip;
-		my $ps  = Perl::Strip->new;
+		my $ps = Perl::Strip->new;
 		$result{source} = $ps->strip($source);
 	};
 
-	$self->render(json => \%result);
+	$self->render( json => \%result );
 }
 
 sub spellunker {
@@ -1262,66 +1264,68 @@ sub spellunker {
 
 	require Spellunker::Pod;
 	my $spellunker = Spellunker::Pod->new();
-	my @errors = $spellunker->check_text($text);
+	my @errors     = $spellunker->check_text($text);
 
 	my @problems;
 	foreach my $error (@errors) {
 		push @problems,
 		  {
-		  message => join(" ", @{$error->[2]}),,
-			file    => '-',
-			line    => $error->[0],
+			message => join( " ", @{ $error->[2] } ),
+			,
+			file => '-',
+			line => $error->[0],
 		  };
 	}
 
 	# Sort problems by line numerically
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
-	$self->render(json => \@problems);
+	$self->render( json => \@problems );
 }
 
 sub help {
-	my $self = shift;
-	my $text = $self->param('text') // '';
+	my $self  = shift;
+	my $text  = $self->param('text') // '';
 	my $style = $self->param('style') // 'metacpan';
-	my $line = $self->param('line') // 0;
-	my $col = $self->param('col') // 0;
+	my $line  = $self->param('line') // 0;
+	my $col   = $self->param('col') // 0;
 
 	require PPI::Document;
 
 	# Create a document from source
-	my $doc = PPI::Document->new(\$text);
+	my $doc   = PPI::Document->new( \$text );
 	my $words = $doc->find("PPI::Token::Word");
 
 	my $html = '';
 
 	for my $word (@$words) {
 
-		my $start = $word->column_number;
+		my $start   = $word->column_number;
 		my $content = $word->content;
-		my $end = $start + length $content;
-		
-		if(($word->line_number - 1) eq $line && 
-			$col >= $start && 
-			$col < $start + $end) 
+		my $end     = $start + length $content;
+
+		if (   ( $word->line_number - 1 ) eq $line
+			&& $col >= $start
+			&& $col < $start + $end )
 		{
 			my $parent = $word->parent;
-			if($parent && $parent->isa('PPI::Statement::Include')) {
+			if ( $parent && $parent->isa('PPI::Statement::Include') ) {
 				my $module = $parent->module;
-				if($module eq $content) {
-					
-					my $r = $self->_capture_cmd_output( 'perldoc', ['-T', '-u', $module] );
-					$html = _pod2html($r->{stdout}, $style);
+				if ( $module eq $content ) {
+
+					my $r = $self->_capture_cmd_output( 'perldoc',
+						[ '-T', '-u', $module ] );
+					$html = _pod2html( $r->{stdout}, $style );
 
 					last;
 				}
 			}
-			
+
 		}
 
 	}
 
-	$self->render(text => $html);
+	$self->render( text => $html );
 }
 
 # The default root handler
@@ -1336,7 +1340,7 @@ sub default {
 }
 
 sub ping {
-	$_[0]->render(text => "pong");
+	$_[0]->render( text => "pong" );
 }
 
 1;

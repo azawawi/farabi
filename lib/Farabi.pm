@@ -63,7 +63,7 @@ sub startup {
 	my $app = shift;
 
 	# Change secret passphrase that is used for signed cookies
-	$app->secrets(['Hulk, Smash!']);
+	$app->secrets( ['Hulk, Smash!'] );
 
 	# Use content from directories under lib/Farabi/files
 	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
@@ -103,7 +103,7 @@ sub startup {
 	}
 
 	# The database name
-	$app->db_name(path($app->home_dir, 'farabi.db'));
+	$app->db_name( path( $app->home_dir, 'farabi.db' ) );
 
 	# Setup the Farabi database
 	eval { $app->_setup_database };
@@ -119,28 +119,32 @@ Returns 1 when a required C<module> with a specific version is found otherwise r
 It can be used in the future to toggle feature XYZ runtime support
 
 =cut
+
 sub support_can_be_enabled {
-	my $app = shift;
+	my $app    = shift;
 	my $module = shift;
 
 	my %REQUIRED_VERSION = (
-		'Perl::Critic' => '1.118',
-		'Perl::Tidy' => '20121207',
-		'Perl::Strip' => '1.1',
-		'Spellunker'  => '0.0.17',
+		'Perl::Critic'    => '1.118',
+		'Perl::Tidy'      => '20121207',
+		'Perl::Strip'     => '1.1',
+		'Spellunker'      => '0.0.17',
 		'Code::CutNPaste' => '0.04',
-		'App::Midgen' => '0.32',
-		'Dist::Zilla' => '5.016',
+		'App::Midgen'     => '0.32',
+		'Dist::Zilla'     => '5.016',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};
 	return 0 unless defined $version;
 
 	eval qq{use $module $version;};
-	if($@) {
-		$app->log->warn("$module support is disabled. Please install $module $version or later.");
+	if ($@) {
+		$app->log->warn(
+"$module support is disabled. Please install $module $version or later."
+		);
 		return 0;
-	} else {
+	}
+	else {
 		$app->log->info("$module support is enabled");
 		return 1;
 	}
@@ -168,7 +172,7 @@ sub _setup_database {
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
 	my $db_name = $app->db_name;
-	my $db = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
+	my $db      = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	# Create tables if they do not exist
 	$db->query(<<SQL);
