@@ -7,6 +7,7 @@ use Mojo::Base 'Mojolicious::Controller';
 use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 use Path::Tiny;
+use Pod::Functions qw(%Type);
 
 # The actions
 
@@ -408,112 +409,6 @@ sub perl_tidy {
 	$self->render( json => \%result );
 }
 
-# i.e. Autocompletion
-sub help_search {
-	my $self = shift;
-	my $topic = $self->param('topic') // '';
-
-	# Determine perlfunc POD path
-	require File::Spec;
-	my $pod_path;
-	for my $path (@INC) {
-		for (qw(pod pods)) {
-			if ( -e File::Spec->catfile( $path, $_, 'perlfunc.pod' ) ) {
-				$pod_path = File::Spec->catfile( $path, $_ );
-				last;
-			}
-		}
-	}
-
-	# TODO improve this check...
-	return unless defined $pod_path;
-
-	my $pod_index_filename = 'index.txt';
-	unless ( -f $pod_index_filename ) {
-
-		# Find all the .pm and .pod files in @INC
-		$self->app->log->info(
-			"Finding all of *.pm and *.pod files in Perl search path");
-		require File::Find::Rule;
-		my @files = File::Find::Rule->file()->name( '*.pm', '*.pod' )->in(@INC);
-
-		# Create an index
-		$self->app->log->info("Creating POD index");
-		require Pod::Index::Builder;
-		my $p  = Pod::Index::Builder->new;
-		my $t0 = time;
-		for my $file (@files) {
-			$self->app->log->info("Parsing $file");
-			$p->parse_from_file($file);
-		}
-		$self->app->log->info( "Job took " . ( time - $t0 ) . " seconds" );
-		$p->print_index($pod_index_filename);
-	}
-
-	my $module_index_filename = 'index-modules.txt';
-	unless ( -f $module_index_filename ) {
-		$self->app->log->info("Creating Module index");
-		my %modules = $self->_find_installed_modules;
-		if ( open my $fh, ">", $module_index_filename ) {
-			for my $module ( sort keys %modules ) {
-				say $fh "$module\t" . $modules{$module};
-			}
-			close $fh;
-		}
-	}
-
-	# Search for a keyword in the file-based index
-	require Pod::Index::Search;
-	my $q = Pod::Index::Search->new(
-		filename => $pod_index_filename,
-		filemap  => sub {
-			my $podname = shift;
-			if ( $podname =~ /^.+::(.+?)$/ ) {
-				$podname = File::Spec->catfile( $pod_path, "$1.pod" );
-				unless ( -e $podname ) {
-					$podname = s/::/\//g;
-					$podname .= '.pm';
-				}
-			}
-			return $podname;
-		}
-	);
-
-	my @results = $q->search($topic);
-	my @help_results;
-	for my $r (@results) {
-		next if $r->podname =~ /perltoc/i;
-		my $podname = $r->podname;
-		$podname =~ s/^.+::(.+)$/$1/;
-		push @help_results,
-		  {
-			'podname' => $podname,
-			'context' => $r->context,
-			'html'    => _pod2html( $r->pod ),
-		  };
-	}
-
-	if ( open my $fh, '<', $module_index_filename ) {
-		my $filter = quotemeta $topic;
-		while (<$fh>) {
-			chomp;
-			my ( $module, $filename ) = split /\t/;
-			if ( $module =~ /^$filter$/i ) {
-				push @help_results,
-				  {
-					'podname' => $module,
-					'context' => '',
-					'html'    => _pod2html( $self->_module_pod($filename) ),
-				  },
-				  ;
-			}
-		}
-		close $fh;
-	}
-
-	$self->render( json => \@help_results );
-}
-
 sub _module_pod {
 	my $self     = shift;
 	my $filename = shift;
@@ -529,34 +424,6 @@ sub _module_pod {
 	}
 
 	return $pod;
-}
-
-#
-# q{Taken from Padre}... Written by AZAWAWI :)
-#
-# Finds installed CPAN modules via @INC
-# This solution resides at:
-# http://stackoverflow.com/questions/115425/how-do-i-get-a-list-of-installed-cpan-modules
-sub _find_installed_modules {
-	my $self = shift;
-
-	my %modules;
-	require File::Find::Rule;
-	require File::Basename;
-	foreach my $path (@INC) {
-		next if $path eq '.';    # Traversing this is a bad idea
-		                         # as it may be the root of the file
-		                         # system or the home directory
-		foreach
-		  my $file ( File::Find::Rule->name( '*.pm', '*.pod' )->in($path) )
-		{
-			my $module = substr( $file, length($path) + 1 );
-			$module =~ s/.(pm|pod)$//;
-			$module =~ s{[\\/]}{::}g;
-			$modules{$module} = $file;
-		}
-	}
-	return %modules;
 }
 
 # Convert Perl POD source to HTML
@@ -1285,45 +1152,24 @@ sub spellunker {
 
 sub help {
 	my $self  = shift;
-	my $text  = $self->param('text') // '';
+	my $topic  = $self->param('topic') // '';
 	my $style = $self->param('style') // 'metacpan';
-	my $line  = $self->param('line') // 0;
-	my $col   = $self->param('col') // 0;
-
-	require PPI::Document;
-
-	# Create a document from source
-	my $doc   = PPI::Document->new( \$text );
-	my $words = $doc->find("PPI::Token::Word");
-
-	my $html = '';
-
-	for my $word (@$words) {
-
-		my $start   = $word->column_number;
-		my $content = $word->content;
-		my $end     = $start + length $content;
-
-		if (   ( $word->line_number - 1 ) eq $line
-			&& $col >= $start
-			&& $col < $start + $end )
-		{
-			my $parent = $word->parent;
-			if ( $parent && $parent->isa('PPI::Statement::Include') ) {
-				my $module = $parent->module;
-				if ( $module eq $content ) {
-
-					my $r = $self->_capture_cmd_output( 'perldoc',
-						[ '-T', '-u', $module ] );
-					$html = _pod2html( $r->{stdout}, $style );
-
-					last;
-				}
-			}
-
-		}
-
+	
+	if($topic eq '') {
+		$self->render( text => "No help found" );
+		return;
 	}
+
+	my @cmd;
+	if($Type{$topic}) {
+		@cmd = ('-f', $topic);
+	} else {
+		@cmd = ($topic);
+	}
+
+	my $result = $self->_capture_cmd_output( 'perldoc', [ '-T', '-u', @cmd ] );
+
+	my $html = _pod2html( $result->{stdout}, $style );
 
 	$self->render( text => $html );
 }
