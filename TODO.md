@@ -3,6 +3,19 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Update editor for **long running tasks** like 'dzil test' or 'dzil build' or 'cpanm XYZ'
+
+- Documentation, Documentation :)
+
+	- Borrow what you have written in Padre https://metacpan.org/source/PLAVEN/Padre-1.00/lib/Padre/Document/Perl/Help.pm
+	- Get https://github.com/cowens/perlopquick/blob/master/perlopquick.pod
+
+	- Support current initial project runtime, .farabirc
+
+		If the currently selected project folder contains .farabiirc, search for perlbrew-runtime key
+
+			perlbrew exec --with perl-5.16.3 perldoc XYZ
+
 - Securing Farabi by default
 
 	Use http://mojolicio.us/perldoc/Mojolicious#before_dispatch
