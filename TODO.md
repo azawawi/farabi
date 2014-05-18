@@ -3,6 +3,14 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Securing Farabi by default
+
+	Use http://mojolicio.us/perldoc/Mojolicious#before_dispatch
+
+		jberger:	you could do a before_dispatch which checks that the request host is the same as the server, send 500 if not
+		azawawi:	i want it to be accessible from the same intranet
+		jberger:	so make the hook configurable
+
 - POD::Web::View
 
 	While i was hibernating and playig Mists of Pandaria, an interesting competing project
