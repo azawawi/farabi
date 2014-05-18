@@ -162,16 +162,19 @@ sub menus {
 		};
 	};
 
-	if($self->app->support_can_be_enabled('Minilla')) {
-		$actions{'action-minil-test'} = {
-			name  => 'minil test',
-			help  => "Runs 'minil test' on the current project",
+	if($self->app->support_can_be_enabled('Dist::Zilla')) {
+		$actions{'action-dzil-build'} = {
+			name  => 'dzil build',
+			help  => "Runs 'dzil build' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
-	};
-
-	if($self->app->support_can_be_enabled('Dist::Zilla')) {
+		$actions{'action-dzil-clean'} = {
+			name  => 'dzil clean',
+			help  => "Runs 'dzil clean' on the current project",
+			menu  => $build_menu,
+			order => 2,
+		};
 		$actions{'action-dzil-test'} = {
 			name  => 'dzil test',
 			help  => "Runs 'dzil test' on the current project",
@@ -1187,21 +1190,22 @@ sub midgen {
 	$self->render(json => $o);
 }
 
-
-# Runs 'minil test' in the current project folder
-sub minil_test {
+# Runs 'dzil build|test|clean' in the current project folder
+sub dzil {
 	my $self = shift;
+	my $cmd = $self->param('cmd') // '';
 
-	my $o = $self->_capture_cmd_output( 'minil', ['test'] );
-
-	$self->render(json => $o);
-}
-
-# Runs 'dzil test' in the current project folder
-sub dzil_test {
-	my $self = shift;
-
-	my $o = $self->_capture_cmd_output( 'dzil', ['test'] );
+	my %valid_cmds = ('build'=>1, 'test'=>1, 'clean'=>1);
+	my $o;
+	if(defined $valid_cmds{$cmd}) {
+		$o = $self->_capture_cmd_output( 'dzil', [$cmd] );
+	} else {
+		$o = {
+			stdout => 'Unknown dzil command',
+			stderr => '',
+			'exit' => 0, 
+		};
+	}
 
 	$self->render(json => $o);
 }
