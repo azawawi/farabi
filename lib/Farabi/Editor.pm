@@ -211,6 +211,15 @@ sub menus {
 		};
 	}
 
+	if(defined File::Which::which('cpanm')) {
+		$actions{'action-cpanm'} = {
+			name  => 'Install CPAN module (cpanminus)',
+			help  => 'Install the selected module via App::cpanminus (aka cpanm)',
+			menu  => $tools_menu,
+			order => 3,
+		};
+	}
+
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};
 		my $menu   = $action->{menu};
@@ -1186,6 +1195,16 @@ sub midgen {
 	# Remove ansi color sequences
 	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
 	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
+
+	$self->render(json => $o);
+}
+
+# Install module XYZ via App::cpanminus
+sub cpanm {
+	my $self = shift;
+	my $module = $self->param('module') // '';
+
+	my $o = $self->_capture_cmd_output( 'cpanm', [$module] );
 
 	$self->render(json => $o);
 }
