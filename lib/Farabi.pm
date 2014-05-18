@@ -95,6 +95,7 @@ sub startup {
 	$route->post("/midgen")->to('editor#midgen');
 	$route->post("/dzil")->to('editor#dzil');
 	$route->post("/cpanm")->to('editor#cpanm');
+	$route->post("/help")->to('editor#help');
 
 	eval { $app->_setup_dirs };
 	if ($@) {

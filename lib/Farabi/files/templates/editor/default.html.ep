@@ -136,7 +136,7 @@
 						</div>
 						<div class="tab-pane" id="doc-tab">
 							<div class="farabi-bordered">
-								<div id="doc"></div>
+								<iframe id="doc" src="about:blank"></iframe>
 							</div>
 						</div>
 						<div class="tab-pane" id="diff-tab">

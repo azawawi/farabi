@@ -559,9 +559,23 @@ sub _find_installed_modules {
 # Convert Perl POD source to HTML
 sub pod2html {
 	my $self = shift;
-	my $source =$self->param('source') // '';
+	my $text =$self->param('source') // '';
 	my $style = $self->param('style') // 'metacpan';
 
+	$self->render(text => _pod2html($text, $style), format => 'html');
+}
+
+sub _pod2html {
+	my $text = shift;
+	my $style = shift;
+
+	require Pod::Simple::HTML;
+	my $psx = Pod::Simple::HTML->new;
+	#$psx->no_errata_section(1);
+	#$psx->no_whining(1);
+	$psx->output_string( \my $html );
+	$psx->parse_string_document($text);
+	
 	my %stylesheets = (
     'cpan'=> [
         'assets/podstyle/orig/cpan.css',
@@ -580,24 +594,11 @@ sub pod2html {
     'none'=> []
 	);
 
-	my $html = _pod2html($source);
 	my $t = '';
 	for my $style (@{$stylesheets{$style}}) {
 		$t .= qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\n};
 	}
 	$html =~ s{(</head>)}{</head>$t$1};
-	$self->render(text => $html, format => 'html');
-}
-
-sub _pod2html {
-	my $pod = shift;
-
-	require Pod::Simple::HTML;
-	my $psx = Pod::Simple::HTML->new;
-	#$psx->no_errata_section(1);
-	#$psx->no_whining(1);
-	$psx->output_string( \my $html );
-	$psx->parse_string_document($pod);
 
 	return $html;
 }
@@ -1277,6 +1278,50 @@ sub spellunker {
 	@problems = sort { $a->{line} <=> $b->{line} } @problems;
 
 	$self->render(json => \@problems);
+}
+
+sub help {
+	my $self = shift;
+	my $text = $self->param('text') // '';
+	my $style = $self->param('style') // 'metacpan';
+	my $line = $self->param('line') // 0;
+	my $col = $self->param('col') // 0;
+
+	require PPI::Document;
+
+	# Create a document from source
+	my $doc = PPI::Document->new(\$text);
+	my $words = $doc->find("PPI::Token::Word");
+
+	my $html = '';
+
+	for my $word (@$words) {
+
+		my $start = $word->column_number;
+		my $content = $word->content;
+		my $end = $start + length $content;
+		
+		if(($word->line_number - 1) eq $line && 
+			$col >= $start && 
+			$col < $start + $end) 
+		{
+			my $parent = $word->parent;
+			if($parent && $parent->isa('PPI::Statement::Include')) {
+				my $module = $parent->module;
+				if($module eq $content) {
+					
+					my $r = $self->_capture_cmd_output( 'perldoc', ['-T', '-u', $module] );
+					$html = _pod2html($r->{stdout}, $style);
+
+					last;
+				}
+			}
+			
+		}
+
+	}
+
+	$self->render(text => $html);
 }
 
 # The default root handler

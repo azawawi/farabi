@@ -176,8 +176,10 @@ body {
 }
 
 #doc {
+	width: 100%;
 	height: 550px;
 	overflow: auto;
+	border: none;
 }
 
 #diff {
