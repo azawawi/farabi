@@ -1,0 +1,38 @@
+diff --git a/lib/Farabi/Editor.pm b/lib/Farabi/Editor.pm
+index 55482f8..8ca052c 100644
+--- a/lib/Farabi/Editor.pm
++++ b/lib/Farabi/Editor.pm
+@@ -1181,13 +1181,28 @@ sub ack {
+ sub midgen {
+ 	my $self = shift;
+ 
+-	my $o = $self->_capture_cmd_output( 'midgen', [] );
++	my ( $stdout, $stderr, $exit ) = capture {
++		require App::Midgen;
++		my $midgen = App::Midgen->new(
++			core         => 0,         # ignore core modules
++			dual_life    => 1,         # show dual_life modules
++			verbose      => 0,         # disable additional info
++			format       => 'dist',    # see pod below for options
++			experimental => 0,         # ignore xt/ and heuristics
++			quiet => 1,    # ignore - iirc part of previous api attempt, not finished :(
++			zero  => 0,    # show core file versions as 0, when core = 1 only
++			debug => 0,    # disable debug info
++		);
+ 
+-	# Remove ansi color sequences
+-	$o->{stdout} =~ s/\e\[[\d;]*[a-zA-Z]//g;
+-	$o->{stderr} =~ s/\e\[[\d;]*[a-zA-Z]//g;
++		$ENV{ANSI_COLORS_DISABLED} = 1 ;# turn color off, no ansi codes
++		$midgen->run();
++	};
+ 
+-	$self->render(json => $o);
++	$self->render(json => {
++		stdout => $stdout,
++		stderr => $stderr,
++		'exit' => $exit >> 8,
++	});
+ }
+ 
+ # Runs 'dzil build|test|clean' in the current project folder
