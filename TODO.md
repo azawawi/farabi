@@ -10,8 +10,6 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 	- POD::Web::View - http://blogs.perl.org/users/michal_wojciechowski/2013/10/pod-web-view.html
 	- 'Borrow' and attribute copyright to 'original'' authors from https://github.com/odyniec/POD-Web-View/tree/master/public/css/pod-stylesheets/orig
-	- Since farabi is already web-based enabled, we should get a faster update
-	- (**DONE**) the 'POD style selector' is useful as an option. Default to MetaCPAN
 	- Did not insert the scripts yet in previewed POD
 	- Add "Open URL" functionality
 	- Add "Upload file" functionality
