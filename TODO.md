@@ -16,6 +16,9 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 			perlbrew exec --with perl-5.16.3 perldoc XYZ
 
+- Rewrite URLs emitted by perldoc to use /perldoc? instead of search.cpan.org. 
+  External URLs should be target="_blank"
+
 - Securing Farabi by default
 
 	Use http://mojolicio.us/perldoc/Mojolicious#before_dispatch
