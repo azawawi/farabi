@@ -198,8 +198,20 @@ sub menus {
 
 	if ( defined File::Which::which('git') ) {
 		$actions{'action-git-diff'} = {
-			name  => 'Git Diff',
+			name  => 'git diff',
 			help  => 'Show Git changes between commits',
+			menu  => $tools_menu,
+			order => 8,
+		};
+		$actions{'action-git-log'} = {
+			name  => 'git log',
+			help  => 'Show Git commits',
+			menu  => $tools_menu,
+			order => 8,
+		};
+		$actions{'action-git-status'} = {
+			name  => 'git status',
+			help  => 'Show Git status',
 			menu  => $tools_menu,
 			order => 8,
 		};
@@ -1034,11 +1046,23 @@ sub create_project {
 	Module::Starter->create_distro(%args);
 }
 
-# Show Git changes between commits
-sub git_diff {
+# Run git 'diff|log" and return its output
+sub git {
 	my $self = shift;
+	my $cmd = $self->param('cmd') // '';
 
-	my $o = $self->_capture_cmd_output( 'git', ['diff'] );
+	my %valid_cmds = ( 'diff' => 1, 'log' => 1, 'status' => 1);
+	my $o;
+	if ( defined $valid_cmds{$cmd} ) {
+		$o = $self->_capture_cmd_output( 'git', [$cmd] );
+	}
+	else {
+		$o = {
+			stdout => 'Unknown git command',
+			stderr => '',
+			'exit' => 0,
+		};
+	}
 
 	$self->render( json => $o );
 }

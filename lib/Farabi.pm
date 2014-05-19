@@ -81,7 +81,7 @@ sub startup {
 	$route->post("/perl_strip")->to('editor#perl_strip');
 	$route->post("/spellunker")->to('editor#spellunker');
 	$route->post("/code_cutnpaste")->to('editor#code_cutnpaste');
-	$route->post("/git_diff")->to('editor#git_diff');
+	$route->post("/git")->to('editor#git');
 	$route->post("/open_file")->to('editor#open_file');
 	$route->post("/save_file")->to('editor#save_file');
 	$route->post("/find_file")->to('editor#find_file');
