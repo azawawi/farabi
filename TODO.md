@@ -3,6 +3,14 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Add support to the following mime types:
+	- C, C++ (include files)
+	- DTD (for XML editing)
+	- LESS (for web development)
+	- PHP (for web development)
+	- Ruby (why not, it is easy :))
+	- Python (same reasoning)
+
 - Upgrade to CodeMirror 4.2 to get the following fix:
 
 		had some issues, the most distrurbing being that a bunch of modes did not work at all, due to not being checked with the
