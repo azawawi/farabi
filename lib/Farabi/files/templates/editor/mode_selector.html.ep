@@ -6,10 +6,9 @@
 	<option value="javascript">JavaScript</option>
 	<option value="markdown">Github Markdown</option>
 	<option value="perl" selected>Perl</option>
-	<option value="perl6">Perl 6</option>
-	<option value="plsql">PL/SQL</option>
 	<option value="properties">Properties file</option>
 	<option value="shell">Shell</option>
+	<option value="sql">SQL</option>
 	<option value="stex">sTeX, LaTeX</option>
 	<option value="xml">XML/HTML</option>
 	<option value="yaml">YAML</option>
