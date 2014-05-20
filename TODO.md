@@ -195,7 +195,12 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 - Add App::Ack support through the following command:
 
 	```
-		ack "use 5\.0" --sort-files --noenv --nobreak
+		# Please note that --nofilter is needed to prevent blocking when running it over System::Command
+
+		ack "use 5\.0" --nofilter --sort-files --noenv --nobreak
+
+		# no filter is needed for ack...
+		ack --nofilter Hello
 	```
 
 - Add Unicode Table Search for Perl with preview!
