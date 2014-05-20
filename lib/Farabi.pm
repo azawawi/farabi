@@ -93,8 +93,7 @@ sub startup {
 	$route->post("/ping")->to('editor#ping');
 	$route->post("/ack")->to('editor#ack');
 	$route->post("/midgen")->to('editor#midgen');
-	$route->post("/dzil")->to('editor#dzil');
-	$route->post("/make")->to('editor#make');
+	$route->post("/project")->to('editor#project');
 	$route->post("/cpanm")->to('editor#cpanm');
 	$route->post("/help")->to('editor#help');
 

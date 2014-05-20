@@ -14,8 +14,9 @@ use Pod::Functions qw(%Type);
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
 my $build_menu = '03.Build';
-my $tools_menu = '04.Tools';
-my $help_menu  = '05.Help';
+my $vcs_menu = '04.VCS';
+my $tools_menu = '05.Tools';
+my $help_menu  = '06.Help';
 
 my %actions = (
 	'action-new-file' => {
@@ -165,22 +166,24 @@ sub menus {
 		};
 	}
 
-	if ( $self->app->support_can_be_enabled('Dist::Zilla') ) {
-		$actions{'action-dzil-build'} = {
-			name  => 'dzil build',
-			help  => "Runs 'dzil build' on the current project",
+	if ( $self->app->support_can_be_enabled('Dist::Zilla') 
+		or defined File::Which::which('make')) 
+	{
+		$actions{'action-project-build'} = {
+			name  => 'Build',
+			help  => "Runs 'dzil build' 'perl Makefile.PL && make' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
-		$actions{'action-dzil-clean'} = {
-			name  => 'dzil clean',
-			help  => "Runs 'dzil clean' on the current project",
+		$actions{'action-project-clean'} = {
+			name  => 'Clean',
+			help  => "Runs 'dzil clean' or 'make clean' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
-		$actions{'action-dzil-test'} = {
-			name  => 'dzil test',
-			help  => "Runs 'dzil test' on the current project",
+		$actions{'action-project-test'} = {
+			name  => 'Test',
+			help  => "Runs 'dzil test' or 'make test' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
@@ -200,19 +203,19 @@ sub menus {
 		$actions{'action-git-diff'} = {
 			name  => 'git diff',
 			help  => 'Show Git changes between commits',
-			menu  => $tools_menu,
+			menu  => $vcs_menu,
 			order => 8,
 		};
 		$actions{'action-git-log'} = {
 			name  => 'git log',
 			help  => 'Show Git commits',
-			menu  => $tools_menu,
+			menu  => $vcs_menu,
 			order => 8,
 		};
 		$actions{'action-git-status'} = {
 			name  => 'git status',
 			help  => 'Show Git status',
-			menu  => $tools_menu,
+			menu  => $vcs_menu,
 			order => 8,
 		};
 	}
@@ -236,28 +239,6 @@ sub menus {
 			order => 3,
 		};
 	}
-
-	if ( defined File::Which::which('make') ) {
-		$actions{'action-make'} = {
-			name  => 'make',
-			help  => "Runs 'make' on the current project",
-			menu  => $build_menu,
-			order => 3,
-		};
-		$actions{'action-make-clean'} = {
-			name  => 'make clean',
-			help  => "Runs 'make clean' on the current project",
-			menu  => $build_menu,
-			order => 3,
-		};
-		$actions{'action-make-test'} = {
-			name  => 'make test',
-			help  => "Runs 'make test' on the current project",
-			menu  => $build_menu,
-			order => 3,
-		};
-	}
-
 
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};
@@ -1126,44 +1107,33 @@ sub cpanm {
 	$self->render( json => $o );
 }
 
-# Runs 'dzil build|test|clean' in the current project folder
-sub dzil {
+# Runs dzil or makefile build commands in the current project folder
+sub project {
 	my $self = shift;
 	my $cmd = $self->param('cmd') // '';
 
-	my %valid_cmds = ( 'build' => 1, 'test' => 1, 'clean' => 1 );
-	my $o;
-	if ( defined $valid_cmds{$cmd} ) {
-		$o = $self->_capture_cmd_output( 'dzil', [$cmd] );
-	}
-	else {
-		$o = {
-			stdout => 'Unknown dzil command',
-			stderr => '',
-			'exit' => 0,
-		};
+	# Detect project type
+	my $project_type = 'dzil';
+	if(-z 'dist.ini') {
+		# Dist::Zilla (dzil) support
+		$project_type = 'dzil';
+	} elsif (-z 'Makefile.PL') {
+		# Module::Install or ExtUtils::MakeMaker project
+		$project_type = 'make';
 	}
 
-	$self->render( json => $o );
-}
-
-# Runs 'make|make test|make clean' in the current project folder
-sub make {
-	my $self = shift;
-	my $cmd = $self->param('cmd') // '';
-
-	my %valid_cmds = ( ''=> 1, 'test' => 1, 'clean' => 1 );
+	my %valid_cmds = ( 'build'=> 1, 'test' => 1, 'clean' => 1 );
 	my $o;
 	if ( defined $valid_cmds{$cmd} ) {
-		if($cmd eq '') {
-			$o = $self->_capture_cmd_output( 'make', [] );
+		if($cmd eq 'build') {
+			$o = $self->_capture_cmd_output( 'make', $project_type eq 'dzil'? ['build'] : [] ); ;
 		} else {
 			$o = $self->_capture_cmd_output( 'make', [$cmd] );
 		}
 	}
 	else {
 		$o = {
-			stdout => 'Unknown make command',
+			stdout => 'Unknown project command',
 			stderr => '',
 			'exit' => 0,
 		};
