@@ -237,6 +237,28 @@ sub menus {
 		};
 	}
 
+	if ( defined File::Which::which('make') ) {
+		$actions{'action-make'} = {
+			name  => 'make',
+			help  => "Runs 'make' on the current project",
+			menu  => $build_menu,
+			order => 3,
+		};
+		$actions{'action-make-clean'} = {
+			name  => 'make clean',
+			help  => "Runs 'make clean' on the current project",
+			menu  => $build_menu,
+			order => 3,
+		};
+		$actions{'action-make-test'} = {
+			name  => 'make test',
+			help  => "Runs 'make test' on the current project",
+			menu  => $build_menu,
+			order => 3,
+		};
+	}
+
+
 	for my $name ( keys %actions ) {
 		my $action = $actions{$name};
 		my $menu   = $action->{menu};
@@ -1116,6 +1138,31 @@ sub dzil {
 	else {
 		$o = {
 			stdout => 'Unknown dzil command',
+			stderr => '',
+			'exit' => 0,
+		};
+	}
+
+	$self->render( json => $o );
+}
+
+# Runs 'make|make test|make clean' in the current project folder
+sub make {
+	my $self = shift;
+	my $cmd = $self->param('cmd') // '';
+
+	my %valid_cmds = ( ''=> 1, 'test' => 1, 'clean' => 1 );
+	my $o;
+	if ( defined $valid_cmds{$cmd} ) {
+		if($cmd eq '') {
+			$o = $self->_capture_cmd_output( 'make', [] );
+		} else {
+			$o = $self->_capture_cmd_output( 'make', [$cmd] );
+		}
+	}
+	else {
+		$o = {
+			stdout => 'Unknown make command',
 			stderr => '',
 			'exit' => 0,
 		};
