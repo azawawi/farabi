@@ -3,7 +3,7 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
-- Update to CodeMirror 4.2 to get the following fix:
+- Upgrade to CodeMirror 4.2 to get the following fix:
 
 		had some issues, the most distrurbing being that a bunch of modes did not work at all, due to not being checked with the
 		new, more stringent requirement of never returning empty tokens. That requirement has been relaxed in 4.2
