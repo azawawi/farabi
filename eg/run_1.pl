@@ -11,11 +11,13 @@ Runs the given commands array reference and emits the following Mojo events
 
 =over
 
-=item process_read
+=item stream_read
 
-=item process_error
+=item stream_close
 
-=item process_exit
+=item stream_error
+
+=item finish
 
 =item error
 
@@ -49,26 +51,20 @@ sub run {
 				my $stream = Mojo::IOLoop::Stream->new( $cmd->$type );
 				$loop->stream($stream);
 				$stream->on(
-					read => sub {
-						my $stream = shift;
-						my $bytes  = shift;
+					'read' => sub {
 						$self->emit(
-							process_read => { type => $type, bytes => $bytes }
-						);
+							stream_read => { type => $type, bytes => $_[1] } );
 					}
 				);
 				$stream->on(
-					close => sub {
-						$self->emit( process_close => $type );
+					'close' => sub {
+						$self->emit( stream_close => $type );
 					}
 				);
 				$stream->on(
-					error => sub {
-						my $stream = shift;
-						my $err    = shift;
-
+					'error' => sub {
 						$self->emit(
-							process_error => { type => $type, err => $err } );
+							stream_error => { type => $type, err => $_[1] } );
 					}
 				);
 
@@ -95,7 +91,7 @@ sub run {
 
 			# Process has terminated, emit event
 			$self->emit(
-				process_exit => { pid => $cmd->pid, 'exit' => $cmd->exit } );
+				finish => { pid => $cmd->pid, 'exit' => $cmd->exit } );
 
 			# done
 			$cmd->close;
@@ -117,24 +113,26 @@ my $o = Farabi::Process->new;
 
 # Subscribe to events
 $o->on(
-	process_read => sub {
-		my $self  = shift;
-		my $r  = shift;
-		say "process_read $r->{type} event " . length($r->{bytes}) . " (event)";
+	stream_read => sub {
+		my $self = shift;
+		my $r    = shift;
+		say "stream_read $r->{type} event "
+		  . length( $r->{bytes} )
+		  . " (event)";
 	}
 );
 
 $o->on(
-	process_close => sub {
+	stream_close => sub {
 		my $self = shift;
 		my $type = shift;
 
-		say "process_close $type (event)";
+		say "stream_close $type (event)";
 	}
 );
 
 $o->on(
-	process_exit => sub {
+	finish => sub {
 		my $self = shift;
 		my $r    = shift;
 
