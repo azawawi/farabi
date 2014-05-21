@@ -93,7 +93,7 @@ get '/start' => sub {
 
 						$results{$pid} = {
 							pid    => $pid,
-							cmd    => join( ' ', $bytes ),
+							cmd    => join( ' ', @cmds ),
 							stdout => $output,
 							stderr => $error,
 							status => 'running',
