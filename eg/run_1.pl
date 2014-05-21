@@ -11,17 +11,9 @@ Runs the given commands array reference and emits the following Mojo events
 
 =over
 
-=item read_stdout
+=item process_read
 
-=item read_stderr
-
-=item close_stdout
-
-=item close_stderr
-
-=item error_stdout
-
-=item error_stderr
+=item process_error
 
 =item process_exit
 
@@ -53,45 +45,30 @@ sub run {
 			}
 
 			# Create stdout stream reader
-			for my $handle (qw(stdout stderr)) {
-				my $stream = Mojo::IOLoop::Stream->new( $cmd->$handle );
+			for my $type (qw(stdout stderr)) {
+				my $stream = Mojo::IOLoop::Stream->new( $cmd->$type );
 				$loop->stream($stream);
 				$stream->on(
 					read => sub {
-						my ( $stream, $bytes ) = @_;
-
-						if ( $handle eq 'stdout' ) {
-							$self->emit( read_stdout => $bytes );
-						}
-						else {
-							$self->emit( read_stderr => $bytes );
-						}
+						my $stream = shift;
+						my $bytes  = shift;
+						$self->emit(
+							process_read => { type => $type, bytes => $bytes }
+						);
 					}
 				);
 				$stream->on(
 					close => sub {
-						my $stream = shift;
-
-						if ( $handle eq 'stdout' ) {
-							$self->emit( close_stdout => 1 );
-						}
-						else {
-							$self->emit( close_stderr => 1 );
-						}
-
+						$self->emit( process_close => $type );
 					}
 				);
 				$stream->on(
 					error => sub {
-						my ( $stream, $err ) = @_;
+						my $stream = shift;
+						my $err    = shift;
 
-						if ( $handle eq 'stdout' ) {
-							$self->emit( error_stdout => $err );
-						}
-						else {
-							$self->emit( error_stderr => $err );
-						}
-
+						$self->emit(
+							process_error => { type => $type, err => $err } );
 					}
 				);
 
@@ -140,24 +117,19 @@ my $o = Farabi::Process->new;
 
 # Subscribe to events
 $o->on(
-	read_stdout => sub {
-		my ( $self, $bytes ) = @_;
-		say "read_stdout event " . length($bytes) . " (event)";
+	process_read => sub {
+		my $self  = shift;
+		my $r  = shift;
+		say "process_read $r->{type} event " . length($r->{bytes}) . " (event)";
 	}
 );
 
 $o->on(
-	close_stdout => sub {
+	process_close => sub {
 		my $self = shift;
+		my $type = shift;
 
-		say "close stdout (event)";
-	}
-);
-$o->on(
-	close_stderr => sub {
-		my $self = shift;
-
-		say "close stderr (event)";
+		say "process_close $type (event)";
 	}
 );
 
