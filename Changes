@@ -2,6 +2,24 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+    - Upgrade to jQuery 2.1.1
+    - Upgrade to CodeMirror 4.2
+    - git commands are now in separate VCS menu.
+    - Dist:Zilla port is enabled when the folder contains 'dist.ini'
+    - ExtUtils::MakeMaker and Module::Install support is enabled when the current
+      project folder contains 'Makefile.PL'
+    - make and dzil commands are now under Build menu.
+    - Refactor make and dzil commands into build, clean and test commands.
+    - Added make, make clean & make test commands.
+    - Added SQL syntax highlighting support.
+    - Added git status and log and all git operations are now under VCS menu.
+    - Diff editor is also affected with whitespace (tab, space) toggle options.
+    - F1 displays perldoc HTML help for the selected text or current token in
+      the documentation tab.
+    - Fix #10: Install a CPAN module from inside Farabi.
+    - Remove Minilla support. It is literally too opinionated and not there yet.
+    - Added dzil build and clean actions
+
 0.46      2014-05-17 15:09:03+03:00 Asia/Baghdad
 
     * Please try Farabi and let me know what you like and what loathe :)
