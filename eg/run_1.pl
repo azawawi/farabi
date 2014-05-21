@@ -1,98 +1,184 @@
 
 use Modern::Perl;
-use System::Command;
-use File::Which;
+
+package Farabi::Process;
 use Mojo::IOLoop;
+use Mojo::Base 'Mojo::EventEmitter';
 
-my $cmd;
-my $force_close = 0;
-my $timer;
-my @streams = ();
+=head1 run
 
-$timer = Mojo::IOLoop->timer(
-	1 => sub {
-		my $loop = shift;
+Runs the given commands array reference and emits the following Mojo events
 
-		#my @cmds = ('ack', '--nopager', '--nobreak', '--noenv', 'abc');
-		#my @cmds = ('ack', '--nofilter', '.');
-		my @cmds = ('ack', '--nofilter', 'Hello');
-		#my @cmds = ( 'perl', 'hello_world.pl' );
-		$cmd = System::Command->new( @cmds, { trace => 3 } );
+=over
 
-		# Create stdout stream reader
-		for my $handle (qw(stdout stderr)) {
-			my $stream = Mojo::IOLoop::Stream->new( $cmd->$handle );
-			push @streams, $loop->stream($stream);
-			$stream->on(
-				read => sub {
-					my ( $stream, $bytes ) = @_;
-					say "read from $handle " . length $bytes;
-					say $bytes;
-					say "-" x 80;
-				}
-			);
-			$stream->on(
-				close => sub {
-					my $stream = shift;
-					say "close $handle!";
-				}
-			);
-			$stream->on(
-				error => sub {
-					my ( $stream, $err ) = @_;
-					say "error at $handle!";
-				}
-			);
+=item read_stdout
 
-		}
+=item read_stderr
 
-	  }
+=item close_stdout
 
-);
+=item close_stderr
 
-=pod
-my $timeout;
-$timeout = Mojo::IOLoop->timer(
-	3 => sub {
-		my $loop = shift;
+=item error_stdout
 
-		say "Timeout!";
-		$force_close = 1;
+=item error_stderr
 
-		for my $stream (@streams) {
-			$loop->remove($stream);
-		}
-	}
-);
+=item process_exit
+
+=item error
+
+=back
+
 =cut
 
-my $interval;
-$interval = Mojo::IOLoop->recurring(
-	1 => sub {
-		my $loop = shift;
+sub run {
+	my $self = shift;
+	my $cmds = shift;
 
-		return unless defined $cmd;
+	my $cmd;
+	my $timer;
+	$timer = Mojo::IOLoop->timer(
+		0 => sub {
+			my $loop = shift;
 
-		if ( $cmd->is_terminated or $force_close ) {
+			eval {
+				require System::Command;
+				$cmd = System::Command->new( @$cmds, { trace => 3 } );
+			};
 
-			# the handles are not closed yet
-			# but $cmd->exit() et al. are available
-			say "process " . $cmd->pid . " has terminated";
+			if ($@) {
+				$self->emit( error => $@ );
+				return;
+			}
+
+			# Create stdout stream reader
+			for my $handle (qw(stdout stderr)) {
+				my $stream = Mojo::IOLoop::Stream->new( $cmd->$handle );
+				$loop->stream($stream);
+				$stream->on(
+					read => sub {
+						my ( $stream, $bytes ) = @_;
+
+						if ( $handle eq 'stdout' ) {
+							$self->emit( read_stdout => $bytes );
+						}
+						else {
+							$self->emit( read_stderr => $bytes );
+						}
+					}
+				);
+				$stream->on(
+					close => sub {
+						my $stream = shift;
+
+						if ( $handle eq 'stdout' ) {
+							$self->emit( close_stdout => 1 );
+						}
+						else {
+							$self->emit( close_stderr => 1 );
+						}
+
+					}
+				);
+				$stream->on(
+					error => sub {
+						my ( $stream, $err ) = @_;
+
+						if ( $handle eq 'stdout' ) {
+							$self->emit( error_stdout => $err );
+						}
+						else {
+							$self->emit( error_stderr => $err );
+						}
+
+					}
+				);
+
+			}
+
+		  }
+
+	);
+
+	my $watchdog;
+	$watchdog = Mojo::IOLoop->recurring(
+		1 => sub {
+			my $loop = shift;
+
+			unless ( defined $cmd ) {
+
+				# Stop the process watchdog the command failed to start
+				$loop->remove($watchdog);
+				return;
+			}
+
+			# Dont continue if the process has not terminated
+			return unless $cmd->is_terminated;
+
+			# Process has terminated, emit event
+			$self->emit(
+				process_exit => { pid => $cmd->pid, 'exit' => $cmd->exit } );
 
 			# done
 			$cmd->close;
 
 			# Stop the process watchdog
-			$loop->remove($interval);
+			$loop->remove($watchdog);
 
 		}
-		else {
-			say "Still alive!";
-		}
+	);
+}
+
+1;
+
+#------------------------------------------------------------------------------
+package main;
+
+# Create nonblocking Farabi::Process
+my $o = Farabi::Process->new;
+
+# Subscribe to events
+$o->on(
+	read_stdout => sub {
+		my ( $self, $bytes ) = @_;
+		say "read_stdout event " . length($bytes) . " (event)";
 	}
 );
 
+$o->on(
+	close_stdout => sub {
+		my $self = shift;
+
+		say "close stdout (event)";
+	}
+);
+$o->on(
+	close_stderr => sub {
+		my $self = shift;
+
+		say "close stderr (event)";
+	}
+);
+
+$o->on(
+	process_exit => sub {
+		my $self = shift;
+		my $r    = shift;
+
+		say "process " . $r->{pid} . " has terminated (event)";
+	}
+);
+
+$o->on(
+	error => sub {
+		my $self = shift;
+		my $err  = shift;
+
+		say "Error (event): " . $err;
+	}
+);
+
+$o->run( [ 'ack', '--nofilter', '.' ] );
+
 # Start event loop if necessary
 Mojo::IOLoop->start unless Mojo::IOLoop->is_running;
-
-=cut
