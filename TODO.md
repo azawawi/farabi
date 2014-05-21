@@ -10,6 +10,12 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 - Update editor for **long running tasks** like 'dzil test' or 'dzil build' or 'cpanm XYZ'
 
+
+- Prototype vertical scrolling and auto resize http://codemirror.net/demo/resize.html
+	The idea here is that editors are laid out vertically with fullscreen and autoresize only to 10 characters.
+	- Save/Close are file specific actions
+	- New script is shown on the right
+
 - Documentation, Documentation :)
 
 	- Borrow what you have written in Padre https://metacpan.org/source/PLAVEN/Padre-1.00/lib/Padre/Document/Perl/Help.pm
