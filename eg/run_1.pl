@@ -2,7 +2,7 @@
 use Modern::Perl;
 
 package Farabi::Process;
-use Mojo::IOLoop;
+
 use Mojo::Base 'Mojo::EventEmitter';
 
 =head1 run
@@ -37,6 +37,7 @@ sub run {
 
 	my $cmd;
 	my $timer;
+	require Mojo::IOLoop;
 	$timer = Mojo::IOLoop->timer(
 		0 => sub {
 			my $loop = shift;
