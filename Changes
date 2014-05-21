@@ -2,7 +2,9 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
-	* This release begins the road to a better DZIL/M:I/EU:MM project support
+0.47      2014-05-21 12:42:46+03:00 Asia/Jerusalem
+
+    * This release begins the road to a better DZIL/M:I/EU:MM project support
 
 [ADDED]
     - Upgrade to jQuery 2.1.1
