@@ -2,6 +2,8 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+	* This release begins the road to a better DZIL/M:I/EU:MM project support
+
 [ADDED]
     - Upgrade to jQuery 2.1.1
     - Upgrade to CodeMirror 4.2
