@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Implement new UI idea in Farabi as alternative UI with a link at the top (see POC at http://feather.perl6.nl/~azawawi/)
+
 - When the editor is focused, ```$.post``` a ```'/file_exists'``` request for all tab editors. If it is true, please show the following dialog (like Notepad++):
 	
 		The file "$file_name" does not exist anymore.
