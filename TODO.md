@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- See http://blogs.perl.org/users/rockyb/2014/05/introspection-in-develtrepan.html for AutoCompletion idea from within Perl
+
 - Implement project tree using http://www.jstree.com/ (ALT-T or ALT-E)
 
 - Use Mousetrap to capture events like F11 and pass it to the focused editor
