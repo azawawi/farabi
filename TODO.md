@@ -156,14 +156,14 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
 	PI and later on the fast Compiler::Lexer
 
-    use v5.18;
-    use String::InterpolatedVariables;
-    use Data::Printer;
-    
-    my $variables = String::InterpolatedVariables::extract(
-           'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
-    );
-    p $variables;
+    		use v5.18;
+    		use String::InterpolatedVariables;
+    		use Data::Printer;
+		 
+    		my $variables = String::InterpolatedVariables::extract(
+        		 'A $test->{string} $foo $bar from a PPI::Token::Quote::Double $object.'
+    		);
+    		p $variables;
 
 * CPAN Module name support
 
