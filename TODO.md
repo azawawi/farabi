@@ -7,6 +7,12 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 - Implement project tree using http://www.jstree.com/ (ALT-T or ALT-E)
 
+- Use Mojo::Util to provide Tools/Base 64 encode/decode
+
+- Use Mojo::Util to provide Tools/JSON encode/decode and validation
+
+- Use CodeMirror's mustache example to provide Mojo template <% %> Perl support
+
 - Use Mousetrap to capture events like F11 and pass it to the focused editor
 
 - Implement new UI idea in Farabi as alternative UI with a link at the top (see POC at http://feather.perl6.nl/~azawawi/)
