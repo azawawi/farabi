@@ -10,6 +10,10 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 			mode => 'perl',
 		},
 
+- Document PAR::Archiver settings for packing farabi as an executable
+
+		pp -a "C:\strawberry\perl\site\lib\Mojo\entities.txt;Mojo\entities.txt" bin\farabi
+
 - See http://blogs.perl.org/users/rockyb/2014/05/introspection-in-develtrepan.html for AutoCompletion idea from within Perl
 
 - Implement project tree using http://www.jstree.com/ (ALT-T or ALT-E)
