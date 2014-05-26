@@ -12,7 +12,7 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 - Document PAR::Archiver settings for packing farabi as an executable
 
-		pp -a "C:\strawberry\perl\site\lib\Mojo\entities.txt;Mojo\entities.txt" bin\farabi
+		pp --addfile="C:\strawberry\perl\site\lib\Mojo\entities.txt;lib/Mojo/entities.txt" 	--addfile="C:\strawberry\perl\site\lib\Mojolicious\Plugin;lib\Mojolicious\Plugin" --addfile="C:\strawberry\perl\site\lib\Mojolicious\Plugin.pm;lib\Mojolicious\Plugin.pm" --addfile="C:\strawberry\perl\site\lib\Mojolicious\Command;lib\Mojolicious\Command" --module=Capture::Tiny --output=farabi.exe bin\farabi
 
 - See http://blogs.perl.org/users/rockyb/2014/05/introspection-in-develtrepan.html for AutoCompletion idea from within Perl
 
