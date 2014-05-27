@@ -18,7 +18,7 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 - Implement project tree using http://www.jstree.com/ (ALT-T or ALT-E)
 
-- Use Mojo::Util to provide Tools/Base 64 encode/decode
+- Use Mojo::Util to provide Tools/Base64 encode/decode
 
 - Use Mojo::Util to provide Tools/JSON encode/decode and validation
 
