@@ -303,7 +303,7 @@ method perl_critic {
 	$self->render( json => \@results );
 }
 
-method _capture_cmd_output($cmd, $opts, $source, $input) {
+method _capture_cmd_output(Str $cmd, $opts, Str $source, Str $input = undef) {
 	require File::Temp;
 
 	# Source is stored in a temporary file
