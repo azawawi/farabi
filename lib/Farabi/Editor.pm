@@ -120,10 +120,10 @@ method menus {
 		};
 	}
 
-	if ( $self->app->support_can_be_enabled('Perl::Tidy') ) {
+	if ( $self->app->support_can_be_enabled('Perl::Tidy::Sweetened') ) {
 		$actions{'action-perl-tidy'} = {
-			name  => 'Perl Tidy',
-			help  => 'Run the Perl::Tidy tool on the current editor tab',
+			name  => 'Perl Tidy Sweetened',
+			help  => 'Run the Perl::Tidy::Sweetened (perltidier) tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 3,
 		};
@@ -381,37 +381,10 @@ method perl_tidy {
 		return;
 	}
 
-	my %result = (
-		'error'  => '',
-		'source' => '',
-	);
+	my $o = $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ],
+		$source );
 
-	my $destination = undef;
-	my $errorfile   = undef;
-	my %tidyargs    = (
-		argv        => \'-nse -nst',
-		source      => \$source,
-		destination => \$destination,
-		errorfile   => \$errorfile,
-	);
-
-	# TODO: suppress the senseless warning from PerlTidy
-	eval {
-		require Perl::Tidy;
-		Perl::Tidy::perltidy(%tidyargs);
-	};
-
-	if ($@) {
-		$result{error} = "PerlTidy Error:\n" . $@;
-	}
-
-	if ( defined $errorfile ) {
-		$result{error} .= "\n$errorfile\n";
-	}
-
-	$result{source} = $destination;
-
-	$self->render( json => \%result );
+	$self->render( json => $o );
 }
 
 method _module_pod {
