@@ -120,16 +120,16 @@ It can be used in the future to toggle feature XYZ runtime support
 
 =cut
 
-method support_can_be_enabled($module) {
+method support_can_be_enabled ($module) {
 
 	my %REQUIRED_VERSION = (
-		'Perl::Critic'    => '1.118',
-		'Perl::Tidy::Sweetened'      => '0.24',
-		'Perl::Strip'     => '1.1',
-		'Spellunker'      => '0.0.17',
-		'Code::CutNPaste' => '0.04',
-		'App::Midgen'     => '0.32',
-		'Dist::Zilla'     => '5.016',
+		'Perl::Critic'          => '1.118',
+		'Perl::Tidy::Sweetened' => '0.24',
+		'Perl::Strip'           => '1.1',
+		'Spellunker'            => '0.0.17',
+		'Code::CutNPaste'       => '0.04',
+		'App::Midgen'           => '0.32',
+		'Dist::Zilla'           => '5.016',
 	);
 
 	my $version = $REQUIRED_VERSION{$module};

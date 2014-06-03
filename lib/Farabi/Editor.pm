@@ -15,7 +15,7 @@ use Method::Signatures;
 my $file_menu  = '01.File';
 my $edit_menu  = '02.Edit';
 my $build_menu = '03.Build';
-my $vcs_menu = '04.VCS';
+my $vcs_menu   = '04.VCS';
 my $tools_menu = '05.Tools';
 my $help_menu  = '06.Help';
 
@@ -122,8 +122,9 @@ method menus {
 
 	if ( $self->app->support_can_be_enabled('Perl::Tidy::Sweetened') ) {
 		$actions{'action-perl-tidy'} = {
-			name  => 'Perl Tidy Sweetened',
-			help  => 'Run the Perl::Tidy::Sweetened (perltidier) tool on the current editor tab',
+			name => 'Perl Tidy Sweetened',
+			help =>
+'Run the Perl::Tidy::Sweetened (perltidier) tool on the current editor tab',
 			menu  => $tools_menu,
 			order => 3,
 		};
@@ -166,12 +167,13 @@ method menus {
 		};
 	}
 
-	if ( $self->app->support_can_be_enabled('Dist::Zilla') 
-		or defined File::Which::which('make')) 
+	if ( $self->app->support_can_be_enabled('Dist::Zilla')
+		or defined File::Which::which('make') )
 	{
 		$actions{'action-project-build'} = {
-			name  => 'Build',
-			help  => "Runs 'dzil build' 'perl Makefile.PL && make' on the current project",
+			name => 'Build',
+			help =>
+"Runs 'dzil build' 'perl Makefile.PL && make' on the current project",
 			menu  => $build_menu,
 			order => 2,
 		};
@@ -303,7 +305,7 @@ method perl_critic {
 	$self->render( json => \@results );
 }
 
-method _capture_cmd_output(Str $cmd, $opts, Str $source = undef, Str $input = undef) {
+method _capture_cmd_output (Str $cmd, $opts, Str $source = undef, Str $input = undef) {
 	require File::Temp;
 
 	# Source is stored in a temporary file
@@ -381,8 +383,8 @@ method perl_tidy {
 		return;
 	}
 
-	my $o = $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ],
-		$source );
+	my $o =
+	  $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ], $source );
 
 	$self->render( json => $o );
 }
@@ -406,12 +408,12 @@ method _module_pod {
 # Convert Perl POD source to HTML
 method pod2html {
 	my $text  = $self->param('source') // '';
-	my $style = $self->param('style') // 'metacpan';
+	my $style = $self->param('style')  // 'metacpan';
 
 	$self->render( text => _pod2html( $text, $style ), format => 'html' );
 }
 
-func _pod2html($text, $style) {
+func _pod2html ($text, $style) {
 
 	require Pod::Simple::HTML;
 	my $psx = Pod::Simple::HTML->new;
@@ -565,7 +567,6 @@ method find_file {
 # Return the file contents or a failure string
 method open_file {
 
-
 	my $filename = $self->param('filename') // '';
 
 	my %result = ();
@@ -579,7 +580,7 @@ method open_file {
 		# Retrieve editor mode
 		require Farabi::MIME;
 		my $o = Farabi::MIME::find_editor_mode_and_mime_type($filename);
-		$result{mode} = $o->{mode};
+		$result{mode}      = $o->{mode};
 		$result{mime_type} = $o->{mime_type};
 
 		# Simplify filename
@@ -602,7 +603,7 @@ method open_file {
 }
 
 # Add or update record file record
-method _add_or_update_recent_file_record($filename) {
+method _add_or_update_recent_file_record ($filename) {
 
 	require DBIx::Simple;
 	my $db_name = $self->app->db_name;
@@ -639,7 +640,6 @@ SQL
 
 	$db->disconnect;
 }
-
 
 # Generic REPL (Read-Eval-Print-Loop)
 method repl_eval {
@@ -711,7 +711,7 @@ method repl_eval {
 my $devel_repl;
 
 # Devel::REPL (Perl)
-method _devel_repl_eval($code) {
+method _devel_repl_eval ($code) {
 
 	# The Result object
 	my %result = (
@@ -942,7 +942,7 @@ method syntax_check {
 }
 
 # Create a project using Module::Starter
-method create_project($opt) {
+method create_project ($opt) {
 
 	my %args = (
 		distro       => $opt->{distro},
@@ -963,7 +963,7 @@ method create_project($opt) {
 method git {
 	my $cmd = $self->param('cmd') // '';
 
-	my %valid_cmds = ( 'diff' => 1, 'log' => 1, 'status' => 1);
+	my %valid_cmds = ( 'diff' => 1, 'log' => 1, 'status' => 1 );
 	my $o;
 	if ( defined $valid_cmds{$cmd} ) {
 		$o = $self->_capture_cmd_output( 'git', [$cmd] );
@@ -1018,20 +1018,26 @@ method project {
 
 	# Detect project type
 	my $project_type = 'dzil';
-	if(-z 'dist.ini') {
+	if ( -z 'dist.ini' ) {
+
 		# Dist::Zilla (dzil) support
 		$project_type = 'dzil';
-	} elsif (-z 'Makefile.PL') {
+	}
+	elsif ( -z 'Makefile.PL' ) {
+
 		# Module::Install or ExtUtils::MakeMaker project
 		$project_type = 'make';
 	}
 
-	my %valid_cmds = ( 'build'=> 1, 'test' => 1, 'clean' => 1 );
+	my %valid_cmds = ( 'build' => 1, 'test' => 1, 'clean' => 1 );
 	my $o;
 	if ( defined $valid_cmds{$cmd} ) {
-		if($cmd eq 'build') {
-			$o = $self->_capture_cmd_output( 'make', $project_type eq 'dzil'? ['build'] : [] ); ;
-		} else {
+		if ( $cmd eq 'build' ) {
+			$o =
+			  $self->_capture_cmd_output( 'make',
+				$project_type eq 'dzil' ? ['build'] : [] );
+		}
+		else {
 			$o = $self->_capture_cmd_output( 'make', [$cmd] );
 		}
 	}
@@ -1095,18 +1101,19 @@ method spellunker {
 }
 
 method help {
-	my $topic  = $self->param('topic') // '';
+	my $topic = $self->param('topic') // '';
 	my $style = $self->param('style') // 'metacpan';
-	
-	if($topic eq '') {
+
+	if ( $topic eq '' ) {
 		$self->render( text => "No help found" );
 		return;
 	}
 
 	my @cmd;
-	if($Type{$topic}) {
-		@cmd = ('-f', $topic);
-	} else {
+	if ( $Type{$topic} ) {
+		@cmd = ( '-f', $topic );
+	}
+	else {
 		@cmd = ($topic);
 	}
 
