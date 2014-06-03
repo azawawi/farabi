@@ -943,20 +943,15 @@ method syntax_check {
 
 # Create a project using Module::Starter
 method create_project ($opt) {
+	...
+}
 
-	my %args = (
-		distro       => $opt->{distro},
-		modules      => $opt->{modules},
-		dir          => $opt->{dir},
-		builder      => $opt->{builder},
-		license      => $opt->{license},
-		author       => $opt->{author},
-		email        => $opt->{email},
-		ignores_type => $opt->{ignores_type},
-		force        => $opt->{force},
-	);
+method change_project_dir($dir) {
+	...
+}
 
-	Module::Starter->create_distro(%args);
+method import_project {
+	...
 }
 
 # Run git 'diff|log" and return its output
