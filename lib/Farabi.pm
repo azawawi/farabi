@@ -2,6 +2,7 @@ package Farabi;
 
 use Mojo::Base 'Mojolicious';
 use Path::Tiny;
+use Method::Signatures;
 
 # ABSTRACT: Modern Perl IDE
 # VERSION
@@ -59,19 +60,18 @@ has 'projects_dir';
 # The database name and location
 has 'db_name';
 
-sub startup {
-	my $app = shift;
+method startup {
 
 	# Change secret passphrase that is used for signed cookies
-	$app->secrets( ['Hulk, Smash!'] );
+	$self->secrets( ['Hulk, Smash!'] );
 
 	# Use content from directories under lib/Farabi/files
-	$app->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
-	$app->static->paths->[0]   = $app->home->rel_dir('files/public');
-	$app->renderer->paths->[0] = $app->home->rel_dir('files/templates');
+	$self->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
+	$self->static->paths->[0]   = $self->home->rel_dir('files/public');
+	$self->renderer->paths->[0] = $self->home->rel_dir('files/templates');
 
 	# Define routes
-	my $route = $app->routes;
+	my $route = $self->routes;
 	$route->get('/')->to('editor#default');
 	$route->post("/syntax_check")->to('editor#syntax_check');
 	$route->post('/pod2html')->to('editor#pod2html');
@@ -97,16 +97,16 @@ sub startup {
 	$route->post("/cpanm")->to('editor#cpanm');
 	$route->post("/help")->to('editor#help');
 
-	eval { $app->_setup_dirs };
+	eval { $self->_setup_dirs };
 	if ($@) {
 		die "Failure to create \$HOME/.farabi directory structure, reason: $@";
 	}
 
 	# The database name
-	$app->db_name( path( $app->home_dir, 'farabi.db' ) );
+	$self->db_name( path( $self->home_dir, 'farabi.db' ) );
 
 	# Setup the Farabi database
-	eval { $app->_setup_database };
+	eval { $self->_setup_database };
 	if ($@) {
 		warn "Database not setup, reason: $@";
 	}
@@ -120,9 +120,7 @@ It can be used in the future to toggle feature XYZ runtime support
 
 =cut
 
-sub support_can_be_enabled {
-	my $app    = shift;
-	my $module = shift;
+method support_can_be_enabled($module) {
 
 	my %REQUIRED_VERSION = (
 		'Perl::Critic'    => '1.118',
@@ -139,13 +137,13 @@ sub support_can_be_enabled {
 
 	eval qq{use $module $version;};
 	if ($@) {
-		$app->log->warn(
+		$self->log->warn(
 "$module support is disabled. Please install $module $version or later."
 		);
 		return 0;
 	}
 	else {
-		$app->log->info("$module support is enabled");
+		$self->log->info("$module support is enabled");
 		return 1;
 	}
 }
@@ -155,23 +153,21 @@ sub support_can_be_enabled {
 # .farabi
 # .farabi/projects
 #
-sub _setup_dirs {
-	my $app = shift;
+method _setup_dirs {
 
 	require File::HomeDir;
 
-	$app->home_dir( path( File::HomeDir->home, ".farabi" ) );
-	$app->projects_dir( path( $app->home_dir, "projects" ) );
-	$app->projects_dir->mkpath;
+	$self->home_dir( path( File::HomeDir->home, ".farabi" ) );
+	$self->projects_dir( path( $self->home_dir, "projects" ) );
+	$self->projects_dir->mkpath;
 }
 
 # Setup the Farabi database
-sub _setup_database {
-	my $app = shift;
+method _setup_database {
 
 	# Connect and create the Farabi SQLite database if not found
 	require DBIx::Simple;
-	my $db_name = $app->db_name;
+	my $db_name = $self->db_name;
 	my $db      = DBIx::Simple->connect("dbi:SQLite:dbname=$db_name");
 
 	# Create tables if they do not exist

@@ -8,6 +8,7 @@ use Capture::Tiny qw(capture);
 use IPC::Run qw( start pump finish timeout );
 use Path::Tiny;
 use Pod::Functions qw(%Type);
+use Method::Signatures;
 
 # The actions
 
@@ -101,8 +102,7 @@ my %actions = (
 	},
 );
 
-sub menus {
-	my $self  = shift;
+method menus {
 	my $menus = ();
 
 	if ( $self->app->support_can_be_enabled('Perl::Critic') ) {
@@ -267,8 +267,7 @@ sub menus {
 }
 
 # Taken from Padre::Plugin::PerlCritic
-sub perl_critic {
-	my $self     = shift;
+method perl_critic {
 	my $source   = $self->param('source');
 	my $severity = $self->param('severity');
 
@@ -304,13 +303,7 @@ sub perl_critic {
 	$self->render( json => \@results );
 }
 
-sub _capture_cmd_output {
-	my $self   = shift;
-	my $cmd    = shift;
-	my $opts   = shift;
-	my $source = shift;
-	my $input  = shift;
-
+method _capture_cmd_output($cmd, $opts, $source, $input) {
 	require File::Temp;
 
 	# Source is stored in a temporary file
@@ -358,8 +351,7 @@ sub _capture_cmd_output {
 	return $result;
 }
 
-sub run_perl {
-	my $self   = shift;
+method run_perl {
 	my $source = $self->param('source');
 	my $input  = $self->param('input');
 
@@ -368,8 +360,7 @@ sub run_perl {
 	$self->render( json => $o );
 }
 
-sub run_perlbrew_exec {
-	my $self   = shift;
+method run_perlbrew_exec {
 	my $source = $self->param('source');
 	my $input  = $self->param('input');
 
@@ -381,8 +372,7 @@ sub run_perlbrew_exec {
 
 # Taken from Padre::Plugin::PerlTidy
 # TODO document it in 'SEE ALSO' POD section
-sub perl_tidy {
-	my $self   = shift;
+method perl_tidy {
 	my $source = $self->param('source');
 
 	# Check 'source' parameter
@@ -424,8 +414,7 @@ sub perl_tidy {
 	$self->render( json => \%result );
 }
 
-sub _module_pod {
-	my $self     = shift;
+method _module_pod {
 	my $filename = shift;
 
 	$self->app->log->info("Opening '$filename'");
@@ -442,17 +431,14 @@ sub _module_pod {
 }
 
 # Convert Perl POD source to HTML
-sub pod2html {
-	my $self  = shift;
+method pod2html {
 	my $text  = $self->param('source') // '';
 	my $style = $self->param('style') // 'metacpan';
 
 	$self->render( text => _pod2html( $text, $style ), format => 'html' );
 }
 
-sub _pod2html {
-	my $text  = shift;
-	my $style = shift;
+func _pod2html($text, $style) {
 
 	require Pod::Simple::HTML;
 	my $psx = Pod::Simple::HTML->new;
@@ -486,8 +472,7 @@ qq{<link class="pod-stylesheet" rel="stylesheet" type="text/css" href="$style">\
 	return $html;
 }
 
-sub md2html {
-	my $self = shift;
+method md2html {
 	my $text = $self->param('text') // '';
 
 	require Text::Markdown;
@@ -498,8 +483,7 @@ sub md2html {
 }
 
 # Code borrowed from Padre::Plugin::Experimento - written by me :)
-sub pod_check {
-	my $self = shift;
+method pod_check {
 	my $source = $self->param('source') // '';
 
 	require Pod::Checker;
@@ -533,8 +517,7 @@ sub pod_check {
 }
 
 # Find a list of matched actions
-sub find_action {
-	my $self = shift;
+method find_action {
 
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('action') // '' );
@@ -562,8 +545,7 @@ sub find_action {
 }
 
 # Find a list of matches files
-sub find_file {
-	my $self = shift;
+method find_file {
 
 	# Quote every special regex character
 	my $query = quotemeta( $self->param('filename') // '' );
@@ -608,8 +590,8 @@ sub find_file {
 }
 
 # Return the file contents or a failure string
-sub open_file {
-	my $self = shift;
+method open_file {
+
 
 	my $filename = $self->param('filename') // '';
 
@@ -646,9 +628,7 @@ sub open_file {
 }
 
 # Add or update record file record
-sub _add_or_update_recent_file_record {
-	my $self     = shift;
-	my $filename = shift;
+method _add_or_update_recent_file_record($filename) {
 
 	require DBIx::Simple;
 	my $db_name = $self->app->db_name;
@@ -687,8 +667,7 @@ SQL
 }
 
 # Finds the editor mode from the filename
-sub _find_editor_mode_from_filename {
-	my $filename = shift;
+func _find_editor_mode_from_filename($filename) {
 
 	my $extension;
 	if ( $filename =~ /\.([^.]+)$/ ) {
@@ -834,8 +813,7 @@ sub _find_editor_mode_from_filename {
 }
 
 # Generic REPL (Read-Eval-Print-Loop)
-sub repl_eval {
-	my $self       = shift;
+method repl_eval {
 	my $runtime_id = $_[0]->{runtime} // 'perl';
 	my $command    = $_[0]->{command} // '';
 
@@ -904,8 +882,7 @@ sub repl_eval {
 my $devel_repl;
 
 # Devel::REPL (Perl)
-sub _devel_repl_eval {
-	my ( $self, $code ) = @_;
+method _devel_repl_eval($code) {
 
 	# The Result object
 	my %result = (
@@ -957,8 +934,7 @@ sub _devel_repl_eval {
 }
 
 # Save(s) the specified filename
-sub save_file {
-	my $self     = shift;
+method save_file {
 	my $filename = $self->param('filename');
 	my $source   = $self->param('source');
 
@@ -1002,9 +978,8 @@ sub save_file {
 }
 
 # Find duplicate Perl code in the current 'lib' folder
-sub code_cutnpaste {
+method code_cutnpaste {
 
-	my $self = shift;
 	my $dirs = $self->param('dirs');
 
 	my %result = (
@@ -1073,9 +1048,8 @@ END
 }
 
 # Dumps the PPI tree for the given source parameter
-sub dump_ppi_tree {
+method dump_ppi_tree {
 
-	my $self   = shift;
 	my $source = $self->param('source');
 
 	my %result = (
@@ -1113,8 +1087,7 @@ sub dump_ppi_tree {
 }
 
 # Syntax check the provided source string
-sub syntax_check {
-	my $self   = shift;
+method syntax_check {
 	my $source = $self->param('source');
 
 	my $result = $self->_capture_cmd_output( "$^X", ["-c"], $source );
@@ -1140,9 +1113,7 @@ sub syntax_check {
 }
 
 # Create a project using Module::Starter
-sub create_project {
-	my $self = shift;
-	my $opt  = shift;
+method create_project($opt) {
 
 	my %args = (
 		distro       => $opt->{distro},
@@ -1160,8 +1131,7 @@ sub create_project {
 }
 
 # Run git 'diff|log" and return its output
-sub git {
-	my $self = shift;
+method git {
 	my $cmd = $self->param('cmd') // '';
 
 	my %valid_cmds = ( 'diff' => 1, 'log' => 1, 'status' => 1);
@@ -1181,8 +1151,7 @@ sub git {
 }
 
 # Search files in your current project folder for a textual pattern
-sub ack {
-	my $self = shift;
+method ack {
 	my $text = $self->param('text');
 
  #TODO needs more thought on how to secure it again --xyz-command or escaping...
@@ -1194,8 +1163,7 @@ sub ack {
 }
 
 # Check requires & test_requires of your package for CPAN inclusion.
-sub midgen {
-	my $self = shift;
+method midgen {
 
 	my $o = $self->_capture_cmd_output( 'midgen', [] );
 
@@ -1207,8 +1175,7 @@ sub midgen {
 }
 
 # Install module XYZ via App::cpanminus
-sub cpanm {
-	my $self = shift;
+method cpanm {
 	my $module = $self->param('module') // '';
 
 	my $o = $self->_capture_cmd_output( 'cpanm', [$module] );
@@ -1217,8 +1184,7 @@ sub cpanm {
 }
 
 # Runs dzil or makefile build commands in the current project folder
-sub project {
-	my $self = shift;
+method project {
 	my $cmd = $self->param('cmd') // '';
 
 	# Detect project type
@@ -1251,8 +1217,7 @@ sub project {
 	$self->render( json => $o );
 }
 
-sub perl_strip {
-	my $self   = shift;
+method perl_strip {
 	my $source = $self->param('source');
 
 	my %result = (
@@ -1276,8 +1241,7 @@ sub perl_strip {
 	$self->render( json => \%result );
 }
 
-sub spellunker {
-	my $self = shift;
+method spellunker {
 	my $text = $self->param('text');
 
 	require Spellunker::Pod;
@@ -1301,8 +1265,7 @@ sub spellunker {
 	$self->render( json => \@problems );
 }
 
-sub help {
-	my $self  = shift;
+method help {
 	my $topic  = $self->param('topic') // '';
 	my $style = $self->param('style') // 'metacpan';
 	
@@ -1326,8 +1289,7 @@ sub help {
 }
 
 # The default root handler
-sub default {
-	my $self = shift;
+method default {
 
 	# Stash the source parameter so it can be used inside the template
 	$self->stash( source => scalar $self->param('source') );
@@ -1336,8 +1298,8 @@ sub default {
 	$self->render;
 }
 
-sub ping {
-	$_[0]->render( text => "pong" );
+method ping {
+	$self->render( text => "pong" );
 }
 
 1;
