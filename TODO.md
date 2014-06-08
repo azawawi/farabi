@@ -3,6 +3,9 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Investigate how to track line number information in POD and Markdown Preview. The idea is to scroll the view
+  as you are editing...
+
 - All Farabi HTTP traffic should use a unique HTTP Agent
 
 - Once MetaCPAN integration is there, we should add Farabi to https://github.com/CPAN-API/cpan-api/wiki/API-Consumers
