@@ -172,6 +172,8 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	This is particularly useful if you are using PPI to parse Perl documents, and you want to know
 	what variables would be interpolated inside the PPI::Token::Quote::Double and PPI::Token::Quote::Interpolate objects
 	you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
+	
+	See https://metacpan.org/source/SILLYMOOS/PPI-Prettify-0.06/lib/PPI/Prettify.pm
 
 	This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
 	PI and later on the fast Compiler::Lexer
