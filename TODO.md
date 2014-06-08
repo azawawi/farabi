@@ -3,6 +3,10 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- All Farabi HTTP traffic should use a unique HTTP Agent
+
+- Once MetaCPAN integration is there, we should add Farabi to https://github.com/CPAN-API/cpan-api/wiki/API-Consumers
+
 - Add Perl::MinimumVersion action to detect current syntax of current Perl script
 
 - Switch to Mime type based syntax highlighting support
