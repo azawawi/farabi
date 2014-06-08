@@ -174,6 +174,45 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 	you find there.  A practical example of this use can be found in Perl::Critic::Policy::ValuesAndExpressions::PreventSQLInjection.
 	
 	See https://metacpan.org/source/SILLYMOOS/PPI-Prettify-0.06/lib/PPI/Prettify.pm
+	
+	See http://search.cpan.org/~adamk/PPI-HTML-1.08/lib/PPI/HTML.pm
+
+		use Modern::Perl;
+		use PPI;
+		use PPI::HTML;
+		  
+		my $code_sample = q! 
+		=head1 text
+		
+			Stuff...
+		
+		=cut
+			# get todays date in Perl
+		    use Time::Piece;
+		    print Time::Piece->new;
+		                  !;
+		
+		# Load your Perl file
+		my $doc = PPI::Document->new( \$code_sample );
+		  
+		# Create a reusable syntax highlighter
+		my $Highlight = PPI::HTML->new( line_numbers => 1 );
+		  
+		# Spit out the HTML
+		my $html = $Highlight->html( $doc );
+		  
+		  
+		$html = "
+		  <style>
+		  .line_number { color: red; }
+		  .pod { color: gray; }
+		  .comment { color: green; }
+		  .keyword { color: blue; font-weight: bold; }
+		  .word { color: black; font-weight: bold;  }
+		  </style>
+		  " . $html;
+		  
+		say $html;
 
 	This is useful for Farabi to provide its own "accurate" syntax highlighting that is based on
 	PI and later on the fast Compiler::Lexer
