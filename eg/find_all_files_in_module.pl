@@ -19,7 +19,7 @@ func find_files_in_module ($module) {
 	my $latest = es()->search(
 		index  => 'v0',
 		type   => 'release',
-		fields => ['name'],
+		fields => [ 'name', 'author', "tests" ],
 		size   => 1,
 		query  => {
 			filtered => {
@@ -41,7 +41,12 @@ func find_files_in_module ($module) {
 	my @releases = map { $_->{fields} } @{ $latest->{hits}->{hits} };
 	die "Invalid release count: $#releases" if scalar @releases != 1;
 	p @releases;
-	my $release = $releases[0]->{name};
+	my $release    = $releases[0]->{name};
+	my $url_prefix = sprintf(
+		"http://api.metacpan.org/source/%s/%s/",
+		$releases[0]->{author},
+		$releases[0]->{name}
+	);
 
 	my $files = es()->search(
 		index => 'v0',
@@ -63,10 +68,11 @@ func find_files_in_module ($module) {
 	);
 
 	my @files = sort map { $_->{_source}->{path} } @{ $files->{hits}->{hits} };
-	return \@files;
+	return { files => \@files, url_prefix => $url_prefix };
 }
 
 #p find_files_in_module('Farabi');
 #p find_files_in_module('Moose');
 #p find_files_in_module('Mojolicious');
 p find_files_in_module('Dancer');
+
