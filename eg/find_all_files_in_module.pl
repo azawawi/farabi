@@ -5,12 +5,13 @@ use Method::Signatures;
 use ElasticSearch;
 use Data::Printer;
 
-func find_files_in_module($module) {
+func find_files_in_module ($module) {
 
 	sub es {
 		return ElasticSearch->new(
 			no_refresh => 1,
-			servers => 'api.metacpan.org',
+			servers    => 'api.metacpan.org',
+
 			#trace_calls => \*STDOUT,
 		);
 	}
@@ -18,7 +19,7 @@ func find_files_in_module($module) {
 	my $latest = es()->search(
 		index  => 'v0',
 		type   => 'release',
-		fields => [ 'name' ],
+		fields => ['name'],
 		size   => 1,
 		query  => {
 			filtered => {
@@ -26,9 +27,9 @@ func find_files_in_module($module) {
 				filter => {
 					and => [
 						{ term => { 'release.status' => 'latest' } },
-						{   terms => {
-								'release.distribution' =>
-									[ $module ]
+						{
+							terms => {
+								'release.distribution' => [$module]
 							},
 						},
 					],
@@ -44,11 +45,11 @@ func find_files_in_module($module) {
 
 	my $files = es()->search(
 		index => 'v0',
-		type => 'file',
-		size => 5000,
+		type  => 'file',
+		size  => 5000,
 		query => {
 			filtered => {
-				query => { match_all => {} },
+				query  => { match_all => {} },
 				filter => {
 					bool => {
 						must => {
