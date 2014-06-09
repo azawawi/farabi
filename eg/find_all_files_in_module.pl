@@ -18,8 +18,8 @@ func find_files_in_module($module) {
 	my $latest = es()->search(
 		index  => 'v0',
 		type   => 'release',
-		fields => [ 'distribution', 'version' ],
-		size   => 3,
+		fields => [ 'name' ],
+		size   => 1,
 		query  => {
 			filtered => {
 				query  => { match_all => {} },
@@ -39,7 +39,8 @@ func find_files_in_module($module) {
 
 	my @releases = map { $_->{fields} } @{ $latest->{hits}->{hits} };
 	die "Invalid release count: $#releases" if scalar @releases != 1;
-	my $release = $releases[0]->{distribution} . "-" . $releases[0]->{version};
+	p @releases;
+	my $release = $releases[0]->{name};
 
 	my $files = es()->search(
 		index => 'v0',
