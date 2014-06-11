@@ -44,7 +44,6 @@
 # Avoid archives of this distribution
 \bFarabi-[\d\.\_]+
 \beg
-\.patch$
 
 # Avoid pot files (gettext)
 \.pot$
