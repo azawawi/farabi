@@ -327,6 +327,3 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 - Conserve height for wide screens. Small thumbnail-style Control menu on the left/right. Expandable on click.
 
 - Indexer problem: Search mechanism is wrong if farabi is run in user home dir
-
-- To install Pithub for Github support, we need Net::SSLeay installed and hence
-	sudo apt-get install libssl-dev
