@@ -1013,12 +1013,12 @@ method project {
 
 	# Detect project type
 	my $project_type = 'dzil';
-	if ( -z 'dist.ini' ) {
+	if ( -e 'dist.ini' ) {
 
 		# Dist::Zilla (dzil) support
 		$project_type = 'dzil';
 	}
-	elsif ( -z 'Makefile.PL' ) {
+	elsif ( -e 'Makefile.PL' ) {
 
 		# Module::Install or ExtUtils::MakeMaker project
 		$project_type = 'make';
@@ -1029,11 +1029,11 @@ method project {
 	if ( defined $valid_cmds{$cmd} ) {
 		if ( $cmd eq 'build' ) {
 			$o =
-			  $self->_capture_cmd_output( 'make',
+			  $self->_capture_cmd_output( $project_type,
 				$project_type eq 'dzil' ? ['build'] : [] );
 		}
 		else {
-			$o = $self->_capture_cmd_output( 'make', [$cmd] );
+			$o = $self->_capture_cmd_output( $project_type, [$cmd] );
 		}
 	}
 	else {
