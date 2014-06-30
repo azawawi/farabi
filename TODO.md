@@ -3,6 +3,12 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- How to run a single test via Dist::Zilla
+
+  http://blogs.perl.org/users/olaf_alders/2014/06/how-to-run-a-single-test-via-distzilla.html
+
+       		dzil run prove -lv t/my-test.t
+
 - Investigate how to track line number information in POD and Markdown Preview. The idea is to scroll the view
   as you are editing...
 
