@@ -66,7 +66,7 @@ method startup {
 	$self->secrets( ['Hulk, Smash!'] );
 
 	# Use content from directories under lib/Farabi/files
-	$self->home->parse( path( path(__FILE__)->dirname, 'Farabi' ) );
+	$self->home->parse( path( path(__FILE__)->parent, 'Farabi' ) );
 	$self->static->paths->[0]   = $self->home->rel_dir('files/public');
 	$self->renderer->paths->[0] = $self->home->rel_dir('files/templates');
 
