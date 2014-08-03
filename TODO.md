@@ -3,6 +3,19 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- If ```use Method::Signatures``` is found, enable highlighting of the following keywords:
+
+		method func
+
+- If ```use Moose``` is found, enable highlighting of the following keywords:
+
+		has before after extends with around override super augment inner blessed confess
+
+- If ```use Moops``` is found, enable highlighting of the following keywords:
+
+		class has role namespace method fun before after around define
+		From Perl 5.14: state say
+		
 - How to run a single test via Dist::Zilla
 
   http://blogs.perl.org/users/olaf_alders/2014/06/how-to-run-a-single-test-via-distzilla.html
