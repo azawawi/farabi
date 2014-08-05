@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Provide snippets support like http://ace.c9.io/build/kitchen-sink.html using Perl. Most of the work has been done as a state machine in previous experimental Padre::Plugin::Snippet
+
 - Spell check in comments only using https://metacpan.org/pod/Spellunker::Perl when you're over a Perl mime-typed document
 
 - If ```use Method::Signatures``` is found, enable highlighting of the following keywords:
