@@ -6,13 +6,13 @@ use Data::Printer;
 use Method::Signatures;
 
 my $code = <<'CODE';
-use Modern::Perl;
+qq/$foo 
+$bar 
+
+$baz/;
 #say "Hello world";
 #my $double_quote =            "$bar";
 #my $literal = "$baz";
-my $qq_quote = qq /$foo 
-
-$bar \$bar/;
 CODE
 
 # Load a document
@@ -55,6 +55,8 @@ my $VARIABLES_REGEX = qr/
                                 \[['"]?\d+['"]?\]            # Array element.
                         )
                 )*
+                # For counting line numbers
+                |\n
         )
 /x;
 
@@ -69,31 +71,26 @@ func extract_interp_vars ($ppi_quote) {
 	my $variables = [];
 	my $line      = $ppi_quote->line_number;
 	my $col       = $ppi_quote->column_number;
+	say "col: $col";
+	my $line_col = 0;
 	while ( $string =~ /$VARIABLES_REGEX/g ) {
-		push( @$variables,
-			{ name => $1, column_number => $-[0], line_number => $line } );
+		if ( $1 eq "\n" ) {
 
-	}
-
-	p $variables;
-
-	my $line_number = 0;
-	while ( $string =~ /(\n)/g ) {
-		my $newline_index = $-[0];
-
-		for my $var (@$variables) {
-			if ( $var->{column_number} > $newline_index && !$var->{touched} ) {
-				$var->{column_number} = $var->{column_number} - $newline_index;
-				$var->{line_number} += $line_number;
-				$var->{touched} = 1;
-			}
+			# Count line numbers
+			$line++;
+			$line_col = $-[0];
 		}
-		say "newline at $newline_index!";
-		$line_number++;
-	}
+		else {
+			push(
+				@$variables,
+				{
+					name          => $1,
+					column_number => $col + $-[0] - $line_col,
+					line_number   => $line
+				}
+			);
+		}
 
-	for my $var (@$variables) {
-		delete $var->{touched};
 	}
 
 	return $variables;
@@ -105,7 +102,7 @@ for my $string (@$strings) {
 	my $variables = extract_interp_vars($string);
 	next if ( scalar @$variables == 0 );
 	say "-" x 72;
-	say "String {" . $string->string . "} contains the following variables:";
+	say "String \n" . $string->string . "\n contains the following variables:";
 	for my $var (@$variables) {
 		p( $var, output => 'stdout' );
 	}
