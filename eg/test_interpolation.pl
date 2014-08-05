@@ -1,7 +1,6 @@
 use Modern::Perl;
 
-#use String::InterpolatedVariables;
-use PPI;
+use PPI ();
 use Data::Printer;
 use Method::Signatures;
 
@@ -25,6 +24,8 @@ my $strings = $doc->find(
 	}
 );
 
+# Courtesy of String::InterpolatedVariables::VARIABLES_REGEX by Guillaume Aubert
+# and modified to include line number tracking
 my $VARIABLES_REGEX = qr/
         # Ignore escaped sigils, since those wouldn't get interpreted as variables to interpolate.
         (?<!\\)
@@ -58,7 +59,7 @@ my $VARIABLES_REGEX = qr/
         )
 /x;
 
-func extract_interp_vars ($ppi_quote) {
+func parse_interp_vars ($ppi_quote) {
 
 	return
 	  unless $ppi_quote->isa('PPI::Token::Quote::Double')
@@ -101,7 +102,7 @@ func extract_interp_vars ($ppi_quote) {
 for my $string (@$strings) {
 
 	p $string->content;
-	my $variables = extract_interp_vars($string);
+	my $variables = parse_interp_vars($string);
 	next if ( scalar @$variables == 0 );
 	say "-" x 72;
 	say "String \n" . $string->content . "\n contains the following variables:";
