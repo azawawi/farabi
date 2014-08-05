@@ -7,16 +7,17 @@ use Method::Signatures;
 
 my $code = <<'CODE';
 use Modern::Perl;
-say "Hello world";
-my $double_quote =            "$bar";
-my $literal = "$baz";
-my $qq_quote =           qq/$foo 
+#say "Hello world";
+#my $double_quote =            "$bar";
+#my $literal = "$baz";
+my $qq_quote = qq /$foo 
 
 $bar \$bar/;
 CODE
 
 # Load a document
 my $doc = PPI::Document->new( \$code );
+$doc->index_locations;
 
 # Find all can-be-interpolated strings
 my $strings = $doc->find(
@@ -57,21 +58,42 @@ my $VARIABLES_REGEX = qr/
         )
 /x;
 
-func extract ($ppi_quote) {
+func extract_interp_vars ($ppi_quote) {
 
 	return
 	  unless $ppi_quote->isa('PPI::Token::Quote::Double')
 	  || $ppi_quote->isa('PPI::Token::Quote::Interpolate');
 
-	my $string = $ppi_quote->content;
+	my $string = $ppi_quote->string;
 
 	my $variables = [];
-	my $line       = $ppi_quote->line_number;
+	my $line      = $ppi_quote->line_number;
 	my $col       = $ppi_quote->column_number;
 	while ( $string =~ /$VARIABLES_REGEX/g ) {
 		push( @$variables,
-			( name => $1, column_number => $col + $-[0], line_number => $line )
-		);
+			{ name => $1, column_number => $-[0], line_number => $line } );
+
+	}
+
+	p $variables;
+
+	my $line_number = 0;
+	while ( $string =~ /(\n)/g ) {
+		my $newline_index = $-[0];
+
+		for my $var (@$variables) {
+			if ( $var->{column_number} > $newline_index && !$var->{touched} ) {
+				$var->{column_number} = $var->{column_number} - $newline_index;
+				$var->{line_number} += $line_number;
+				$var->{touched} = 1;
+			}
+		}
+		say "newline at $newline_index!";
+		$line_number++;
+	}
+
+	for my $var (@$variables) {
+		delete $var->{touched};
 	}
 
 	return $variables;
@@ -79,13 +101,13 @@ func extract ($ppi_quote) {
 
 for my $string (@$strings) {
 
-	#my $variables = String::InterpolatedVariables::extract( $string->content );
-	my $variables = extract($string);
+	p $string->string;
+	my $variables = extract_interp_vars($string);
 	next if ( scalar @$variables == 0 );
 	say "-" x 72;
-	say "String "
-	  . $string->content
-	  . " contains the following variables: \n@$variables";
+	say "String {" . $string->string . "} contains the following variables:";
+	for my $var (@$variables) {
+		p( $var, output => 'stdout' );
+	}
 }
-
 
