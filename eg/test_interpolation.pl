@@ -6,12 +6,10 @@ use Data::Printer;
 use Method::Signatures;
 
 my $code = <<'CODE';
-qq/$foo 
-$bar 
-
-$baz/;
+    qq/$foo $bar 
+ $baz/;
 #say "Hello world";
-#my $double_quote =            "$bar";
+my $double_quote =            "$bar";
 #my $literal = "$baz";
 CODE
 
@@ -66,19 +64,23 @@ func extract_interp_vars ($ppi_quote) {
 	  unless $ppi_quote->isa('PPI::Token::Quote::Double')
 	  || $ppi_quote->isa('PPI::Token::Quote::Interpolate');
 
-	my $string = $ppi_quote->string;
+	my $string = $ppi_quote->content;
 
 	my $variables = [];
 	my $line      = $ppi_quote->line_number;
 	my $col       = $ppi_quote->column_number;
-	say "col: $col";
-	my $line_col = 0;
+	my $line_col  = 0;
 	while ( $string =~ /$VARIABLES_REGEX/g ) {
 		if ( $1 eq "\n" ) {
 
 			# Count line numbers
 			$line++;
-			$line_col = $-[0];
+
+			# Store current line column index
+			$line_col = $+[0];
+
+			# Reset column to one
+			$col = 1;
 		}
 		else {
 			push(
@@ -98,11 +100,11 @@ func extract_interp_vars ($ppi_quote) {
 
 for my $string (@$strings) {
 
-	p $string->string;
+	p $string->content;
 	my $variables = extract_interp_vars($string);
 	next if ( scalar @$variables == 0 );
 	say "-" x 72;
-	say "String \n" . $string->string . "\n contains the following variables:";
+	say "String \n" . $string->content . "\n contains the following variables:";
 	for my $var (@$variables) {
 		p( $var, output => 'stdout' );
 	}
