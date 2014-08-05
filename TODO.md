@@ -3,6 +3,16 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Ideas for server-side PPI-based highlighting:
+
+		FWIW, the standard strategy for high-end IDEs is: 
+
+		1) do a fast pass (simple tokenizer)
+		2) send the code to background thread/process for a full parse and return a structure that maps locations to parse info
+		3) Then as you colorize in the tokenizer, you'd use your location to get the parsed token information
+
+		It's a very efficient method that retains responsiveness and makes your tokenizer even faster (a property lookup vs regex eating). Realistically, you don't want to replicate the heuristics used to re-color certain parts of the editor, so ideally you'd just use the mechanism that modes do. I'm not sure if there's a good way to get access to your current position within the document though.
+
 - Provide snippets support like http://ace.c9.io/build/kitchen-sink.html using Perl. Most of the work has been done as a state machine in previous experimental Padre::Plugin::Snippet
 
 - Spell check in comments only using https://metacpan.org/pod/Spellunker::Perl when you're over a Perl mime-typed document
