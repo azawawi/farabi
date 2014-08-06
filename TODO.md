@@ -3,6 +3,12 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Farabi should be clever about warnings under strict
+
+		Bareword "i" not allowed while "strict subs" in use
+	
+	Should ask the user whether he meant ```$i```?
+
 - Ideas for server-side PPI-based highlighting:
 
 		FWIW, the standard strategy for high-end IDEs is: 
