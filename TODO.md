@@ -3,6 +3,10 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Consider using this Apache 2.0 license template http://startbootstrap.com/templates/sb-admin-2/index.html
+
+- Consider adding users and login to prevent security concerns
+
 - Add CREDITS, THANKS and AUTHORS file
 
 "...Also, if you have a file called "CREDITS", "AUTHORS", or "THANKS" in your release's root directory, MetaCPAN will consider this to be an a href="https://github.com/CPAN-API/metacpan-web/blob/master/lib/MetaCPAN/Web/Model/API/Release.pm#L320">interesting file and display it on your release page (under the "Other Files" heading)..."
