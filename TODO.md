@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Finally found an interesting search plugin for jstree http://www.jstree.com/plugins/
+
 - Consider using this Apache 2.0 license template http://startbootstrap.com/templates/sb-admin-2/index.html
 
 - Consider adding users and login to prevent security concerns
