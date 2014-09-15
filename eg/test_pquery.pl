@@ -1,17 +1,36 @@
 
-package PQuery;
-use Moo;
-use namespace::clean;
-use Modern::Perl;
+package PJQ;
+use namespace::autoclean;
+use Moose;
 use Method::Signatures;
 
-has buffer => (
+has selector => (
 	is      => 'rw',
+	isa     => 'Str',
 	default => '',
 );
 
-method select ($selector) {
-	my $buffer = $self->buffer . qq{\$("$selector")};
+has buffer => (
+	is      => 'rw',
+	isa     => 'Str',
+	default => '',
+);
+
+func PJQE {
+	return 'PJQ'->new(@_);
+}
+
+#func BUILDARGS {
+#	my ( $class, @args ) = @_;
+
+#	unshift @args, "selector" if @args % 2 == 1;
+#
+#return {@args};
+#}
+
+method BUILD ($p) {
+	my $selector = $self->selector;
+	my $buffer   = $self->buffer . qq{\$("$selector")};
 	$self->buffer($buffer);
 
 	$self;
@@ -21,7 +40,7 @@ method css ($name, $value) {
 	my $buffer = $self->buffer;
 
 	$buffer .= '.' if ( length $buffer > 0 );
-	$buffer .= qq{css("$name", "value")};
+	$buffer .= qq{css("$name", "$value")};
 	$self->buffer($buffer);
 
 	$self;
@@ -41,8 +60,8 @@ method on ($event_name, $callback) {
 	my $buffer = $self->buffer;
 
 	$buffer .= '.' if ( length $buffer > 0 );
-	$buffer .= qq!on("$event_name", function() {"!;
-	$buffer .= qq!}!;
+	$buffer .= qq!on("$event_name", function() {!;
+	$buffer .= qq!});!;
 	$self->buffer($buffer);
 
 	$self;
@@ -54,6 +73,12 @@ method function {
 
 package main;
 
-say PQuery->new->select('#id')->css( 'background-color', 'blue' )
+use Modern::Perl;
+
+say PJQ->new( selector => '#id' )->css( 'background-color', 'blue' )
   ->add_class('hide')->buffer;
-say PQuery->new->select("#foo")->on( 'click', PQuery->function )->buffer;
+say PJQ->new( selector => "#foo" )->on( 'click', PJQ->function )->buffer;
+
+my $JSCODE .= <<END
+	$('#id').css('background-color', 'red');
+END
