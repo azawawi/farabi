@@ -5,6 +5,7 @@ use Data::Printer;
 use Method::Signatures;
 
 my $code = <<'CODE';
+print "@{[$a + 1]}";
     qq/$foo $bar 
  $baz/;
 #say "Hello world";
@@ -24,9 +25,11 @@ my $strings = $doc->find(
 	}
 );
 
+my $INTERP_EXPR_REGEX = qr/\@\{\[ .+? \]\}/x;
+
 # Courtesy of String::InterpolatedVariables::VARIABLES_REGEX by Guillaume Aubert
 # and modified to include line number tracking
-my $VARIABLES_REGEX = qr/
+my $INTERP_VAR_REGEX = qr/
         # Ignore escaped sigils, since those wouldn't get interpreted as variables to interpolate.
         (?<!\\)
         # Allow literal, non-escapy backslashes.
@@ -54,24 +57,26 @@ my $VARIABLES_REGEX = qr/
                                 \[['"]?\d+['"]?\]            # Array element.
                         )
                 )*
+                # Support expression interpolation @{[ expr ]}
+                | $INTERP_EXPR_REGEX
                 # For counting line numbers
-                |\n
+                | \n
         )
+
 /x;
 
-func parse_interp_vars ($ppi_quote) {
+func parse_interp_exprs ($quote) {
 
 	return
-	  unless $ppi_quote->isa('PPI::Token::Quote::Double')
-	  || $ppi_quote->isa('PPI::Token::Quote::Interpolate');
+	  unless $quote->isa('PPI::Token::Quote::Double')
+	  || $quote->isa('PPI::Token::Quote::Interpolate');
 
-	my $string = $ppi_quote->content;
-
-	my $variables = [];
-	my $line      = $ppi_quote->line_number;
-	my $col       = $ppi_quote->column_number;
-	my $line_col  = 0;
-	while ( $string =~ /$VARIABLES_REGEX/g ) {
+	my $exprs    = [];
+	my $line     = $quote->line_number;
+	my $col      = $quote->column_number;
+	my $line_col = 0;
+	my $string = $quote->content;
+	while ( $string =~ /$INTERP_VAR_REGEX/g ) {
 		if ( $1 eq "\n" ) {
 
 			# Count line numbers
@@ -85,9 +90,10 @@ func parse_interp_vars ($ppi_quote) {
 		}
 		else {
 			push(
-				@$variables,
+				@$exprs,
 				{
-					name          => $1,
+					# Interpolated expression takes precedence
+					string        => $1,
 					column_number => $col + $-[0] - $line_col,
 					line_number   => $line
 				}
@@ -96,17 +102,19 @@ func parse_interp_vars ($ppi_quote) {
 
 	}
 
-	return $variables;
+	return $exprs;
 }
 
 for my $string (@$strings) {
 
 	p $string->content;
-	my $variables = parse_interp_vars($string);
-	next if ( scalar @$variables == 0 );
+	my $exprs = parse_interp_exprs($string);
+	next if ( scalar @$exprs == 0 );
 	say "-" x 72;
-	say "String \n" . $string->content . "\n contains the following variables:";
-	for my $var (@$variables) {
+	say "String \n"
+	  . $string->content
+	  . "\n contains the following interpolated expressions:";
+	for my $var (@$exprs) {
 		p( $var, output => 'stdout' );
 	}
 }
