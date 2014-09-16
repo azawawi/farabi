@@ -4,7 +4,7 @@
 	<option value="coffeescript">CoffeeScript</option>
 	<option value="diff">Diff</option>
 	<option value="javascript">JavaScript</option>
-	<option value="markdown">Github Markdown</option>
+	<option value="markdown">Markdown</option>
 	<option value="perl" selected>Perl</option>
 	<option value="properties">Properties file</option>
 	<option value="shell">Shell</option>
