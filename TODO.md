@@ -3,6 +3,12 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- AutoRun page option ideas 
+	- Run web page in an iframe and refresh on each template save?
+	- Run Perl script on save project file save?
+
+- Implement new file as simple as possible :)
+
 - Interesting code mirror layout with project http://vergo-kertas.herokuapp.com/pages-code.html#
 
 - Finally found an interesting search plugin for jstree http://www.jstree.com/plugins/
