@@ -2,19 +2,22 @@ Changes for Farabi: The Modern Perl IDE
 
 {{$NEXT}}
 
+[CHANGED]
+    - Upgrade to CodeMirror 4.5
+
 0.47      2014-05-21 12:42:46+03:00 Asia/Jerusalem
 
     * This release begins the road to a better DZIL/M:I/EU:MM project support
 
 [ADDED]
-    - Upgrade to jQuery 2.1.1
-    - Upgrade to CodeMirror 4.2
     - #10: Install a CPAN module from inside Farabi.
     - Added git status and log and all git operations are now under VCS menu.
     - Added make, make clean & make test commands.
     - Added dzil build and clean actions
 
 [CHANGED]
+    - Upgrade to jQuery 2.1.1
+    - Upgrade to CodeMirror 4.2
     - Dist:Zilla support is enabled when the current project folder contains 'dist.ini'
     - ExtUtils::MakeMaker and Module::Install support is enabled when the current
       project folder contains 'Makefile.PL'
