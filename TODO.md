@@ -7,7 +7,7 @@ This is the project's TODO list. Please feel free to work on any item and kindly
 
 - Capture video output using ffmpeg and x11grab (http://www.youtube.com/watch?v=R3elvGxZyTo). Maybe pipe it to mjpeg stream back to the user's browser
 
-	$ ffmpeg -f x11grab -r 1 -i :0.0+2,286 -s 320x240 -vcodec huffyuv out.avi
+		$ ffmpeg -f x11grab -r 1 -i :0.0+2,286 -s 320x240 -vcodec huffyuv out.avi
 
 - AutoRun page option ideas 
 	- Run web page in an iframe and refresh on each template save?
