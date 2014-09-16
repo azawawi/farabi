@@ -69,12 +69,6 @@ my %actions = (
 		menu  => $tools_menu,
 		order => 1,
 	},
-	'action-repl' => {
-		name  => 'REPL - Read-Print-Eval-Loop',
-		help  => 'Opens the Read-Print-Eval-Loop dialog',
-		menu  => $tools_menu,
-		order => 9,
-	},
 	'action-run' => {
 		name  => 'Run - Alt+Enter',
 		help  => 'Run the current editor source file using the run dialog',
@@ -641,127 +635,6 @@ SQL
 	$db->disconnect;
 }
 
-# Generic REPL (Read-Eval-Print-Loop)
-method repl_eval {
-	my $runtime_id = $_[0]->{runtime} // 'perl';
-	my $command    = $_[0]->{command} // '';
-
-	# The Result object
-	my %result = (
-		out => '',
-		err => '',
-	);
-
-	# TODO make these configurable?
-	my %runtimes = (
-		'perl' => {
-
-			# Special case that uses an internal inprocess Devel::REPL object
-		},
-	);
-
-	# The process that we're gonna REPL
-	my $runtime = $runtimes{$runtime_id};
-
-	# Handle the special case for Devel::REPL
-	if ( $runtime_id eq 'perl' ) {
-		return $self->_devel_repl_eval($command);
-	}
-
-	# Get the REPL prompt
-	my $prompt = $runtime->{prompt};
-
-	# If runtime is not defined, let us report it back
-	unless ( defined $runtime ) {
-		my %result = ( err => "Failed to find runtime '$runtime_id'", );
-
-		# Return the REPL result
-		$self->render( json => \%result );
-		return;
-	}
-
-	# Prepare the REPL command....
-	my @cmd = ( $runtime->{cmd} );
-
-	# The input, output and error strings
-	my ( $in, $out, $err );
-
-	# Open process with a timeout
-	#TODO timeout should be configurable...
-	my $h = start \@cmd, \$in, \$out, \$err, timeout(5);
-
-	# Send command to process and wait for prompt
-	$in .= "$command\n";
-	pump $h until $out =~ /$prompt/m;
-	finish $h or $err = "@cmd returned $?";
-
-	# Remove current REPL prompt
-	$out =~ s/$prompt//;
-
-	# Result...
-	$result{out} = $out;
-	$result{err} = $err;
-
-	# Return the REPL result
-	$self->render( json => \%result );
-}
-
-# Global shared object at the moment
-# TODO should be stored in session
-my $devel_repl;
-
-# Devel::REPL (Perl)
-method _devel_repl_eval ($code) {
-
-	# The Result object
-	my %result = (
-		out => '',
-		err => '',
-	);
-
-	unless ($devel_repl) {
-
-		# Try to load Devel::REPL
-		eval { require Devel::REPL; };
-		if ($@) {
-
-			# The error
-			$result{err} = 'Unable to find Devel::REPL';
-
-			# Return the REPL result
-			$self->render( json => \%result );
-			return;
-		}
-
-		# Create the REPL object
-		$devel_repl = Devel::REPL->new;
-
-		# Provide Lexical environment for a Perl repl
-		# Without this, it wont remember :)
-		$devel_repl->load_plugin('LexEnv');
-	}
-
-	if ( $code eq '' ) {
-
-		# Special case for empty input
-		$result{out} = "\$\n";
-	}
-	else {
-		my @ret = $devel_repl->eval("$code");
-
-		if ( $devel_repl->is_error(@ret) ) {
-			$result{err} = $devel_repl->format_error(@ret);
-			$result{out} = "\$ $code";
-		}
-		else {
-			$result{out} = "\$ $code\n@ret\n";
-		}
-	}
-
-	# Return the REPL result
-	$self->render( json => \%result );
-}
-
 # Save(s) the specified filename
 method save_file {
 	my $filename = $self->param('filename');
@@ -787,7 +660,7 @@ method save_file {
 		# The error
 		$result{err} = "source parameter is invalid";
 
-		# Return the REPL result
+		# Return the result
 		$self->render( json => \%result );
 		return;
 	}

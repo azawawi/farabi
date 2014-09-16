@@ -20,7 +20,6 @@
 <script src="open_file_dialog.js"></script>
 <script src="perl_critic_dialog.js"></script>
 <script src="options_dialog.js"></script>
-<script src="repl_dialog.js"></script>
 <script src="run_dialog.js"></script>
 <script src="save_question_dialog.js"></script>
 <script src="goto_line_dialog.js"></script>
@@ -165,7 +164,6 @@
 <%= include "editor/new_project_dialog"%>
 <%= include "editor/open_file_dialog"%>
 <%= include "editor/perl_doc_dialog"%>
-<%= include "editor/repl_dialog"%>
 <%= include "editor/save_question_dialog"%>
 <%= include "editor/find_duplicate_perl_code_dialog"%>
 <%= include "editor/goto_line_dialog"%>
