@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- In Ruby land, they have a style guide checker called rubocop https://github.com/bbatsov/rubocop and a style guide https://github.com/bbatsov/ruby-style-guide
+
 - Implement a login system for farabi to be secure by default. HTTPS will follow.
 
 - Capture video output using ffmpeg and x11grab (http://www.youtube.com/watch?v=R3elvGxZyTo). Maybe pipe it to mjpeg stream back to the user's browser
