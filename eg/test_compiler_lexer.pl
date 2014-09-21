@@ -16,6 +16,11 @@ for my $file_name (@files) {
 
 	my $i           = 0;
 	my @tokens      = @$tokens;
+	if(scalar @tokens == 0) {
+		say "file: $file_name has no tokens";
+		next;
+	}
+
 	my $current_pkg = 'main';
 	do {
 		my $token = $tokens[$i];
