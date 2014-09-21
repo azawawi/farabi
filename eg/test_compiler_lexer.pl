@@ -31,13 +31,15 @@ for my $file_name (@files) {
 
 			my $j        = $i + 1;
 			my $pkg_name = '';
+			my $line;
 			while ( $tokens[$j]->name ne 'SemiColon' ) {
 				$pkg_name .= $tokens[$j]->data;
+				$line = $tokens[$j]->line;
 				$j++;
 			}
 			$current_pkg = $pkg_name;
 
-			say "--- $pkg_name";
+			say "--- $pkg_name at line #${line}";
 		}
 		elsif ( $token->name eq 'FunctionDecl' ) {
 
@@ -45,7 +47,7 @@ for my $file_name (@files) {
 			my $j = $i + 1;
 			if ( $tokens[$j]->name eq 'Function' ) {
 				my $sub_name = $tokens[$j]->data;
-				say "$current_pkg::$sub_name";
+				say "$current_pkg::$sub_name at line #" . $tokens[$j]->line;
 			}
 		}
 		elsif ( $token->name eq 'Key'
@@ -56,7 +58,7 @@ for my $file_name (@files) {
 			my $j = $i + 1;
 			if ( $tokens[$j]->name eq 'Key' ) {
 				my $sub_name = $tokens[$j]->data;
-				say "$current_pkg::$sub_name";
+				say "$current_pkg::$sub_name at line #" . $tokens[$j]->line;
 			}
 
 		}
