@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- The "Run code" modal is an interesting UI approach to view script output http://semantic-ui.com/modules/modal.html . It makes you focus at one thing at a time.
+
 - In Ruby land, they have a style guide checker called rubocop https://github.com/bbatsov/rubocop and a style guide https://github.com/bbatsov/ruby-style-guide
 
 - Implement a login system for farabi to be secure by default. HTTPS will follow.
