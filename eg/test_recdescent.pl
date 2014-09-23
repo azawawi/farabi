@@ -86,10 +86,16 @@ $('#foo').on('click', function() {
 };
 EXPR
 
+
 my $parser = new Parse::RecDescent($grammar) or die "Bad grammar!\n";
+say "Input PerlJSCode";
+say "-" x 40;
+say $text;
+say "-" x 40;
 my $p = $parser->start($text);
 if ( defined $p ) {
-	say "Success!";
+	say "Generated JS Code";
+	say "-" x 40;
 	say $p;
 }
 else {
