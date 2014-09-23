@@ -6,11 +6,9 @@ $::RD_HINT = 1;
 
 my $grammar = q~
 	start:
-		statement(s ';')
+		statement(s /;/)
 		{
-			use v5.10;
-			say "Found statement!";
-			$return = $item[1] . ';';
+			$return = join(";\n", @{$item[1]});
 		}
 
 	statement:
@@ -69,6 +67,8 @@ my $grammar = q~
 
 my $text = <<'END';
 my $foo = sub($a,$b) {
+};
+my $bar = sub($a,$b) {
 };
 END
 
