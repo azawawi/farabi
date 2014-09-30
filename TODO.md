@@ -3,6 +3,12 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- "podview" from Prima is an interesting addition. It has the ability to view a POD index using the menu. Maybe a searcheable list with autocomplete will make pod viewing less painful. 
+
+		cpanm Prima
+		podview perldata
+
+- 
 - The "Run code" modal is an interesting UI approach to view script output http://semantic-ui.com/modules/modal.html . It makes you focus at one thing at a time.
 
 - In Ruby land, they have a style guide checker called rubocop https://github.com/bbatsov/rubocop and a style guide https://github.com/bbatsov/ruby-style-guide
