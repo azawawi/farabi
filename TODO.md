@@ -3,6 +3,8 @@ Farabi TODO list
 
 This is the project's TODO list. Please feel free to work on any item and kindly send a pull request.
 
+- Prima PDL REPL https://metacpan.org/release/App-Prima-REPL
+
 - "podview" from Prima is an interesting addition. It has the ability to view a POD index using the menu. Maybe a searcheable list with autocomplete will make pod viewing less painful. 
 
 		cpanm Prima
