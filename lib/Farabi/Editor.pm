@@ -299,7 +299,7 @@ method perl_critic {
 	$self->render( json => \@results );
 }
 
-method _capture_cmd_output (Str $cmd, $opts, Str $source = undef, Str $input = undef) {
+method _capture_cmd_output (Str $cmd, $opts, Str :$source, Str :$input) {
 	require File::Temp;
 
 	# Source is stored in a temporary file
@@ -351,7 +351,7 @@ method run_perl {
 	my $source = $self->param('source');
 	my $input  = $self->param('input');
 
-	my $o = $self->_capture_cmd_output( $^X, [], $source, $input );
+	my $o = $self->_capture_cmd_output( $^X, [], source => $source, input => $input );
 
 	$self->render( json => $o );
 }
@@ -361,7 +361,7 @@ method run_perlbrew_exec {
 	my $input  = $self->param('input');
 
 	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
-		$source, $input );
+		source => $source, input => $input );
 
 	$self->render( json => $o );
 }
@@ -378,7 +378,7 @@ method perl_tidy {
 	}
 
 	my $o =
-	  $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ], $source );
+	  $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ], source => $source );
 
 	$self->render( json => $o );
 }
@@ -792,7 +792,7 @@ method dump_ppi_tree {
 method syntax_check {
 	my $source = $self->param('source');
 
-	my $result = $self->_capture_cmd_output( "$^X", ["-c"], $source );
+	my $result = $self->_capture_cmd_output( "$^X", ["-c"], source => $source );
 
 	require Parse::ErrorString::Perl;
 	my $parser = Parse::ErrorString::Perl->new;
