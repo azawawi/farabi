@@ -3,7 +3,7 @@ Changes for Farabi: The Modern Perl IDE
 {{$NEXT}}
 
 [CHANGED]
-    - Upgrade to CodeMirror 4.5
+    - Upgrade to CodeMirror 4.8
 
 0.47      2014-05-21 12:42:46+03:00 Asia/Jerusalem
 
