@@ -351,7 +351,8 @@ method run_perl {
 	my $source = $self->param('source');
 	my $input  = $self->param('input');
 
-	my $o = $self->_capture_cmd_output( $^X, [], source => $source, input => $input );
+	my $o =
+	  $self->_capture_cmd_output( $^X, [], source => $source, input => $input );
 
 	$self->render( json => $o );
 }
@@ -360,8 +361,11 @@ method run_perlbrew_exec {
 	my $source = $self->param('source');
 	my $input  = $self->param('input');
 
-	my $o = $self->_capture_cmd_output( 'perlbrew', [ 'exec', 'perl' ],
-		source => $source, input => $input );
+	my $o = $self->_capture_cmd_output(
+		'perlbrew', [ 'exec', 'perl' ],
+		source => $source,
+		input  => $input
+	);
 
 	$self->render( json => $o );
 }
@@ -377,8 +381,11 @@ method perl_tidy {
 		return;
 	}
 
-	my $o =
-	  $self->_capture_cmd_output( 'perltidier', [ '-se', '-st' ], source => $source );
+	my $o = $self->_capture_cmd_output(
+		'perltidier',
+		[ '-se', '-st' ],
+		source => $source
+	);
 
 	$self->render( json => $o );
 }
@@ -816,15 +823,15 @@ method syntax_check {
 
 # Create a project using Module::Starter
 method create_project ($opt) {
-	...
+	...;
 }
 
-method change_project_dir($dir) {
-	...
+method change_project_dir ($dir) {
+	...;
 }
 
 method import_project {
-	...
+	...;
 }
 
 # Run git 'diff|log" and return its output
