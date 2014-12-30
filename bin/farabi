@@ -18,7 +18,7 @@ my $lib = join( '/', @base, 'lib' );
 $dev ? unshift( @INC, $lib ) : push( @INC, $lib );
 
 use Getopt::Long;
-my $host = "*";
+my $host = "localhost";
 my $port;
 my $opt_version;
 my $help;
