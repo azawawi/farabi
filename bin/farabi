@@ -33,7 +33,7 @@ if ($help) {
 	print <<HELP;
 Usage: farabi [switches]
    help       Shows this page
-   host       HTTP hostname (default is *)
+   host       HTTP hostname (default is localhost)
    port       HTTP port. It is port 4040 when CPAN-installed otherwise it is 3000
    version    Shows Farabi version
 HELP
